@@ -1,8 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const { VueLoaderPlugin } = require('vue-loader')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const {VueLoaderPlugin} = require('vue-loader')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const MpPlugin = require('mp-webpack-plugin') // 用于构建小程序代码的 webpack 插件
 
@@ -125,12 +125,12 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            'process.env.isMiniprogram': process.env.isMiniprogram, // 注入环境变量，用于业务代码判断
+            'process.env.isminiapp': process.env.isminiapp, // 注入环境变量，用于业务代码判断
         }),
         new MiniCssExtractPlugin({
             filename: '[name].acss',
         }),
         new VueLoaderPlugin(),
-        new MpPlugin(require('./miniprogram.config.js')),
+        new MpPlugin(require('./miniapp.config.js')),
     ],
 }

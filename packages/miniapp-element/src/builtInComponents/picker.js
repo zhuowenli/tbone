@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { isWeChatMiniProgram } from 'universal-env';
+import { isWeChatminiapp } from 'universal-env';
 import callSimpleEvent from '../events/callSimpleEvent';
 
 const picker = {
@@ -58,7 +58,7 @@ const picker = {
   }
 };
 
-if (isWeChatMiniProgram) {
+if (isWeChatminiapp) {
   picker.props.concat([
     {
       name: 'mode',

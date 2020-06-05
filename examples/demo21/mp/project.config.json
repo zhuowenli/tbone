@@ -26,7 +26,7 @@
 		},
 		"nodeModules": true
 	},
-	"compileType": "miniprogram",
+	"compileType": "miniapp",
 	"libVersion": "2.10.4",
 	"appid": "",
 	"projectname": "tbone-demo21",
@@ -49,7 +49,7 @@
 			"currentL": -1,
 			"list": []
 		},
-		"miniprogram": {
+		"miniapp": {
 			"current": -1,
 			"list": []
 		}

@@ -1,8 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const { VueLoaderPlugin } = require('vue-loader')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const {VueLoaderPlugin} = require('vue-loader')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const MpPlugin = require('mp-webpack-plugin') // 用于构建小程序代码的 webpack 插件
@@ -12,7 +12,7 @@ const isOptimize = false // 是否压缩业务代码，开发者工具可能无�
 module.exports = {
     mode: 'production',
     entry: {
-        'miniprogram-app': path.resolve(__dirname, '../src/app.js'),
+        'miniapp-app': path.resolve(__dirname, '../src/app.js'),
 
         index: path.resolve(__dirname, '../src/index/main.mp.js'),
         userconsole: path.resolve(__dirname, '../src/userconsole/main.mp.js'),
@@ -22,7 +22,7 @@ module.exports = {
         chooselib: path.resolve(__dirname, '../src/chooselib/main.mp.js'),
     },
     output: {
-        path: path.resolve(__dirname, '../dist/mp/miniprogram/common'), // 放到小程序代码目录中的 common 目录下
+        path: path.resolve(__dirname, '../dist/mp/miniapp/common'), // 放到小程序代码目录中的 common 目录下
         filename: '[name].js', // 必需字段，不能修改
         library: 'createApp', // 必需字段，不能修改
         libraryExport: 'default', // 必需字段，不能修改
@@ -116,13 +116,13 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            'process.env.isMiniprogram': process.env.isMiniprogram, // 注入环境变量，用于业务代码判断
+            'process.env.isminiapp': process.env.isminiapp, // 注入环境变量，用于业务代码判断
         }),
         new MiniCssExtractPlugin({
             filename: '[name].acss',
         }),
         new VueLoaderPlugin(),
-        new MpPlugin(require('./miniprogram.config.js')),
+        new MpPlugin(require('./miniapp.config.js')),
         new CopyPlugin([{from: path.join(__dirname, '../cloudfunctions'), to: path.join(__dirname, '../dist/mp/cloudfunctions')}]),
     ],
 }

@@ -25,8 +25,8 @@ export default {
     Footer
   },
   mounted() {
-    if (process.env.isMiniprogram) {
-      console.log('in miniprogram')
+    if (process.env.isminiapp) {
+      console.log('in miniapp')
     } else {
       console.log('in web')
     }

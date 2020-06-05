@@ -1,5 +1,5 @@
 module.exports = {
-    origin: 'https://test.miniprogram.com',
+    origin: 'https://test.miniapp.com',
     entry: '/page1',
     router: {"page1":["/page1"],"page2":["/page2"],"page3":["/page3"]},
     redirect: {

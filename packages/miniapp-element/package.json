@@ -1,6 +1,6 @@
 {
   "name": "@zhuowenli/miniapp-element",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Custom element for MiniApp",
   "files": [
     "dist"
@@ -53,6 +53,6 @@
     "universal-env": "^3.0.0"
   },
   "dependencies": {
-    "miniapp-render": "^0.1.0"
+    "@zhuowenli/miniapp-render": "latest"
   }
 }

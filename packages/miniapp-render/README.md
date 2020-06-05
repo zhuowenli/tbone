@@ -11,13 +11,13 @@
 ## Install
 
 ```shell
-npm install --save miniapp-render
+npm install --save @zhuowenli/miniapp-render
 ```
 
 ## Usage
 
 ```js
-const render = require('miniapp-render')
+const render = require('@zhuowenli/miniapp-render')
 
 ```js
 Page({

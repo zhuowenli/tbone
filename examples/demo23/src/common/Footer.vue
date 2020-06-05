@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <p>wechat-miniprogram</p>
+    <p>wechat-miniapp</p>
   </div>
 </template>
 

@@ -1,4 +1,4 @@
-const mp = require('miniapp-render')
+const mp = require('@zhuowenli/miniapp-render')
 
 const {
     Event,

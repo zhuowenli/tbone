@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {isWeChatMiniProgram, isMiniApp} from 'universal-env'
+import {isWeChatminiapp, isMiniApp} from 'universal-env'
 import Event from './event'
 import CustomEvent from './custom-event'
 
@@ -275,7 +275,7 @@ export default class EventTarget {
 
         if (isMiniApp) {
             flag = compareEventInAlipay(last, now)
-        } else if (isWeChatMiniProgram) {
+        } else if (isWeChatminiapp) {
             flag = compareEventInWechat(last, now)
         }
 

@@ -11,7 +11,3 @@
 ## 协作
 
 如果您对这个项目有兴趣，并想参与到 tbone 建设当中来，我们推荐您阅读这篇[贡献规范](https://wechat-miniapp.github.io/kbone/docs/guide/develop.html)来了解目前 tbone 开发的一些规范和细节。
-
-## 咨询
-
-如果您在开发或使用中遇到问题，可在 issue 中提问咨询，亦可在[微信开放社区 tbone 主页](https://developers.weixin.qq.com/community/minihome/mixflow/1213301129006825473)下进行提问，我们会对此进行跟进并反馈。

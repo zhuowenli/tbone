@@ -1,5 +1,5 @@
 module.exports = {
-	origin: 'https://test.miniprogram.com',
+	origin: 'https://test.miniapp.com',
 	entry: '/test/aaa',
 	router: {
 		index: [
@@ -15,13 +15,13 @@ module.exports = {
 		app: 'noemit',
 	},
 	app: {
-		navigationBarTitleText: 'miniprogram-project',
+		navigationBarTitleText: 'miniapp-project',
 	},
 	projectConfig: {
 		appid: '',
         projectname: 'tbone-demo12',
 	},
 	packageConfig: {
-		author: 'wechat-miniprogram',
+		author: 'wechat-miniapp',
 	},
 }

@@ -1,4 +1,4 @@
-import render from 'miniapp-render'
+import render from '@zhuowenli/miniapp-render'
 import callSimpleEvent from '../events/callSimpleEvent'
 
 const {cache} = render.$$adapter

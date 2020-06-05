@@ -15,7 +15,7 @@ import Location from './bom/location'
 import Navigator from './bom/navigator'
 import Screen from './bom/screen'
 import History from './bom/history'
-import Miniprogram from './bom/miniprogram'
+import miniapp from './bom/miniapp'
 import LocalStorage from './bom/local-storage'
 import SessionStorage from './bom/session-storage'
 import Performance from './bom/performance'
@@ -58,7 +58,7 @@ class Window extends EventTarget {
         this.$_navigator = new Navigator()
         this.$_screen = new Screen()
         this.$_history = new History(this.$_location)
-        this.$_miniprogram = new Miniprogram(pageId)
+        this.$_miniapp = new miniapp(pageId)
         this.$_localStorage = new LocalStorage(this)
         this.$_sessionStorage = new SessionStorage(this)
         this.$_performance = new Performance(timeOrigin)
@@ -218,16 +218,16 @@ class Window extends EventTarget {
 
     /**
      * 小程序端的 getComputedStyle 实现
-     * https://developers.weixin.qq.com/miniprogram/dev/api/wxml/NodesRef.fields.html
+     * https://developers.weixin.qq.com/miniapp/dev/api/wxml/NodesRef.fields.html
      * https://miniapp.open.taobao.com/docV3.htm?source=search&docId=1009&docType=20
      */
     $$getComputedStyle(dom, computedStyle = []) {
         tool.flushThrottleCache() // 先清空 setData
         return new Promise((resolve, reject) => {
             if (dom.tagName === 'BODY') {
-                this.$$createSelectorQuery().select('.miniprogram-root').fields({computedStyle}, res => (res ? resolve(res) : reject())).exec()
+                this.$$createSelectorQuery().select('.miniapp-root').fields({computedStyle}, res => (res ? resolve(res) : reject())).exec()
             } else {
-                this.$$createSelectorQuery().select(`.miniprogram-root >>> .node-${dom.$$nodeId}`).fields({computedStyle}, res => (res ? resolve(res) : reject())).exec()
+                this.$$createSelectorQuery().select(`.miniapp-root >>> .node-${dom.$$nodeId}`).fields({computedStyle}, res => (res ? resolve(res) : reject())).exec()
             }
         })
     }

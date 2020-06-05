@@ -14,7 +14,7 @@
 * vue
 * reduce-loader
 * vue-improve-loader
-* 根据 process.env.isMiniprogram 判断环境实现不同逻辑
+* 根据 process.env.isminiapp 判断环境实现不同逻辑
 * tree shaking
 
 ## demo3

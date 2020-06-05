@@ -1,10 +1,10 @@
 {
-	"name": "miniprogram-project",
+	"name": "miniapp-project",
 	"version": "0.0.1",
-	"description": "miniprogram project",
+	"description": "miniapp project",
 	"dependencies": {
-		"miniapp-render": "latest",
-		"miniprogram-element": "latest"
+		"@zhuowenli/miniapp-render": "latest",
+		"@zhuowenli/miniapp-element": "latest"
 	},
-	"author": "wechat-miniprogram"
+	"author": "wechat-miniapp"
 }

@@ -288,9 +288,9 @@
           </div>
         </template>
         <template v-else-if="item === 'navigator'">
-          <wx-component v-if="!wxPrefix" :behavior="item" target="miniProgram" open-type="exit">退出小程序</wx-component>
-          <wx-navigator v-else-if="wxPrefix === 1" target="miniProgram" open-type="exit">退出小程序</wx-navigator>
-          <navigator v-else-if="wxPrefix === 2" target="miniProgram" open-type="exit">退出小程序</navigator>
+          <wx-component v-if="!wxPrefix" :behavior="item" target="miniapp" open-type="exit">退出小程序</wx-component>
+          <wx-navigator v-else-if="wxPrefix === 1" target="miniapp" open-type="exit">退出小程序</wx-navigator>
+          <navigator v-else-if="wxPrefix === 2" target="miniapp" open-type="exit">退出小程序</navigator>
         </template>
         <template v-else-if="item === 'open-data'">
           <div v-if="!wxPrefix">

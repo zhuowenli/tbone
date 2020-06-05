@@ -5,7 +5,7 @@ import './Header.css'
 const Header = (props, store) => {
     return (
         <div className="header">
-            <p>wechat-miniprogram</p>
+            <p>wechat-miniapp</p>
         </div>
     )
 }

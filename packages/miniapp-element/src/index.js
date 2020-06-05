@@ -1,5 +1,5 @@
 /* global isMiniApp, Component */
-import render from 'miniapp-render'
+import render from '@zhuowenli/miniapp-render'
 import filterNodes from './vdom/filterNodes'
 import checkDiffChildNodes from './vdom/checkDiffChildNodes'
 import checkComponentAttr from './vdom/checkComponentAttr'

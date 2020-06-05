@@ -1,19 +1,19 @@
 const path = require('path')
 
 module.exports = {
-	origin: 'https://test.miniprogram.com',
-	entry: '/',
-	router: {
-		page1: ['/a'],
-		page2: ['/b'],
-		page3: ['/c'],
-	},
-	redirect: {
-		notFound: 'page1',
-		accessDenied: 'page1',
-	},
-	generate: {
-		tabBar: {
+    origin: 'https://test.miniapp.com',
+    entry: '/',
+    router: {
+        page1: ['/a'],
+        page2: ['/b'],
+        page3: ['/c'],
+    },
+    redirect: {
+        notFound: 'page1',
+        accessDenied: 'page1',
+    },
+    generate: {
+        tabBar: {
             color: '#000000',
             selectedColor: '#07c160',
             backgroundColor: '#ffffff',
@@ -27,18 +27,18 @@ module.exports = {
                 text: 'page2',
                 iconPath: path.resolve(__dirname, '../src/img/page2.png'),
                 selectedIconPath: path.resolve(__dirname, '../src/img/page2-sel.png'),
-			}],
-			custom: path.resolve(__dirname, '../src/custom-tab-bar')
+            }],
+            custom: path.resolve(__dirname, '../src/custom-tab-bar')
         },
-	},
-	app: {
-		navigationBarTitleText: 'miniprogram-project',
-	},
-	projectConfig: {
-		appid: '',
+    },
+    app: {
+        navigationBarTitleText: 'miniapp-project',
+    },
+    projectConfig: {
+        appid: '',
         projectname: 'tbone-demo11',
-	},
-	packageConfig: {
-		author: 'wechat-miniprogram',
-	},
+    },
+    packageConfig: {
+        author: 'wechat-miniapp',
+    },
 }

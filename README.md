@@ -1,10 +1,10 @@
 # tbone
 
-tbone 是一个致力于微信小程序和 Web 端同构的解决方案。
+tbone 是一个致力于淘宝小程序和 Web 端同构的解决方案。
 
 ## 简介
 
-微信小程序的底层模型和 Web 端不同，我们想直接把 Web 端的代码挪到小程序环境内执行是不可能的。tbone 的诞生就是为了解决这个问题，它实现了一个适配器，在适配层里模拟出了浏览器环境，让 Web 端的代码可以不做什么改动便可运行在小程序里。
+淘宝小程序的底层模型和 Web 端不同，我们想直接把 Web 端的代码挪到小程序环境内执行是不可能的。tbone 的诞生就是为了解决这个问题，它实现了一个适配器，在适配层里模拟出了浏览器环境，让 Web 端的代码可以不做什么改动便可运行在小程序里。
 
 这里有个简单的[代码片段](https://developers.weixin.qq.com/miniapp/dev/devtools/minicode.html)：[https://developers.weixin.qq.com/s/R9Hm0Qm67Acd](https://developers.weixin.qq.com/s/R9Hm0Qm67Acd)，可以使用开发者工具打开看看效果。
 
@@ -18,7 +18,7 @@ tbone 是一个致力于微信小程序和 Web 端同构的解决方案。
 
 ## 使用
 
-为了可以让开发者可以更自由地进行项目的搭建，以下提供了三种方式，任选其一即可：
+<!-- 为了可以让开发者可以更自由地进行项目的搭建，以下提供了三种方式，任选其一即可：
 
 ### 使用 tbone-cli 快速开发
 
@@ -59,7 +59,7 @@ npm run build
 * [Preact 项目模板](https://github.com/wechat-miniapp/tbone-template-preact)
 * [Omi 项目模板](https://github.com/omijs/template-tbone)
 
-项目 clone 下来后，按照项目中 README.md 的指引进行开发。
+项目 clone 下来后，按照项目中 README.md 的指引进行开发。 -->
 
 ### 手动配置开发
 
@@ -71,14 +71,6 @@ npm run build
 * 使用 webpack 构建中使用到的特殊插件[mp-webpack-plugin 配置](https://wechat-miniapp.github.io/kbone/docs/config/)
 
 [点此可以查看](https://wechat-miniapp.github.io/kbone/docs/guide/tutorial.html)具体配置方式和操作流程。
-
-## tbone-ui
-
-[tbone-ui](https://github.com/wechat-miniapp/tbone-ui) 是一个能同时支持 小程序(tbone) 和 vue 框架开发的多端 UI 库。
-
-* 即可以基于 `tbone` 同时开发小程序和 H5，也可以单独使用开发 H5 应用。
-* 支持以 Vue 语法来支持 H5 端和小程序端运行
-* 对齐 [微信weui](https://weui.io) 样式组件
 
 ## 文档
 
@@ -93,40 +85,6 @@ npm run build
 业内其实已经出现了很多关于同构的解决方案了，每个方案都有自己的优劣，不存在能够完美解决所有问题的方案。tbone 也一样，它的优势在上面提到过，而它的不足也是它的实现原理带来的。tbone 是使用一定的性能损耗来换取更为全面的 Web 端特性支持。
 
 所以关于性能方面，如果你对小程序的性能特别苛刻，建议直接使用原生小程序开发；如果你的页面节点数量特别多（通常在 1000 节点以上），同时还要保证在节点数无限上涨时仍然有稳定的渲染性能的话，可以尝试一下业内采用静态模板转译的方案；其他情况就可以直接采用 tbone 了。
-
-## 贡献者
-
-<table>
-  <tbody>
-    <tr>
-      <td><a target="_blank" href="https://github.com/JuneAndGreen"><img width="60px"
-            src="https://avatars2.githubusercontent.com/u/7931744?s=60&amp;v=4"></a></td>
-      <td><a target="_blank" href="https://github.com/lastleaf"><img width="60px"
-            src="https://avatars2.githubusercontent.com/u/2016597?s=60&amp;v=4"></a></td>
-      <td><a target="_blank" href="https://github.com/dntzhang"><img width="60px"
-            src="https://avatars2.githubusercontent.com/u/7917954?s=60&amp;v=4"></a></td>
-      <td><a target="_blank" href="https://github.com/JimmyVV"><img width="60px"
-            src="https://avatars2.githubusercontent.com/u/12005455?s=60&amp;v=4"></a></td>
-      <td><a target="_blank" href="https://github.com/stephenml"><img width="60px"
-            src="https://avatars1.githubusercontent.com/u/11658803?s=60&amp;v=4"></a></td>
-      <td><a target="_blank" href="https://github.com/jayjliang"><img width="60px"
-            src="https://avatars1.githubusercontent.com/u/9363437?s=60&amp;v=4"></a></td>
-      <td width="92px"><a target="_blank" href="https://github.com/wechat-miniapp/tbone/graphs/contributors">感谢你们</a></td>
-    </tr>
-  </tbody>
-</table>
-
-查看[代码贡献规范](https://wechat-miniapp.github.io/kbone/docs/guide/develop.html)。
-
-## 交流
-
-QQ 交流群：926335938
-
-使用相关问题可在 [Tbone社区](https://developers.weixin.qq.com/community/minihome/mixflow/1213301129006825473) 发帖
-
-## 案例
-
-![微信开放社区](./docs/images/code1.jpg)
 
 ## License
 

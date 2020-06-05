@@ -41,10 +41,10 @@ export default {
       return {
         title: 'tbone-demo',
         // path: '/a', // 当前页面
-        // path: 'https://test.miniprogram.com/a', // 当前页面的完整 url
+        // path: 'https://test.miniapp.com/a', // 当前页面的完整 url
         // path: '/b', // 其他页面
-        // path: 'https://test.miniprogram.com/b', // 其他页面的完整 url
-        miniprogramPath: `/pages/page2/index?type=share&targeturl=${encodeURIComponent('https://test.miniprogram.com/b')}`, // 自己组装分享页面路由
+        // path: 'https://test.miniapp.com/b', // 其他页面的完整 url
+        miniappPath: `/pages/page2/index?type=share&targeturl=${encodeURIComponent('https://test.miniapp.com/b')}`, // 自己组装分享页面路由
       }
     }
   },

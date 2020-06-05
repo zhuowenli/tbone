@@ -19,7 +19,7 @@ const customComponentJsTmpl = fs.readFileSync(path.resolve(__dirname, './tmpl/cu
 const projectConfigJsonTmpl = require('./tmpl/mini.project.tmpl.json')
 const packageConfigJsonTmpl = require('./tmpl/package.tmpl.json')
 
-process.env.isMiniprogram = true // 设置环境变量
+process.env.isminiapp = true // 设置环境变量
 const globalVars = [
     'HTMLElement',
     'Element',
@@ -232,7 +232,7 @@ class MpPlugin {
                     ...pageExtraConfig,
                     enablePullDownRefresh: !!pullDownRefresh,
                     usingComponents: {
-                        element: 'miniapp-element',
+                        element: '@zhuowenli/miniapp-element',
                     },
                 }
                 if (myCustomComponentRoot) {
@@ -419,7 +419,7 @@ class MpPlugin {
 
             if (hasBuiltNpm || !autoBuildNpm) {
                 if (hasBuiltNpm) console.log(colors.bold('\ndependencies has been built\n'))
-                // return callback()
+                return callback()
             }
 
             const build = () => {

@@ -5,7 +5,7 @@ import './Footer.css'
 const Footer = (props, store) => {
     return (
         <div className="footer">
-            <p>wechat-miniprogram</p>
+            <p>wechat-miniapp</p>
         </div>
     )
 }

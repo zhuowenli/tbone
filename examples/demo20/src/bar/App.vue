@@ -32,7 +32,7 @@ export default {
     }).then(this.initChart)
   },
   methods: {
-    initChart(chart) {      
+    initChart(chart) {
       chart.setOption({
         color: ['#37a2da', '#32c5e9', '#67e0e3'],
         tooltip: {
@@ -66,7 +66,7 @@ export default {
         yAxis: [{
           type: 'category',
           axisTick: { show: false },
-          data: ['汽车之家', '今日头条', '百度贴吧', '一点资讯', '微信', '微博', '知乎'],
+          data: ['汽车之家', '今日头条', '百度贴吧', '一点资讯', '淘宝', '微博', '知乎'],
           axisLine: {
             lineStyle: {
               color: '#999',

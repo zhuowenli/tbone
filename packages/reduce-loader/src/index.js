@@ -5,11 +5,11 @@ module.exports = function(source) {
 
     // 处理在小程序端无用的代码
     if (/\.(tsx?|js)/ig.test(extname)) {
-        return process.env.isMiniprogram ? '' : source
+        return process.env.isminiapp ? '' : source
     }
 
     if (/\.vue/ig.test(extname)) {
-        return process.env.isMiniprogram ? 'exports.__esModule=true;;exports.default={};' : source
+        return process.env.isminiapp ? 'exports.__esModule=true;;exports.default={};' : source
     }
 
     return source

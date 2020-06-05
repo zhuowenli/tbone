@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {isWeChatMiniProgram, isMiniApp} from 'universal-env'
+import {isWeChatminiapp, isMiniApp} from 'universal-env'
 import Element from '../element'
 import cache from '../../util/cache'
 import Pool from '../../util/pool'
@@ -66,7 +66,7 @@ class HTMLCanvasElement extends Element {
                 this.addEventListener('canvasReady', () => {
                     resolve(this)
                 })
-            } else if (isWeChatMiniProgram) {
+            } else if (isWeChatminiapp) {
                 this.$$getNodesRef().then(nodesRef => nodesRef.node(res => {
                     this.$_node = res.node
 

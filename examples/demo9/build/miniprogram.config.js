@@ -1,19 +1,19 @@
 const path = require('path')
 
 module.exports = {
-	origin: 'https://test.miniprogram.com',
-	entry: '/',
-	router: {
-		page1: ['/a'],
-		page2: ['/b'],
-		page3: ['/c'],
-	},
-	redirect: {
-		notFound: 'page1',
-		accessDenied: 'page1',
-	},
-	generate: {
-		tabBar: {
+    origin: 'https://test.miniapp.com',
+    entry: '/',
+    router: {
+        page1: ['/a'],
+        page2: ['/b'],
+        page3: ['/c'],
+    },
+    redirect: {
+        notFound: 'page1',
+        accessDenied: 'page1',
+    },
+    generate: {
+        tabBar: {
             color: '#000000',
             selectedColor: '#07c160',
             backgroundColor: '#ffffff',
@@ -29,15 +29,15 @@ module.exports = {
                 selectedIconPath: path.resolve(__dirname, '../src/img/page2-sel.png'),
             }],
         },
-	},
-	app: {
-		navigationBarTitleText: 'miniprogram-project',
-	},
-	projectConfig: {
-		appid: '',
+    },
+    app: {
+        navigationBarTitleText: 'miniapp-project',
+    },
+    projectConfig: {
+        appid: '',
         projectname: 'tbone-demo9',
-	},
-	packageConfig: {
-		author: 'wechat-miniprogram',
-	},
+    },
+    packageConfig: {
+        author: 'wechat-miniapp',
+    },
 }

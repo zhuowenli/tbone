@@ -6,7 +6,7 @@
 
 ```
 |---build
-|    |---miniprogram.config.js // mp-webpack-plugin 插件配置
+|    |---miniapp.config.js // mp-webpack-plugin 插件配置
 |    |---webpack.config.js // web 端 webpack 配置
 |    |---webpack.mp.config.js // 小程序端 webpack 配置
 |

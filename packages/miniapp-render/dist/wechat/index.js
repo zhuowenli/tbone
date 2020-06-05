@@ -4679,14 +4679,14 @@
       }
 
       if (this.$_pathname !== oldValues.pathname || this.$_search !== oldValues.search) {
-        var matchRoute = window.$$miniprogram.getMatchRoute(this.$_pathname);
+        var matchRoute = window.$$miniapp.getMatchRoute(this.$_pathname);
 
         if (matchRoute) {
           var param = ['type=jump', "targeturl=" + encodeURIComponent(this.href)];
           if (this.$_search) param.push("search=" + encodeURIComponent(this.$_search));
           if (this.$_hash) param.push("hash=" + encodeURIComponent(this.$_hash));
           param = '?' + param.join('&');
-          var callMethod = window.$$miniprogram.isTabBarPage(matchRoute) ? 'switchTab' : 'redirectTo';
+          var callMethod = window.$$miniapp.isTabBarPage(matchRoute) ? 'switchTab' : 'redirectTo';
           wx[callMethod]({
             url: "" + matchRoute + param
           });
@@ -4743,14 +4743,14 @@
         });
       }
 
-      var matchRoute = window.$$miniprogram.getMatchRoute(parseRes.pathname || '/');
+      var matchRoute = window.$$miniapp.getMatchRoute(parseRes.pathname || '/');
 
       if (matchRoute) {
         var param = ['type=open', "targeturl=" + encodeURIComponent(url)];
         if (this.$_search) param.push("search=" + encodeURIComponent(parseRes.search || ''));
         if (this.$_hash) param.push("hash=" + encodeURIComponent(parseRes.hash || ''));
         param = '?' + param.join('&');
-        var callMethod = window.$$miniprogram.isTabBarPage(matchRoute) ? 'switchTab' : 'navigateTo';
+        var callMethod = window.$$miniapp.isTabBarPage(matchRoute) ? 'switchTab' : 'navigateTo';
         wx[callMethod]({
           url: "" + matchRoute + param
         });
@@ -4972,7 +4972,7 @@
       if (this.$_search) param.push("search=" + encodeURIComponent(this.$_search));
       if (this.$_hash) param.push("hash=" + encodeURIComponent(this.$_hash));
       param = '?' + param.join('&');
-      var callMethod = window.$$miniprogram.isTabBarPage(this.$_pageRoute) ? 'switchTab' : 'redirectTo';
+      var callMethod = window.$$miniapp.isTabBarPage(this.$_pageRoute) ? 'switchTab' : 'redirectTo';
       wx[callMethod]({
         url: "" + this.$_pageRoute + param
       });
@@ -5086,7 +5086,7 @@
         } else {
           if (value[0] !== '/') value = "/" + value;
 
-          var _Location$$$parse6 = Location.$$parse("//miniprogram" + value),
+          var _Location$$$parse6 = Location.$$parse("//miniapp" + value),
               pathname = _Location$$$parse6.pathname;
 
           this.$_pathname = pathname || '/';
@@ -5108,7 +5108,7 @@
         } else {
           if (value[0] !== '?') value = "?" + value;
 
-          var _Location$$$parse7 = Location.$$parse("//miniprogram" + value),
+          var _Location$$$parse7 = Location.$$parse("//miniapp" + value),
               search = _Location$$$parse7.search;
 
           this.$_search = search || '';
@@ -5130,7 +5130,7 @@
         } else {
           if (value[0] !== '#') value = "#" + value;
 
-          var _Location$$$parse8 = Location.$$parse("//miniprogram" + value),
+          var _Location$$$parse8 = Location.$$parse("//miniapp" + value),
               hash = _Location$$$parse8.hash;
 
           this.$_hash = hash || '';
@@ -5466,15 +5466,15 @@
   function _arrayLikeToArray$7(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
   var pageUrlRouteMap = null;
 
-  var Miniprogram = /*#__PURE__*/function () {
-    function Miniprogram(pageId) {
+  var miniapp = /*#__PURE__*/function () {
+    function miniapp(pageId) {
       this.$_pageId = pageId;
       this.$_pageUrl = ''; // 页面真实 url
 
       this.$_subpackagesMap = {}; // 分包名映射表
     }
 
-    var _proto = Miniprogram.prototype;
+    var _proto = miniapp.prototype;
 
     /**
      * 初始化
@@ -5554,7 +5554,7 @@
       return !!tabBarMap[pageRoute];
     };
 
-    createClass(Miniprogram, [{
+    createClass(miniapp, [{
       key: "window",
       get: function get() {
         return cache.getWindow(this.$_pageId) || null;
@@ -5576,7 +5576,7 @@
       }
     }]);
 
-    return Miniprogram;
+    return miniapp;
   }();
 
   var LocalStorage = /*#__PURE__*/function () {
@@ -6163,7 +6163,7 @@
       _this.$_navigator = new Navigator();
       _this.$_screen = new Screen();
       _this.$_history = new History(_this.$_location);
-      _this.$_miniprogram = new Miniprogram(pageId);
+      _this.$_miniapp = new miniapp(pageId);
       _this.$_localStorage = new LocalStorage(assertThisInitialized(_this));
       _this.$_sessionStorage = new SessionStorage(assertThisInitialized(_this));
       _this.$_performance = new Performance(timeOrigin);
@@ -6342,7 +6342,7 @@
     }
     /**
      * 小程序端的 getComputedStyle 实现
-     * https://developers.weixin.qq.com/miniprogram/dev/api/wxml/NodesRef.fields.html
+     * https://developers.weixin.qq.com/miniapp/dev/api/wxml/NodesRef.fields.html
      * https://miniapp.open.taobao.com/docV3.htm?source=search&docId=1009&docType=20
      */
     ;
@@ -6358,13 +6358,13 @@
 
       return new Promise(function (resolve, reject) {
         if (dom.tagName === 'BODY') {
-          _this3.$$createSelectorQuery().select('.miniprogram-root').fields({
+          _this3.$$createSelectorQuery().select('.miniapp-root').fields({
             computedStyle: computedStyle
           }, function (res) {
             return res ? resolve(res) : reject();
           }).exec();
         } else {
-          _this3.$$createSelectorQuery().select(".miniprogram-root >>> .node-" + dom.$$nodeId).fields({
+          _this3.$$createSelectorQuery().select(".miniapp-root >>> .node-" + dom.$$nodeId).fields({
             computedStyle: computedStyle
           }, function (res) {
             return res ? resolve(res) : reject();

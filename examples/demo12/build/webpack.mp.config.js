@@ -101,12 +101,12 @@ module.exports = {
     },
     plugins: [
         new webpack.DefinePlugin({
-            'process.env.isMiniprogram': process.env.isMiniprogram, // 注入环境变量，用于业务代码判断
+            'process.env.isminiapp': process.env.isminiapp, // 注入环境变量，用于业务代码判断
         }),
         new MiniCssExtractPlugin({
             filename: '[name].acss',
         }),
         new VueLoaderPlugin(),
-        new MpPlugin(require('./miniprogram.config.js')),
+        new MpPlugin(require('./miniapp.config.js')),
     ],
 }

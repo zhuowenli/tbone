@@ -130,7 +130,7 @@ export default class Location extends EventTarget {
         }
 
         if (this.$_pathname !== oldValues.pathname || this.$_search !== oldValues.search) {
-            const matchRoute = window.$$miniprogram.getMatchRoute(this.$_pathname)
+            const matchRoute = window.$$miniapp.getMatchRoute(this.$_pathname)
 
             if (matchRoute) {
                 let param = ['type=jump', `targeturl=${encodeURIComponent(this.href)}`]
@@ -139,7 +139,7 @@ export default class Location extends EventTarget {
 
                 param = '?' + param.join('&')
 
-                const callMethod = window.$$miniprogram.isTabBarPage(matchRoute) ? 'switchTab' : 'redirectTo'
+                const callMethod = window.$$miniapp.isTabBarPage(matchRoute) ? 'switchTab' : 'redirectTo'
                 wx[callMethod]({
                     url: `${matchRoute}${param}`,
                 })
@@ -199,7 +199,7 @@ export default class Location extends EventTarget {
             })
         }
 
-        const matchRoute = window.$$miniprogram.getMatchRoute(parseRes.pathname || '/')
+        const matchRoute = window.$$miniapp.getMatchRoute(parseRes.pathname || '/')
 
         if (matchRoute) {
             let param = ['type=open', `targeturl=${encodeURIComponent(url)}`]
@@ -208,7 +208,7 @@ export default class Location extends EventTarget {
 
             param = '?' + param.join('&')
 
-            const callMethod = window.$$miniprogram.isTabBarPage(matchRoute) ? 'switchTab' : 'navigateTo'
+            const callMethod = window.$$miniapp.isTabBarPage(matchRoute) ? 'switchTab' : 'navigateTo'
             wx[callMethod]({
                 url: `${matchRoute}${param}`,
             })
@@ -505,7 +505,7 @@ export default class Location extends EventTarget {
         } else {
             if (value[0] !== '/') value = `/${value}`
 
-            const {pathname} = Location.$$parse(`//miniprogram${value}`)
+            const {pathname} = Location.$$parse(`//miniapp${value}`)
 
             this.$_pathname = pathname || '/'
         }
@@ -527,7 +527,7 @@ export default class Location extends EventTarget {
         } else {
             if (value[0] !== '?') value = `?${value}`
 
-            const {search} = Location.$$parse(`//miniprogram${value}`)
+            const {search} = Location.$$parse(`//miniapp${value}`)
 
             this.$_search = search || ''
         }
@@ -549,7 +549,7 @@ export default class Location extends EventTarget {
         } else {
             if (value[0] !== '#') value = `#${value}`
 
-            const {hash} = Location.$$parse(`//miniprogram${value}`)
+            const {hash} = Location.$$parse(`//miniapp${value}`)
 
             this.$_hash = hash || ''
         }
@@ -575,7 +575,7 @@ export default class Location extends EventTarget {
 
         param = '?' + param.join('&')
 
-        const callMethod = window.$$miniprogram.isTabBarPage(this.$_pageRoute) ? 'switchTab' : 'redirectTo'
+        const callMethod = window.$$miniapp.isTabBarPage(this.$_pageRoute) ? 'switchTab' : 'redirectTo'
         wx[callMethod]({
             url: `${this.$_pageRoute}${param}`,
         })

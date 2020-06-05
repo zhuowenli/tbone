@@ -2,7 +2,7 @@
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var render = require('miniapp-render');
+var render = require('@zhuowenli/miniapp-render');
 var render__default = _interopDefault(render);
 
 function _extends() {

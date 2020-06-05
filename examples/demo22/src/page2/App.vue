@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     onClickBack() {
-      if (process.env.isMiniprogram) {
+      if (process.env.isminiapp) {
         wx.navigateBack()
       }
     },

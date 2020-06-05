@@ -273,7 +273,7 @@ export default {
       } else {
         const callback = this.step !== 6 ? function() {} : function() {
           console.group('数据库文档')
-          console.log('https://developers.weixin.qq.com/miniprogram/dev/wxcloud/guide/database.html')
+          console.log('https://developers.weixin.qq.com/miniapp/dev/wxcloud/guide/database.html')
           console.groupEnd()
         }
 

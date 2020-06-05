@@ -45,7 +45,7 @@ module.exports = (api, options) => {
                 'MiniCssExtractPlugin',
             ].indexOf(plugin.constructor.name) >= 0).concat([
                 new webpack.DefinePlugin({
-                    'process.env.isMiniprogram': process.env.isMiniprogram, // 注入环境变量，用于业务代码判断
+                    'process.env.isminiapp': process.env.isminiapp, // 注入环境变量，用于业务代码判断
                 }),
                 new MpPlugin(mpPluginConfig),
             ])

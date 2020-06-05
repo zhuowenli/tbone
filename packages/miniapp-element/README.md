@@ -9,7 +9,7 @@ Provider custom element to `miniapp-render`.
 ## Install
 
 ```
-npm install --save miniapp-element
+npm install --save @zhuowenli/miniapp-element
 ```
 
 ## Usage
@@ -17,7 +17,7 @@ npm install --save miniapp-element
 ```json
 {
   "usingComponents": {
-    "element": "miniapp-element"
+    "element": "@zhuowenli/miniapp-element"
   }
 }
 ```

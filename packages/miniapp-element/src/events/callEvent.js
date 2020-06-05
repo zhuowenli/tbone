@@ -1,4 +1,4 @@
-import render from 'miniapp-render'
+import render from '@zhuowenli/miniapp-render'
 import checkEventAccessDomNode from '../vdom/checkEventAccessDomNode'
 import findParentNode from '../vdom/findParentNode'
 import callSimpleEvent from './callSimpleEvent'
