@@ -10,7 +10,7 @@ import tool from '../../util/tool'
 
 const pool = new Pool()
 
-class HTMLOptionElement extends Element {
+export default class HTMLOptionElement extends Element {
     /**
      * 创建实例
      */
@@ -127,5 +127,3 @@ class HTMLOptionElement extends Element {
         return !!this.$_attrs.get('selected')
     }
 }
-
-module.exports = HTMLOptionElement

@@ -10,7 +10,7 @@ import Pool from '../../util/pool'
 
 const pool = new Pool()
 
-class NotSupport extends Element {
+export default class NotSupport extends Element {
     /**
      * 创建实例
      */
@@ -62,5 +62,3 @@ class NotSupport extends Element {
         }
     }
 }
-
-module.exports = NotSupport

@@ -1,145 +1,145 @@
-import Element from '../element';
-import cache from '../../util/cache';
-import Pool from '../../util/pool';
+import Element from '../element'
+import cache from '../../util/cache'
+import Pool from '../../util/pool'
 
-const pool = new Pool();
+const pool = new Pool()
 
 class HTMLVideoElement extends Element {
-  static $$create(options, tree) {
-    const config = cache.getConfig();
+    static $$create(options, tree) {
+        const config = cache.getConfig()
 
-    if (config.optimization.elementMultiplexing) {
-      const instance = pool.get();
+        if (config.optimization.elementMultiplexing) {
+            const instance = pool.get()
 
-      if (instance) {
-        instance.$$init(options, tree);
-        return instance;
-      }
+            if (instance) {
+                instance.$$init(options, tree)
+                return instance
+            }
+        }
+
+        return new HTMLVideoElement(options, tree)
     }
 
-    return new HTMLVideoElement(options, tree);
-  }
+    $$init(options, tree) {
+        const width = options.width
+        const height = options.height
 
-  $$init(options, tree) {
-    const width = options.width;
-    const height = options.height;
+        if (typeof width === 'number' && width >= 0) options.attrs.width = width
+        if (typeof height === 'number' && height >= 0) options.attrs.height = height
 
-    if (typeof width === 'number' && width >= 0) options.attrs.width = width;
-    if (typeof height === 'number' && height >= 0) options.attrs.height = height;
+        super.$$init(options, tree)
 
-    super.$$init(options, tree);
-
-    this.$_initRect();
-  }
-
-  $$recycle() {
-    this.$$destroy();
-
-    const config = cache.getConfig();
-
-    if (config.optimization.elementMultiplexing) {
-      pool.add(this);
+        this.$_initRect()
     }
-  }
 
-  $_triggerParentUpdate() {
-    this.$_initRect();
-    super.$_triggerParentUpdate();
-  }
+    $$recycle() {
+        this.$$destroy()
 
-  $_initRect() {
-    const width = parseInt(this.$_attrs.get('width'), 10);
-    const height = parseInt(this.$_attrs.get('height'), 10);
+        const config = cache.getConfig()
 
-    if (typeof width === 'number' && width >= 0) this.$_style.width = `${width}px`;
-    if (typeof height === 'number' && height >= 0) this.$_style.height = `${height}px`;
-  }
+        if (config.optimization.elementMultiplexing) {
+            pool.add(this)
+        }
+    }
 
-  get src() {
-    return this.$_attrs.get('src') || '';
-  }
+    $_triggerParentUpdate() {
+        this.$_initRect()
+        super.$_triggerParentUpdate()
+    }
 
-  set src(value) {
-    if (!value || typeof value !== 'string') return;
+    $_initRect() {
+        const width = parseInt(this.$_attrs.get('width'), 10)
+        const height = parseInt(this.$_attrs.get('height'), 10)
 
-    this.$_attrs.set('src', value);
-  }
+        if (typeof width === 'number' && width >= 0) this.$_style.width = `${width}px`
+        if (typeof height === 'number' && height >= 0) this.$_style.height = `${height}px`
+    }
 
-  get width() {
-    return +this.$_attrs.get('width') || 0;
-  }
+    get src() {
+        return this.$_attrs.get('src') || ''
+    }
 
-  set width(value) {
-    if (typeof value !== 'number' || !isFinite(value) || value < 0) return;
+    set src(value) {
+        if (!value || typeof value !== 'string') return
 
-    this.$_attrs.set('width', value);
-    this.$_initRect();
-  }
+        this.$_attrs.set('src', value)
+    }
 
-  get height() {
-    return +this.$_attrs.get('height') || 0;
-  }
+    get width() {
+        return +this.$_attrs.get('width') || 0
+    }
 
-  set height(value) {
-    if (typeof value !== 'number' || !isFinite(value) || value < 0) return;
+    set width(value) {
+        if (typeof value !== 'number' || !isFinite(value) || value < 0) return
 
-    this.$_attrs.set('height', value);
-    this.$_initRect();
-  }
+        this.$_attrs.set('width', value)
+        this.$_initRect()
+    }
 
-  get autoplay() {
-    return !!this.$_attrs.get('autoplay');
-  }
+    get height() {
+        return +this.$_attrs.get('height') || 0
+    }
 
-  set autoplay(value) {
-    value = !!value;
-    this.$_attrs.set('autoplay', value);
-  }
+    set height(value) {
+        if (typeof value !== 'number' || !isFinite(value) || value < 0) return
 
-  get loop() {
-    return !!this.$_attrs.get('loop');
-  }
+        this.$_attrs.set('height', value)
+        this.$_initRect()
+    }
 
-  set loop(value) {
-    value = !!value;
-    this.$_attrs.set('loop', value);
-  }
+    get autoplay() {
+        return !!this.$_attrs.get('autoplay')
+    }
 
-  get muted() {
-    return !!this.$_attrs.get('muted');
-  }
+    set autoplay(value) {
+        value = !!value
+        this.$_attrs.set('autoplay', value)
+    }
 
-  set muted(value) {
-    value = !!value;
-    this.$_attrs.set('muted', value);
-  }
+    get loop() {
+        return !!this.$_attrs.get('loop')
+    }
 
-  get controls() {
-    const value = this.$_attrs.get('controls');
-    return value !== undefined ? !!value : true;
-  }
+    set loop(value) {
+        value = !!value
+        this.$_attrs.set('loop', value)
+    }
 
-  set controls(value) {
-    this.$_attrs.set('controls', value);
-  }
+    get muted() {
+        return !!this.$_attrs.get('muted')
+    }
 
-  get poster() {
-    return this.$_attrs.get('poster');
-  }
+    set muted(value) {
+        value = !!value
+        this.$_attrs.set('muted', value)
+    }
 
-  set poster(value) {
-    if (!value || typeof value !== 'string') return;
+    get controls() {
+        const value = this.$_attrs.get('controls')
+        return value !== undefined ? !!value : true
+    }
 
-    this.$_attrs.set('poster', value);
-  }
+    set controls(value) {
+        this.$_attrs.set('controls', value)
+    }
 
-  get currentTime() {
-    return +this.$_attrs.get('currentTime') || 0;
-  }
+    get poster() {
+        return this.$_attrs.get('poster')
+    }
 
-  get buffered() {
-    return this.$_attrs.get('buffered');
-  }
+    set poster(value) {
+        if (!value || typeof value !== 'string') return
+
+        this.$_attrs.set('poster', value)
+    }
+
+    get currentTime() {
+        return +this.$_attrs.get('currentTime') || 0
+    }
+
+    get buffered() {
+        return this.$_attrs.get('buffered')
+    }
 }
 
-export default HTMLVideoElement;
+export default HTMLVideoElement

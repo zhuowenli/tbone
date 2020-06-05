@@ -10,7 +10,7 @@ import tool from '../../util/tool'
 
 const pool = new Pool()
 
-class HTMLSelectElement extends Element {
+export default class HTMLSelectElement extends Element {
     /**
      * 创建实例
      */
@@ -156,5 +156,3 @@ class HTMLSelectElement extends Element {
         return this.$_children.filter(child => child.tagName === 'OPTION' && !child.disabled)
     }
 }
-
-module.exports = HTMLSelectElement

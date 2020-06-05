@@ -3346,1211 +3346,6 @@
     return Comment;
   }(Node);
 
-  var pool$6 = new Pool();
-
-  var Image = /*#__PURE__*/function (_Element) {
-    inheritsLoose(Image, _Element);
-
-    function Image() {
-      return _Element.apply(this, arguments) || this;
-    }
-
-    // Create instance
-    Image.$$create = function $$create(options, tree) {
-      var config = cache.getConfig();
-
-      if (config.optimization.elementMultiplexing) {
-        // Reuse element node
-        var instance = pool$6.get();
-
-        if (instance) {
-          instance.$$init(options, tree);
-          return instance;
-        }
-      }
-
-      return new Image(options, tree);
-    } // Override the parent class's $$init instance method
-    ;
-
-    var _proto = Image.prototype;
-
-    _proto.$$init = function $$init(options, tree) {
-      var width = options.width;
-      var height = options.height;
-      if (typeof width === 'number' && width >= 0) options.attrs.width = width;
-      if (typeof height === 'number' && height >= 0) options.attrs.height = height;
-
-      _Element.prototype.$$init.call(this, options, tree);
-
-      this.$_naturalWidth = 0;
-      this.$_naturalHeight = 0;
-      this.$_initRect();
-    } // Override the parent class's destroy instance method
-    ;
-
-    _proto.$$destroy = function $$destroy() {
-      _Element.prototype.$$destroy.call(this);
-
-      this.$_naturalWidth = null;
-      this.$_naturalHeight = null;
-    } // Override the parent class's recovery instance method
-    ;
-
-    _proto.$$recycle = function $$recycle() {
-      this.$$destroy();
-      var config = cache.getConfig();
-
-      if (config.optimization.elementMultiplexing) {
-        // Reuse element node
-        pool$6.add(this);
-      }
-    } // Update parent
-    ;
-
-    _proto.$_triggerParentUpdate = function $_triggerParentUpdate() {
-      this.$_initRect();
-
-      _Element.prototype.$_triggerParentUpdate.call(this);
-    } // Init length
-    ;
-
-    _proto.$_initRect = function $_initRect() {
-      var width = parseInt(this.$_attrs.get('width'), 10);
-      var height = parseInt(this.$_attrs.get('height'), 10);
-      if (typeof width === 'number' && width >= 0) this.$_style.width = width + "px";
-      if (typeof height === 'number' && height >= 0) this.$_style.height = height + "px";
-    } // Reset width & height
-    ;
-
-    _proto.$_resetRect = function $_resetRect(rect) {
-      if (rect === void 0) {
-        rect = {};
-      }
-
-      this.$_naturalWidth = rect.width || 0;
-      this.$_naturalHeight = rect.height || 0;
-      this.$_initRect();
-    };
-
-    createClass(Image, [{
-      key: "src",
-      get: function get() {
-        return this.$_attrs.get('src') || '';
-      },
-      set: function set(value) {
-        var _this = this;
-
-        if (!value || typeof value !== 'string') return;
-        this.$_attrs.set('src', value);
-        setTimeout(function () {
-          if (_this.src.indexOf('data:image') !== 0) {
-            wx.getImageInfo({
-              src: _this.src,
-              success: function success(res) {
-                // Load successfully, adjust the width and height of the picture
-                _this.$_resetRect(res); // Load event
-
-
-                _this.$$trigger('load', {
-                  event: new Event({
-                    name: 'load',
-                    target: _this,
-                    eventPhase: Event.AT_TARGET
-                  }),
-                  currentTarget: _this
-                });
-              },
-              fail: function fail() {
-                // Load failed, adjust the width and height of the image
-                _this.$_resetRect({
-                  width: 0,
-                  height: 0
-                }); // Trigger error event
-
-
-                _this.$$trigger('error', {
-                  event: new Event({
-                    name: 'error',
-                    target: _this,
-                    eventPhase: Event.AT_TARGET
-                  }),
-                  currentTarget: _this
-                });
-              }
-            });
-          }
-        }, 0);
-      }
-    }, {
-      key: "width",
-      get: function get() {
-        return +this.$_attrs.get('width') || 0;
-      },
-      set: function set(value) {
-        if (typeof value !== 'number' || !isFinite(value) || value < 0) return;
-        this.$_attrs.set('width', value);
-        this.$_initRect();
-      }
-    }, {
-      key: "height",
-      get: function get() {
-        return +this.$_attrs.get('height') || 0;
-      },
-      set: function set(value) {
-        if (typeof value !== 'number' || !isFinite(value) || value < 0) return;
-        this.$_attrs.set('height', value);
-        this.$_initRect();
-      }
-    }, {
-      key: "naturalWidth",
-      get: function get() {
-        return this.$_naturalWidth;
-      }
-    }, {
-      key: "naturalHeight",
-      get: function get() {
-        return this.$_naturalHeight;
-      }
-    }]);
-
-    return Image;
-  }(Element);
-
-  var pool$7 = new Pool();
-
-  var HTMLInputElement = /*#__PURE__*/function (_Element) {
-    inheritsLoose(HTMLInputElement, _Element);
-
-    function HTMLInputElement() {
-      return _Element.apply(this, arguments) || this;
-    }
-
-    // Create instance
-    HTMLInputElement.$$create = function $$create(options, tree) {
-      var config = cache.getConfig();
-
-      if (config.optimization.elementMultiplexing) {
-        // Reuse element node
-        var instance = pool$7.get();
-
-        if (instance) {
-          instance.$$init(options, tree);
-          return instance;
-        }
-      }
-
-      return new HTMLInputElement(options, tree);
-    } // Override parent class recycle method
-    ;
-
-    var _proto = HTMLInputElement.prototype;
-
-    _proto.$$recycle = function $$recycle() {
-      this.$$destroy();
-      var config = cache.getConfig();
-
-      if (config.optimization.elementMultiplexing) {
-        // Reuse element node
-        pool$7.add(this);
-      }
-    } // $_generateHtml handle other attributes
-    ;
-
-    _proto.$$dealWithAttrsForGenerateHtml = function $$dealWithAttrsForGenerateHtml(html, node) {
-      var type = node.type;
-      if (type) html += " type=\"" + type + "\"";
-      var value = node.value;
-      if (value) html += " value=\"" + value + "\"";
-      var disabled = node.disabled;
-      if (disabled) html += ' disabled';
-      var maxlength = node.maxlength;
-      if (maxlength) html += " maxlength=\"" + maxlength + "\"";
-      var placeholder = node.placeholder;
-      if (placeholder) html += " placeholder=\"" + placeholder.replace(/"/g, '\\"') + "\"";
-      return html;
-    } // outerHtml
-    ;
-
-    _proto.$$dealWithAttrsForOuterHTML = function $$dealWithAttrsForOuterHTML(node) {
-      this.type = node.type || '';
-      this.value = node.value || '';
-      this.disabled = node.disabled || '';
-      this.maxlength = node.maxlength;
-      this.placeholder = node.placeholder || ''; // Special attr
-
-      this.mpplaceholderclass = node.mpplaceholderclass || '';
-    }
-    /**
-     * The cloneNode interface is invoked to handle additional properties
-     */
-    ;
-
-    _proto.$$dealWithAttrsForCloneNode = function $$dealWithAttrsForCloneNode() {
-      return {
-        type: this.type,
-        value: this.value,
-        disabled: this.disabled,
-        maxlength: this.maxlength,
-        placeholder: this.placeholder,
-        // Special field
-        mpplaceholderclass: this.mpplaceholderclass
-      };
-    } // Attribute
-    ;
-
-    _proto.focus = function focus() {
-      this.$_attrs.set('focus', true);
-    };
-
-    _proto.blur = function blur() {
-      this.$_attrs.set('focus', false);
-    };
-
-    createClass(HTMLInputElement, [{
-      key: "name",
-      get: function get() {
-        return this.$_attrs.get('name');
-      },
-      set: function set(value) {
-        value = '' + value;
-        return this.$_attrs.set('name', value);
-      }
-    }, {
-      key: "type",
-      get: function get() {
-        return this.$_attrs.get('type') || 'text';
-      },
-      set: function set(value) {
-        value = '' + value;
-        this.$_attrs.set('type', value);
-      }
-    }, {
-      key: "value",
-      get: function get() {
-        var type = this.$_attrs.get('type');
-        var value = this.$_attrs.get('value');
-
-        if (!value && !this.changed) {
-          value = this.$_attrs.get('defaultValue');
-        }
-
-        if ((type === 'radio' || type === 'checkbox') && value === undefined) return 'on';
-        return value || '';
-      },
-      set: function set(value) {
-        this.changed = true;
-        value = '' + value;
-        this.$_attrs.set('value', value);
-      }
-    }, {
-      key: "readOnly",
-      get: function get() {
-        return !!this.$_attrs.get('readOnly');
-      },
-      set: function set(value) {
-        this.$_attrs.set('readOnly', !!value);
-      }
-    }, {
-      key: "disabled",
-      get: function get() {
-        return !!this.$_attrs.get('disabled');
-      },
-      set: function set(value) {
-        value = !!value;
-        this.$_attrs.set('disabled', value);
-      }
-    }, {
-      key: "maxlength",
-      get: function get() {
-        return this.$_attrs.get('maxlength');
-      },
-      set: function set(value) {
-        this.$_attrs.set('maxlength', value);
-      }
-    }, {
-      key: "placeholder",
-      get: function get() {
-        return this.$_attrs.get('placeholder') || '';
-      },
-      set: function set(value) {
-        value = '' + value;
-        this.$_attrs.set('placeholder', value);
-      }
-    }, {
-      key: "autofocus",
-      get: function get() {
-        return !!this.$_attrs.get('autofocus');
-      },
-      set: function set(value) {
-        value = !!value;
-        this.$_attrs.set('autofocus', value);
-      }
-    }, {
-      key: "checked",
-      set: function set(value) {
-        this.$_attrs.set('checked', value);
-      },
-      get: function get() {
-        return this.$_attrs.get('checked') || '';
-      }
-    }]);
-
-    return HTMLInputElement;
-  }(Element);
-
-  var pool$8 = new Pool();
-
-  var HTMLTextAreaElement = /*#__PURE__*/function (_Element) {
-    inheritsLoose(HTMLTextAreaElement, _Element);
-
-    function HTMLTextAreaElement() {
-      return _Element.apply(this, arguments) || this;
-    }
-
-    /**
-     * Create instance
-     */
-    HTMLTextAreaElement.$$create = function $$create(options, tree) {
-      var config = cache.getConfig();
-
-      if (config.optimization.elementMultiplexing) {
-        // Multiplexed element node
-        var instance = pool$8.get();
-
-        if (instance) {
-          instance.$$init(options, tree);
-          return instance;
-        }
-      }
-
-      return new HTMLTextAreaElement(options, tree);
-    } // Override the parent class's recovery instance method
-    ;
-
-    var _proto = HTMLTextAreaElement.prototype;
-
-    _proto.$$recycle = function $$recycle() {
-      this.$$destroy();
-      var config = cache.getConfig();
-
-      if (config.optimization.elementMultiplexing) {
-        // Reuse element node
-        pool$8.add(this);
-      }
-    }
-    /**
-     * $_generateHtml handle other attributes
-     */
-    ;
-
-    _proto.$$dealWithAttrsForGenerateHtml = function $$dealWithAttrsForGenerateHtml(html, node) {
-      var type = node.type;
-      if (type) html += " type=\"" + type + "\"";
-      var value = node.value;
-      if (value) html += " value=\"" + value + "\"";
-      var disabled = node.disabled;
-      if (disabled) html += ' disabled';
-      var maxlength = node.maxlength;
-      if (maxlength) html += " maxlength=\"" + maxlength + "\"";
-      var placeholder = node.placeholder;
-      if (placeholder) html += " placeholder=\"" + placeholder.replace(/"/g, '\\"') + "\"";
-      return html;
-    } // outerHtml
-    ;
-
-    _proto.$$dealWithAttrsForOuterHTML = function $$dealWithAttrsForOuterHTML(node) {
-      this.type = node.type || '';
-      this.value = node.value || '';
-      this.disabled = node.disabled || '';
-      this.maxlength = node.maxlength;
-      this.placeholder = node.placeholder || ''; // Special field
-
-      this.mpplaceholderclass = node.mpplaceholderclass || '';
-    }
-    /**
-     * The cloneNode interface is invoked to handle additional properties
-     */
-    ;
-
-    _proto.$$dealWithAttrsForCloneNode = function $$dealWithAttrsForCloneNode() {
-      return {
-        type: this.type,
-        value: this.value,
-        disabled: this.disabled,
-        maxlength: this.maxlength,
-        placeholder: this.placeholder,
-        // Special field
-        mpplaceholderclass: this.mpplaceholderclass
-      };
-    } // Attribute
-    ;
-
-    _proto.focus = function focus() {
-      this.$_attrs.set('focus', true);
-    };
-
-    _proto.blur = function blur() {
-      this.$_attrs.set('focus', false);
-    };
-
-    createClass(HTMLTextAreaElement, [{
-      key: "type",
-      get: function get() {
-        return this.$_attrs.get('type') || 'textarea';
-      },
-      set: function set(value) {
-        value = '' + value;
-        this.$_attrs.set('type', value);
-      }
-    }, {
-      key: "value",
-      get: function get() {
-        var value = this.$_attrs.get('value');
-
-        if (!value && !this.changed) {
-          value = this.$_attrs.get('defaultValue');
-        }
-
-        return value || '';
-      },
-      set: function set(value) {
-        this.changed = true;
-        value = '' + value;
-        this.$_attrs.set('value', value);
-      }
-    }, {
-      key: "readOnly",
-      get: function get() {
-        return !!this.$_attrs.get('readOnly');
-      },
-      set: function set(value) {
-        this.$_attrs.set('readOnly', !!value);
-      }
-    }, {
-      key: "disabled",
-      get: function get() {
-        return !!this.$_attrs.get('disabled');
-      },
-      set: function set(value) {
-        value = !!value;
-        this.$_attrs.set('disabled', value);
-      }
-    }, {
-      key: "maxlength",
-      get: function get() {
-        return this.$_attrs.get('maxlength');
-      },
-      set: function set(value) {
-        this.$_attrs.set('maxlength', value);
-      }
-    }, {
-      key: "placeholder",
-      get: function get() {
-        return this.$_attrs.get('placeholder') || '';
-      },
-      set: function set(value) {
-        value = '' + value;
-        this.$_attrs.set('placeholder', value);
-      }
-    }, {
-      key: "autofocus",
-      get: function get() {
-        return !!this.$_attrs.get('autofocus');
-      },
-      set: function set(value) {
-        value = !!value;
-        this.$_attrs.set('autofocus', value);
-      }
-    }, {
-      key: "selectionStart",
-      get: function get() {
-        var value = +this.$_attrs.get('selection-start');
-        return value !== undefined ? value : -1;
-      },
-      set: function set(value) {
-        this.$_attrs.set('selection-start', value);
-      }
-    }, {
-      key: "selectionEnd",
-      get: function get() {
-        var value = +this.$_attrs.get('selection-end');
-        return value !== undefined ? value : -1;
-      },
-      set: function set(value) {
-        this.$_attrs.set('selection-end', value);
-      }
-    }]);
-
-    return HTMLTextAreaElement;
-  }(Element);
-
-  var pool$9 = new Pool();
-
-  var HTMLVideoElement = /*#__PURE__*/function (_Element) {
-    inheritsLoose(HTMLVideoElement, _Element);
-
-    function HTMLVideoElement() {
-      return _Element.apply(this, arguments) || this;
-    }
-
-    HTMLVideoElement.$$create = function $$create(options, tree) {
-      var config = cache.getConfig();
-
-      if (config.optimization.elementMultiplexing) {
-        var instance = pool$9.get();
-
-        if (instance) {
-          instance.$$init(options, tree);
-          return instance;
-        }
-      }
-
-      return new HTMLVideoElement(options, tree);
-    };
-
-    var _proto = HTMLVideoElement.prototype;
-
-    _proto.$$init = function $$init(options, tree) {
-      var width = options.width;
-      var height = options.height;
-      if (typeof width === 'number' && width >= 0) options.attrs.width = width;
-      if (typeof height === 'number' && height >= 0) options.attrs.height = height;
-
-      _Element.prototype.$$init.call(this, options, tree);
-
-      this.$_initRect();
-    };
-
-    _proto.$$recycle = function $$recycle() {
-      this.$$destroy();
-      var config = cache.getConfig();
-
-      if (config.optimization.elementMultiplexing) {
-        pool$9.add(this);
-      }
-    };
-
-    _proto.$_triggerParentUpdate = function $_triggerParentUpdate() {
-      this.$_initRect();
-
-      _Element.prototype.$_triggerParentUpdate.call(this);
-    };
-
-    _proto.$_initRect = function $_initRect() {
-      var width = parseInt(this.$_attrs.get('width'), 10);
-      var height = parseInt(this.$_attrs.get('height'), 10);
-      if (typeof width === 'number' && width >= 0) this.$_style.width = width + "px";
-      if (typeof height === 'number' && height >= 0) this.$_style.height = height + "px";
-    };
-
-    createClass(HTMLVideoElement, [{
-      key: "src",
-      get: function get() {
-        return this.$_attrs.get('src') || '';
-      },
-      set: function set(value) {
-        if (!value || typeof value !== 'string') return;
-        this.$_attrs.set('src', value);
-      }
-    }, {
-      key: "width",
-      get: function get() {
-        return +this.$_attrs.get('width') || 0;
-      },
-      set: function set(value) {
-        if (typeof value !== 'number' || !isFinite(value) || value < 0) return;
-        this.$_attrs.set('width', value);
-        this.$_initRect();
-      }
-    }, {
-      key: "height",
-      get: function get() {
-        return +this.$_attrs.get('height') || 0;
-      },
-      set: function set(value) {
-        if (typeof value !== 'number' || !isFinite(value) || value < 0) return;
-        this.$_attrs.set('height', value);
-        this.$_initRect();
-      }
-    }, {
-      key: "autoplay",
-      get: function get() {
-        return !!this.$_attrs.get('autoplay');
-      },
-      set: function set(value) {
-        value = !!value;
-        this.$_attrs.set('autoplay', value);
-      }
-    }, {
-      key: "loop",
-      get: function get() {
-        return !!this.$_attrs.get('loop');
-      },
-      set: function set(value) {
-        value = !!value;
-        this.$_attrs.set('loop', value);
-      }
-    }, {
-      key: "muted",
-      get: function get() {
-        return !!this.$_attrs.get('muted');
-      },
-      set: function set(value) {
-        value = !!value;
-        this.$_attrs.set('muted', value);
-      }
-    }, {
-      key: "controls",
-      get: function get() {
-        var value = this.$_attrs.get('controls');
-        return value !== undefined ? !!value : true;
-      },
-      set: function set(value) {
-        this.$_attrs.set('controls', value);
-      }
-    }, {
-      key: "poster",
-      get: function get() {
-        return this.$_attrs.get('poster');
-      },
-      set: function set(value) {
-        if (!value || typeof value !== 'string') return;
-        this.$_attrs.set('poster', value);
-      }
-    }, {
-      key: "currentTime",
-      get: function get() {
-        return +this.$_attrs.get('currentTime') || 0;
-      }
-    }, {
-      key: "buffered",
-      get: function get() {
-        return this.$_attrs.get('buffered');
-      }
-    }]);
-
-    return HTMLVideoElement;
-  }(Element);
-
-  var pool$a = new Pool();
-
-  var HTMLCanvasElement = /*#__PURE__*/function (_Element) {
-    inheritsLoose(HTMLCanvasElement, _Element);
-
-    function HTMLCanvasElement() {
-      return _Element.apply(this, arguments) || this;
-    }
-
-    /**
-     * 创建实例
-     */
-    HTMLCanvasElement.$$create = function $$create(options, tree) {
-      var config = cache.getConfig();
-
-      if (config.optimization.elementMultiplexing) {
-        // 复用 element 节点
-        var instance = pool$a.get();
-
-        if (instance) {
-          instance.$$init(options, tree);
-          return instance;
-        }
-      }
-
-      return new HTMLCanvasElement(options, tree);
-    }
-    /**
-     * 覆写父类的 $$init 方法
-     */
-    ;
-
-    var _proto = HTMLCanvasElement.prototype;
-
-    _proto.$$init = function $$init(options, tree) {
-      var width = options.width;
-      var height = options.height;
-      if (typeof width === 'number' && width >= 0) options.attrs.width = width;
-      if (typeof height === 'number' && height >= 0) options.attrs.height = height;
-
-      _Element.prototype.$$init.call(this, options, tree);
-
-      this.$_node = null;
-      this.$_initRect();
-    }
-    /**
-     * 覆写父类的回收实例方法
-     */
-    ;
-
-    _proto.$$recycle = function $$recycle() {
-      this.$$destroy();
-      var config = cache.getConfig();
-
-      if (config.optimization.elementMultiplexing) {
-        // 复用 element 节点
-        pool$a.add(this);
-      }
-    }
-    /**
-     * 准备 canvas 节点
-     */
-    ;
-
-    _proto.$$prepare = function $$prepare() {
-      var _this = this;
-
-      return new Promise(function (resolve, reject) {
-        {
-          _this.$$getNodesRef().then(function (nodesRef) {
-            return nodesRef.node(function (res) {
-              _this.$_node = res.node; // 设置 canvas 宽高
-
-              _this.$_node.width = _this.width;
-              _this.$_node.height = _this.height;
-              resolve(_this);
-            }).exec();
-          }).catch(reject);
-        }
-      });
-    };
-
-    /**
-     * 更新父组件树
-     */
-    _proto.$_triggerParentUpdate = function $_triggerParentUpdate() {
-      this.$_initRect();
-
-      _Element.prototype.$_triggerParentUpdate.call(this);
-    }
-    /**
-     * 初始化长宽
-     */
-    ;
-
-    _proto.$_initRect = function $_initRect() {
-      var width = parseInt(this.$_attrs.get('width'), 10);
-      var height = parseInt(this.$_attrs.get('height'), 10);
-
-      if (typeof width === 'number' && width >= 0) {
-        this.$_style.width = width + "px";
-      }
-
-      if (typeof height === 'number' && height >= 0) {
-        this.$_style.height = height + "px";
-      }
-    }
-    /**
-     * 对外属性和方法
-     */
-    ;
-
-    _proto.getContext = function getContext(type) {
-      if (!this.$_node) {
-        console.warn('canvas is not prepared, please call $$prepare method first');
-        return;
-      }
-
-      return this.$_node.getContext(type);
-    };
-
-    createClass(HTMLCanvasElement, [{
-      key: "$$node",
-      get: function get() {
-        return this.$_node;
-      }
-    }, {
-      key: "width",
-      get: function get() {
-        if (this.$_node) return this.$_node.width;else return +this.$_attrs.get('width') || 0;
-      },
-      set: function set(value) {
-        if (typeof value !== 'number' || !isFinite(value) || value < 0) return;
-        if (this.$_node) this.$_node.width = value;else this.$_attrs.set('width', value);
-      }
-    }, {
-      key: "height",
-      get: function get() {
-        if (this.$_node) return this.$_node.height;else return +this.$_attrs.get('height') || 0;
-      },
-      set: function set(value) {
-        if (typeof value !== 'number' || !isFinite(value) || value < 0) return;
-        if (this.$_node) this.$_node.height = value;else this.$_attrs.set('height', value);
-      }
-    }]);
-
-    return HTMLCanvasElement;
-  }(Element);
-
-  var pool$b = new Pool();
-
-  var BuiltInComponent = /*#__PURE__*/function (_Element) {
-    inheritsLoose(BuiltInComponent, _Element);
-
-    function BuiltInComponent() {
-      return _Element.apply(this, arguments) || this;
-    }
-
-    // Create instance
-    BuiltInComponent.$$create = function $$create(options, tree) {
-      var config = cache.getConfig();
-
-      if (config.optimization.elementMultiplexing) {
-        // Reuse element node
-        var instance = pool$b.get();
-
-        if (instance) {
-          instance.$$init(options, tree);
-          return instance;
-        }
-      }
-
-      return new BuiltInComponent(options, tree);
-    } // Override the parent class's recovery instance method
-    ;
-
-    var _proto = BuiltInComponent.prototype;
-
-    _proto.$$recycle = function $$recycle() {
-      this.$$destroy();
-      var config = cache.getConfig();
-
-      if (config.optimization.elementMultiplexing) {
-        // Reuse element node
-        pool$b.add(this);
-      }
-    };
-
-    createClass(BuiltInComponent, [{
-      key: "behavior",
-      get: function get() {
-        return this.$_attrs.get('behavior') || '';
-      },
-      set: function set(value) {
-        if (typeof value !== 'string') return;
-        this.$_attrs.set('behavior', value);
-      }
-    }]);
-
-    return BuiltInComponent;
-  }(Element);
-
-  var pool$c = new Pool();
-
-  var CustomComponent = /*#__PURE__*/function (_Element) {
-    inheritsLoose(CustomComponent, _Element);
-
-    function CustomComponent() {
-      return _Element.apply(this, arguments) || this;
-    }
-
-    // Create instance
-    CustomComponent.$$create = function $$create(options, tree) {
-      var config = cache.getConfig();
-
-      if (config.optimization.elementMultiplexing) {
-        // 复用 element 节点
-        var instance = pool$c.get();
-
-        if (instance) {
-          instance.$$init(options, tree);
-          return instance;
-        }
-      }
-
-      return new CustomComponent(options, tree);
-    }
-    /**
-     * 覆写父类的 $$init 方法
-     */
-    ;
-
-    var _proto = CustomComponent.prototype;
-
-    _proto.$$init = function $$init(options, tree) {
-      this.$_behavior = options.componentName;
-
-      _Element.prototype.$$init.call(this, options, tree);
-    }
-    /**
-     * 覆写父类的 $$destroy 方法
-     */
-    ;
-
-    _proto.$$destroy = function $$destroy() {
-      _Element.prototype.$$destroy.call(this);
-
-      this.$_behavior = null;
-    }
-    /**
-     * 覆写父类的回收实例方法
-     */
-    ;
-
-    _proto.$$recycle = function $$recycle() {
-      this.$$destroy();
-      var config = cache.getConfig();
-
-      if (config.optimization.elementMultiplexing) {
-        // 复用 element 节点
-        pool$c.add(this);
-      }
-    };
-
-    createClass(CustomComponent, [{
-      key: "behavior",
-      get: function get() {
-        return this.$_behavior;
-      }
-    }]);
-
-    return CustomComponent;
-  }(Element);
-
-  var CONSTRUCTOR_MAP = {
-    IMG: Image,
-    INPUT: HTMLInputElement,
-    TEXTAREA: HTMLTextAreaElement,
-    VIDEO: HTMLVideoElement,
-    CANVAS: HTMLCanvasElement,
-    'BUILTIN-COMPONENT': BuiltInComponent
-  };
-  var BUILTIN_COMPONENT_LIST = ['movable-view', 'cover-image', 'cover-view', 'movable-area', 'scroll-view', 'swiper', 'swiper-item', 'view', 'icon', 'progress', 'rich-text', 'text', 'button', 'checkbox', 'checkbox-group', 'editor', 'form', 'input', 'label', 'picker', 'picker-view', 'picker-view-column', 'radio', 'radio-group', 'slider', 'switch', 'textarea', 'functional-page-navigator', 'navigator', 'audio', 'camera', 'image', 'live-player', 'live-pusher', 'video', 'map', 'canvas', 'ad', 'official-account', 'open-data', 'web-view'];
-  /**
-   * Check this component is builtIn component
-   * @param {string} tagName - component tag name
-   * @return {boolean}
-   */
-
-  function checkIsBuiltInComponent(tagName) {
-    return BUILTIN_COMPONENT_LIST.indexOf(tagName) > -1;
-  }
-
-  var Document = /*#__PURE__*/function (_EventTarget) {
-    inheritsLoose(Document, _EventTarget);
-
-    function Document(pageId, nodeIdMap) {
-      var _this;
-
-      _this = _EventTarget.call(this) || this;
-      var config = cache.getConfig();
-      var nativeCustomComponent = config.nativeCustomComponent || {};
-      _this.usingComponents = nativeCustomComponent.usingComponents || {};
-      _this.$_pageId = pageId; // Used to encapsulate special tag and corresponding constructors
-
-      var that = assertThisInitialized(_this);
-
-      _this.$_imageConstructor = function HTMLImageElement(width, height) {
-        return Image.$$create({
-          tagName: 'img',
-          nodeId: "b-" + tool.getId(),
-          attrs: {},
-          width: width,
-          height: height
-        }, that.$_tree);
-      };
-
-      _this.$_pageId = pageId;
-      _this.$_tree = new Tree(pageId, {
-        type: 'element',
-        tagName: 'body',
-        attrs: {},
-        unary: false,
-        nodeId: 'e-body',
-        children: []
-      }, nodeIdMap, assertThisInitialized(_this));
-      _this.$_config = null; // documentElement
-
-      _this.$_node = _this.$$createElement({
-        tagName: 'html',
-        attrs: {},
-        nodeId: "a-" + tool.getId(),
-        type: Node.DOCUMENT_NODE
-      }); // documentElement's parentNode is document
-
-      _this.$_node.$$updateParent(assertThisInitialized(_this));
-
-      _this.$_node.scrollTop = 0; // head
-
-      _this.$_head = _this.createElement('head'); // update body's parentNode
-
-      _this.$_tree.root.$$updateParent(_this.$_node);
-
-      return _this;
-    } // Image constructor
-
-
-    var _proto = Document.prototype;
-
-    // Event trigger
-    _proto.$$trigger = function $$trigger(eventName, options) {
-      this.documentElement.$$trigger(eventName, options);
-    };
-
-    _proto.$$createElement = function $$createElement(options, tree) {
-      var originTagName = options.tagName;
-      var tagName = originTagName.toUpperCase();
-      var componentName = checkIsBuiltInComponent(originTagName) ? originTagName : null;
-      tree = tree || this.$_tree;
-      var constructorClass = CONSTRUCTOR_MAP[tagName];
-
-      if (constructorClass) {
-        return constructorClass.$$create(options, tree);
-      } else if (componentName) {
-        // Transform to builtin-component
-        options.tagName = 'builtin-component';
-        options.attrs = options.attrs || {};
-        options.attrs.behavior = componentName;
-        return BuiltInComponent.$$create(options, tree);
-      } else if (this.usingComponents[originTagName]) {
-        // Transform to custom-component
-        options.tagName = 'custom-component';
-        options.attrs = options.attrs || {};
-        options.componentName = originTagName;
-        return CustomComponent.$$create(options, tree);
-      } else if (!tool.isTagNameSupport(tagName)) {
-        throw new Error(tagName + " is not supported.");
-      } else {
-        return Element.$$create(options, tree);
-      }
-    } // Create text node
-    ;
-
-    _proto.$$createTextNode = function $$createTextNode(options, tree) {
-      return TextNode.$$create(options, tree || this.$_tree);
-    } // Create comment node
-    ;
-
-    _proto.$$createComment = function $$createComment(options, tree) {
-      return Comment.$$create(options, tree || this.$_tree);
-    } // Node type
-    ;
-
-    _proto.getElementById = function getElementById(id) {
-      if (typeof id !== 'string') return;
-      return this.$_tree.getById(id) || null;
-    };
-
-    _proto.getElementsByTagName = function getElementsByTagName(tagName) {
-      if (typeof tagName !== 'string') return [];
-      return this.$_tree.getByTagName(tagName);
-    };
-
-    _proto.getElementsByClassName = function getElementsByClassName(className) {
-      if (typeof className !== 'string') return [];
-      return this.$_tree.getByClassName(className);
-    };
-
-    _proto.querySelector = function querySelector(selector) {
-      if (typeof selector !== 'string') return;
-      return this.$_tree.query(selector)[0] || null;
-    };
-
-    _proto.querySelectorAll = function querySelectorAll(selector) {
-      if (typeof selector !== 'string') return [];
-      return this.$_tree.query(selector);
-    };
-
-    _proto.createElement = function createElement(tagName) {
-      if (typeof tagName !== 'string') return;
-      tagName = tagName.trim();
-      if (!tagName) return;
-      return this.$$createElement({
-        tagName: tagName,
-        nodeId: "b-" + tool.getId()
-      });
-    };
-
-    _proto.createElementNS = function createElementNS(ns, tagName) {
-      // Actually use createElement
-      return this.createElement(tagName);
-    };
-
-    _proto.createTextNode = function createTextNode(content) {
-      content = '' + content;
-      return this.$$createTextNode({
-        content: content,
-        nodeId: "b-" + tool.getId()
-      });
-    };
-
-    _proto.createComment = function createComment() {
-      // Ignore the incoming comment content
-      return this.$$createComment({
-        nodeId: "b-" + tool.getId()
-      });
-    };
-
-    _proto.createDocumentFragment = function createDocumentFragment() {
-      return Element.$$create({
-        tagName: 'documentfragment',
-        nodeId: "b-" + tool.getId(),
-        nodeType: Node.DOCUMENT_FRAGMENT_NODE
-      }, this.$_tree);
-    };
-
-    _proto.createEvent = function createEvent() {
-      var window = cache.getWindow(this.$_pageId);
-      return new window.CustomEvent();
-    };
-
-    _proto.addEventListener = function addEventListener(eventName, handler, options) {
-      this.documentElement.addEventListener(eventName, handler, options);
-    };
-
-    _proto.removeEventListener = function removeEventListener(eventName, handler, isCapture) {
-      this.documentElement.removeEventListener(eventName, handler, isCapture);
-    };
-
-    _proto.dispatchEvent = function dispatchEvent(evt) {
-      this.documentElement.dispatchEvent(evt);
-    };
-
-    createClass(Document, [{
-      key: "$$imageConstructor",
-      get: function get() {
-        return this.$_imageConstructor;
-      }
-    }, {
-      key: "$$pageId",
-      get: function get() {
-        return this.$_pageId;
-      }
-    }, {
-      key: "nodeType",
-      get: function get() {
-        return Node.DOCUMENT_NODE;
-      }
-    }, {
-      key: "documentElement",
-      get: function get() {
-        return this.$_node;
-      }
-    }, {
-      key: "body",
-      get: function get() {
-        return this.$_tree.root;
-      }
-    }, {
-      key: "nodeName",
-      get: function get() {
-        return '#document';
-      }
-    }, {
-      key: "head",
-      get: function get() {
-        return this.$_head;
-      }
-    }, {
-      key: "defaultView",
-      get: function get() {
-        return cache.getWindow(this.$_pageId) || null;
-      }
-    }]);
-
-    return Document;
-  }(EventTarget);
-
   var Location = /*#__PURE__*/function (_EventTarget) {
     inheritsLoose(Location, _EventTarget);
 
@@ -5151,6 +3946,1783 @@
     }]);
 
     return Location;
+  }(EventTarget);
+
+  var pool$6 = new Pool();
+
+  var HTMLAnchorElement = /*#__PURE__*/function (_Element) {
+    inheritsLoose(HTMLAnchorElement, _Element);
+
+    function HTMLAnchorElement() {
+      return _Element.apply(this, arguments) || this;
+    }
+
+    /**
+     * 创建实例
+     */
+    HTMLAnchorElement.$$create = function $$create(options, tree) {
+      var config = cache.getConfig();
+
+      if (config.optimization.elementMultiplexing) {
+        // 复用 element 节点
+        var instance = pool$6.get();
+
+        if (instance) {
+          instance.$$init(options, tree);
+          return instance;
+        }
+      }
+
+      return new HTMLAnchorElement(options, tree);
+    }
+    /**
+     * 覆写父类的 $$init 方法
+     */
+    ;
+
+    var _proto = HTMLAnchorElement.prototype;
+
+    _proto.$$init = function $$init(options, tree) {
+      _Element.prototype.$$init.call(this, options, tree);
+
+      this.$_protocol = 'http:';
+      this.$_hostname = '';
+      this.$_port = '';
+      this.$_pathname = '/';
+      this.$_search = '';
+      this.$_hash = '';
+    }
+    /**
+     * 覆写父类的 $$destroy 方法
+     */
+    ;
+
+    _proto.$$destroy = function $$destroy() {
+      _Element.prototype.$$destroy.call(this);
+
+      this.$_protocol = null;
+      this.$_hostname = null;
+      this.$_port = null;
+      this.$_pathname = null;
+      this.$_search = null;
+      this.$_hash = null;
+    }
+    /**
+     * 覆写父类的回收实例方法
+     */
+    ;
+
+    _proto.$$recycle = function $$recycle() {
+      this.$_children.forEach(function (child) {
+        return child.$$recycle();
+      });
+      this.$$destroy();
+      var config = cache.getConfig();
+
+      if (config.optimization.elementMultiplexing) {
+        // 复用 element 节点
+        pool$6.add(this);
+      }
+    }
+    /**
+     * 调用 $_generateHtml 接口时用于处理额外的属性，
+     */
+    ;
+
+    _proto.$$dealWithAttrsForGenerateHtml = function $$dealWithAttrsForGenerateHtml(html, node) {
+      var href = node.href;
+      if (href) html += " href=\"" + tool.escapeForHtmlGeneration(href) + "\"";
+      var target = node.target;
+      if (target) html += " target=\"" + tool.escapeForHtmlGeneration(target) + "\"";
+      return html;
+    }
+    /**
+     * 调用 outerHTML 的 setter 时用于处理额外的属性
+     */
+    ;
+
+    _proto.$$dealWithAttrsForOuterHTML = function $$dealWithAttrsForOuterHTML(node) {
+      this.href = node.href || '';
+      this.target = node.target || '';
+    }
+    /**
+     * 调用 cloneNode 接口时用于处理额外的属性
+     */
+    ;
+
+    _proto.$$dealWithAttrsForCloneNode = function $$dealWithAttrsForCloneNode() {
+      return {
+        href: this.href,
+        target: this.target
+      };
+    }
+    /**
+     * 对外属性和方法
+     */
+    ;
+
+    createClass(HTMLAnchorElement, [{
+      key: "href",
+      get: function get() {
+        return this.$_attrs.get('href');
+      },
+      set: function set(value) {
+        value = '' + value;
+
+        if (value.indexOf('//') === -1) {
+          var _cache$getConfig = cache.getConfig(),
+              origin = _cache$getConfig.origin;
+
+          value = origin + (value[0] === '/' ? value : "/" + value);
+        }
+
+        this.$_attrs.set('href', value);
+
+        var _Location$$$parse = Location.$$parse(value),
+            protocol = _Location$$$parse.protocol,
+            hostname = _Location$$$parse.hostname,
+            port = _Location$$$parse.port,
+            pathname = _Location$$$parse.pathname,
+            search = _Location$$$parse.search,
+            hash = _Location$$$parse.hash;
+
+        this.$_protocol = protocol || this.$_protocol;
+        this.$_hostname = hostname || this.$_hostname;
+        this.$_port = port || '';
+        this.$_pathname = pathname || '/';
+        this.$_search = search || '';
+        this.$_hash = hash || '';
+      }
+    }, {
+      key: "protocol",
+      get: function get() {
+        return this.$_protocol;
+      }
+    }, {
+      key: "hostname",
+      get: function get() {
+        return this.$_hostname;
+      }
+    }, {
+      key: "port",
+      get: function get() {
+        return this.$_port;
+      }
+    }, {
+      key: "pathname",
+      get: function get() {
+        return this.$_pathname;
+      }
+    }, {
+      key: "search",
+      get: function get() {
+        return this.$_search;
+      }
+    }, {
+      key: "hash",
+      get: function get() {
+        return this.$_hash;
+      }
+    }, {
+      key: "target",
+      get: function get() {
+        return this.$_attrs.get('target');
+      },
+      set: function set(value) {
+        value = '' + value;
+        this.$_attrs.set('target', value);
+      }
+    }]);
+
+    return HTMLAnchorElement;
+  }(Element);
+
+  var pool$7 = new Pool();
+
+  var Image = /*#__PURE__*/function (_Element) {
+    inheritsLoose(Image, _Element);
+
+    function Image() {
+      return _Element.apply(this, arguments) || this;
+    }
+
+    // Create instance
+    Image.$$create = function $$create(options, tree) {
+      var config = cache.getConfig();
+
+      if (config.optimization.elementMultiplexing) {
+        // Reuse element node
+        var instance = pool$7.get();
+
+        if (instance) {
+          instance.$$init(options, tree);
+          return instance;
+        }
+      }
+
+      return new Image(options, tree);
+    } // Override the parent class's $$init instance method
+    ;
+
+    var _proto = Image.prototype;
+
+    _proto.$$init = function $$init(options, tree) {
+      var width = options.width;
+      var height = options.height;
+      if (typeof width === 'number' && width >= 0) options.attrs.width = width;
+      if (typeof height === 'number' && height >= 0) options.attrs.height = height;
+
+      _Element.prototype.$$init.call(this, options, tree);
+
+      this.$_naturalWidth = 0;
+      this.$_naturalHeight = 0;
+      this.$_initRect();
+    } // Override the parent class's destroy instance method
+    ;
+
+    _proto.$$destroy = function $$destroy() {
+      _Element.prototype.$$destroy.call(this);
+
+      this.$_naturalWidth = null;
+      this.$_naturalHeight = null;
+    } // Override the parent class's recovery instance method
+    ;
+
+    _proto.$$recycle = function $$recycle() {
+      this.$$destroy();
+      var config = cache.getConfig();
+
+      if (config.optimization.elementMultiplexing) {
+        // Reuse element node
+        pool$7.add(this);
+      }
+    } // Update parent
+    ;
+
+    _proto.$_triggerParentUpdate = function $_triggerParentUpdate() {
+      this.$_initRect();
+
+      _Element.prototype.$_triggerParentUpdate.call(this);
+    } // Init length
+    ;
+
+    _proto.$_initRect = function $_initRect() {
+      var width = parseInt(this.$_attrs.get('width'), 10);
+      var height = parseInt(this.$_attrs.get('height'), 10);
+      if (typeof width === 'number' && width >= 0) this.$_style.width = width + "px";
+      if (typeof height === 'number' && height >= 0) this.$_style.height = height + "px";
+    } // Reset width & height
+    ;
+
+    _proto.$_resetRect = function $_resetRect(rect) {
+      if (rect === void 0) {
+        rect = {};
+      }
+
+      this.$_naturalWidth = rect.width || 0;
+      this.$_naturalHeight = rect.height || 0;
+      this.$_initRect();
+    };
+
+    createClass(Image, [{
+      key: "src",
+      get: function get() {
+        return this.$_attrs.get('src') || '';
+      },
+      set: function set(value) {
+        var _this = this;
+
+        if (!value || typeof value !== 'string') return;
+        this.$_attrs.set('src', value);
+        setTimeout(function () {
+          if (_this.src.indexOf('data:image') !== 0) {
+            wx.getImageInfo({
+              src: _this.src,
+              success: function success(res) {
+                // Load successfully, adjust the width and height of the picture
+                _this.$_resetRect(res); // Load event
+
+
+                _this.$$trigger('load', {
+                  event: new Event({
+                    name: 'load',
+                    target: _this,
+                    eventPhase: Event.AT_TARGET
+                  }),
+                  currentTarget: _this
+                });
+              },
+              fail: function fail() {
+                // Load failed, adjust the width and height of the image
+                _this.$_resetRect({
+                  width: 0,
+                  height: 0
+                }); // Trigger error event
+
+
+                _this.$$trigger('error', {
+                  event: new Event({
+                    name: 'error',
+                    target: _this,
+                    eventPhase: Event.AT_TARGET
+                  }),
+                  currentTarget: _this
+                });
+              }
+            });
+          }
+        }, 0);
+      }
+    }, {
+      key: "width",
+      get: function get() {
+        return +this.$_attrs.get('width') || 0;
+      },
+      set: function set(value) {
+        if (typeof value !== 'number' || !isFinite(value) || value < 0) return;
+        this.$_attrs.set('width', value);
+        this.$_initRect();
+      }
+    }, {
+      key: "height",
+      get: function get() {
+        return +this.$_attrs.get('height') || 0;
+      },
+      set: function set(value) {
+        if (typeof value !== 'number' || !isFinite(value) || value < 0) return;
+        this.$_attrs.set('height', value);
+        this.$_initRect();
+      }
+    }, {
+      key: "naturalWidth",
+      get: function get() {
+        return this.$_naturalWidth;
+      }
+    }, {
+      key: "naturalHeight",
+      get: function get() {
+        return this.$_naturalHeight;
+      }
+    }]);
+
+    return Image;
+  }(Element);
+
+  var pool$8 = new Pool();
+
+  var HTMLInputElement = /*#__PURE__*/function (_Element) {
+    inheritsLoose(HTMLInputElement, _Element);
+
+    function HTMLInputElement() {
+      return _Element.apply(this, arguments) || this;
+    }
+
+    // Create instance
+    HTMLInputElement.$$create = function $$create(options, tree) {
+      var config = cache.getConfig();
+
+      if (config.optimization.elementMultiplexing) {
+        // Reuse element node
+        var instance = pool$8.get();
+
+        if (instance) {
+          instance.$$init(options, tree);
+          return instance;
+        }
+      }
+
+      return new HTMLInputElement(options, tree);
+    } // Override parent class recycle method
+    ;
+
+    var _proto = HTMLInputElement.prototype;
+
+    _proto.$$recycle = function $$recycle() {
+      this.$$destroy();
+      var config = cache.getConfig();
+
+      if (config.optimization.elementMultiplexing) {
+        // Reuse element node
+        pool$8.add(this);
+      }
+    } // $_generateHtml handle other attributes
+    ;
+
+    _proto.$$dealWithAttrsForGenerateHtml = function $$dealWithAttrsForGenerateHtml(html, node) {
+      var type = node.type;
+      if (type) html += " type=\"" + type + "\"";
+      var value = node.value;
+      if (value) html += " value=\"" + value + "\"";
+      var disabled = node.disabled;
+      if (disabled) html += ' disabled';
+      var maxlength = node.maxlength;
+      if (maxlength) html += " maxlength=\"" + maxlength + "\"";
+      var placeholder = node.placeholder;
+
+      if (placeholder) {
+        html += " placeholder=\"" + placeholder.replace(/"/g, '\\"') + "\"";
+      }
+
+      return html;
+    } // outerHtml
+    ;
+
+    _proto.$$dealWithAttrsForOuterHTML = function $$dealWithAttrsForOuterHTML(node) {
+      this.type = node.type || '';
+      this.value = node.value || '';
+      this.disabled = node.disabled || '';
+      this.maxlength = node.maxlength;
+      this.placeholder = node.placeholder || ''; // Special attr
+
+      this.mpplaceholderclass = node.mpplaceholderclass || '';
+    }
+    /**
+    * The cloneNode interface is invoked to handle additional properties
+    */
+    ;
+
+    _proto.$$dealWithAttrsForCloneNode = function $$dealWithAttrsForCloneNode() {
+      return {
+        type: this.type,
+        value: this.value,
+        disabled: this.disabled,
+        maxlength: this.maxlength,
+        placeholder: this.placeholder,
+        // Special field
+        mpplaceholderclass: this.mpplaceholderclass
+      };
+    } // Attribute
+    ;
+
+    _proto.focus = function focus() {
+      this.$_attrs.set('focus', true);
+    };
+
+    _proto.blur = function blur() {
+      this.$_attrs.set('focus', false);
+    };
+
+    createClass(HTMLInputElement, [{
+      key: "name",
+      get: function get() {
+        return this.$_attrs.get('name');
+      },
+      set: function set(value) {
+        value = '' + value;
+        return this.$_attrs.set('name', value);
+      }
+    }, {
+      key: "type",
+      get: function get() {
+        return this.$_attrs.get('type') || 'text';
+      },
+      set: function set(value) {
+        value = '' + value;
+        this.$_attrs.set('type', value);
+      }
+    }, {
+      key: "value",
+      get: function get() {
+        var type = this.$_attrs.get('type');
+        var value = this.$_attrs.get('value');
+
+        if (!value && !this.changed) {
+          value = this.$_attrs.get('defaultValue');
+        }
+
+        if ((type === 'radio' || type === 'checkbox') && value === undefined) {
+          return 'on';
+        }
+
+        return value || '';
+      },
+      set: function set(value) {
+        this.changed = true;
+        value = '' + value;
+        this.$_attrs.set('value', value);
+      }
+    }, {
+      key: "readOnly",
+      get: function get() {
+        return !!this.$_attrs.get('readOnly');
+      },
+      set: function set(value) {
+        this.$_attrs.set('readOnly', !!value);
+      }
+    }, {
+      key: "disabled",
+      get: function get() {
+        return !!this.$_attrs.get('disabled');
+      },
+      set: function set(value) {
+        value = !!value;
+        this.$_attrs.set('disabled', value);
+      }
+    }, {
+      key: "maxlength",
+      get: function get() {
+        return this.$_attrs.get('maxlength');
+      },
+      set: function set(value) {
+        this.$_attrs.set('maxlength', value);
+      }
+    }, {
+      key: "placeholder",
+      get: function get() {
+        return this.$_attrs.get('placeholder') || '';
+      },
+      set: function set(value) {
+        value = '' + value;
+        this.$_attrs.set('placeholder', value);
+      }
+    }, {
+      key: "autofocus",
+      get: function get() {
+        return !!this.$_attrs.get('autofocus');
+      },
+      set: function set(value) {
+        value = !!value;
+        this.$_attrs.set('autofocus', value);
+      }
+    }, {
+      key: "checked",
+      set: function set(value) {
+        this.$_attrs.set('checked', value);
+      },
+      get: function get() {
+        return this.$_attrs.get('checked') || '';
+      }
+    }]);
+
+    return HTMLInputElement;
+  }(Element);
+
+  var pool$9 = new Pool();
+
+  var HTMLTextAreaElement = /*#__PURE__*/function (_Element) {
+    inheritsLoose(HTMLTextAreaElement, _Element);
+
+    function HTMLTextAreaElement() {
+      return _Element.apply(this, arguments) || this;
+    }
+
+    /**
+    * Create instance
+    */
+    HTMLTextAreaElement.$$create = function $$create(options, tree) {
+      var config = cache.getConfig();
+
+      if (config.optimization.elementMultiplexing) {
+        // Multiplexed element node
+        var instance = pool$9.get();
+
+        if (instance) {
+          instance.$$init(options, tree);
+          return instance;
+        }
+      }
+
+      return new HTMLTextAreaElement(options, tree);
+    } // Override the parent class's recovery instance method
+    ;
+
+    var _proto = HTMLTextAreaElement.prototype;
+
+    _proto.$$recycle = function $$recycle() {
+      this.$$destroy();
+      var config = cache.getConfig();
+
+      if (config.optimization.elementMultiplexing) {
+        // Reuse element node
+        pool$9.add(this);
+      }
+    }
+    /**
+    * $_generateHtml handle other attributes
+    */
+    ;
+
+    _proto.$$dealWithAttrsForGenerateHtml = function $$dealWithAttrsForGenerateHtml(html, node) {
+      var type = node.type;
+      if (type) html += " type=\"" + type + "\"";
+      var value = node.value;
+      if (value) html += " value=\"" + value + "\"";
+      var disabled = node.disabled;
+      if (disabled) html += ' disabled';
+      var maxlength = node.maxlength;
+      if (maxlength) html += " maxlength=\"" + maxlength + "\"";
+      var placeholder = node.placeholder;
+
+      if (placeholder) {
+        html += " placeholder=\"" + placeholder.replace(/"/g, '\\"') + "\"";
+      }
+
+      return html;
+    } // outerHtml
+    ;
+
+    _proto.$$dealWithAttrsForOuterHTML = function $$dealWithAttrsForOuterHTML(node) {
+      this.type = node.type || '';
+      this.value = node.value || '';
+      this.disabled = node.disabled || '';
+      this.maxlength = node.maxlength;
+      this.placeholder = node.placeholder || ''; // Special field
+
+      this.mpplaceholderclass = node.mpplaceholderclass || '';
+    }
+    /**
+    * The cloneNode interface is invoked to handle additional properties
+    */
+    ;
+
+    _proto.$$dealWithAttrsForCloneNode = function $$dealWithAttrsForCloneNode() {
+      return {
+        type: this.type,
+        value: this.value,
+        disabled: this.disabled,
+        maxlength: this.maxlength,
+        placeholder: this.placeholder,
+        // Special field
+        mpplaceholderclass: this.mpplaceholderclass
+      };
+    } // Attribute
+    ;
+
+    _proto.focus = function focus() {
+      this.$_attrs.set('focus', true);
+    };
+
+    _proto.blur = function blur() {
+      this.$_attrs.set('focus', false);
+    };
+
+    createClass(HTMLTextAreaElement, [{
+      key: "type",
+      get: function get() {
+        return this.$_attrs.get('type') || 'textarea';
+      },
+      set: function set(value) {
+        value = '' + value;
+        this.$_attrs.set('type', value);
+      }
+    }, {
+      key: "value",
+      get: function get() {
+        var value = this.$_attrs.get('value');
+
+        if (!value && !this.changed) {
+          value = this.$_attrs.get('defaultValue');
+        }
+
+        return value || '';
+      },
+      set: function set(value) {
+        this.changed = true;
+        value = '' + value;
+        this.$_attrs.set('value', value);
+      }
+    }, {
+      key: "readOnly",
+      get: function get() {
+        return !!this.$_attrs.get('readOnly');
+      },
+      set: function set(value) {
+        this.$_attrs.set('readOnly', !!value);
+      }
+    }, {
+      key: "disabled",
+      get: function get() {
+        return !!this.$_attrs.get('disabled');
+      },
+      set: function set(value) {
+        value = !!value;
+        this.$_attrs.set('disabled', value);
+      }
+    }, {
+      key: "maxlength",
+      get: function get() {
+        return this.$_attrs.get('maxlength');
+      },
+      set: function set(value) {
+        this.$_attrs.set('maxlength', value);
+      }
+    }, {
+      key: "placeholder",
+      get: function get() {
+        return this.$_attrs.get('placeholder') || '';
+      },
+      set: function set(value) {
+        value = '' + value;
+        this.$_attrs.set('placeholder', value);
+      }
+    }, {
+      key: "autofocus",
+      get: function get() {
+        return !!this.$_attrs.get('autofocus');
+      },
+      set: function set(value) {
+        value = !!value;
+        this.$_attrs.set('autofocus', value);
+      }
+    }, {
+      key: "selectionStart",
+      get: function get() {
+        var value = +this.$_attrs.get('selection-start');
+        return value !== undefined ? value : -1;
+      },
+      set: function set(value) {
+        this.$_attrs.set('selection-start', value);
+      }
+    }, {
+      key: "selectionEnd",
+      get: function get() {
+        var value = +this.$_attrs.get('selection-end');
+        return value !== undefined ? value : -1;
+      },
+      set: function set(value) {
+        this.$_attrs.set('selection-end', value);
+      }
+    }]);
+
+    return HTMLTextAreaElement;
+  }(Element);
+
+  var pool$a = new Pool();
+
+  var HTMLVideoElement = /*#__PURE__*/function (_Element) {
+    inheritsLoose(HTMLVideoElement, _Element);
+
+    function HTMLVideoElement() {
+      return _Element.apply(this, arguments) || this;
+    }
+
+    HTMLVideoElement.$$create = function $$create(options, tree) {
+      var config = cache.getConfig();
+
+      if (config.optimization.elementMultiplexing) {
+        var instance = pool$a.get();
+
+        if (instance) {
+          instance.$$init(options, tree);
+          return instance;
+        }
+      }
+
+      return new HTMLVideoElement(options, tree);
+    };
+
+    var _proto = HTMLVideoElement.prototype;
+
+    _proto.$$init = function $$init(options, tree) {
+      var width = options.width;
+      var height = options.height;
+      if (typeof width === 'number' && width >= 0) options.attrs.width = width;
+      if (typeof height === 'number' && height >= 0) options.attrs.height = height;
+
+      _Element.prototype.$$init.call(this, options, tree);
+
+      this.$_initRect();
+    };
+
+    _proto.$$recycle = function $$recycle() {
+      this.$$destroy();
+      var config = cache.getConfig();
+
+      if (config.optimization.elementMultiplexing) {
+        pool$a.add(this);
+      }
+    };
+
+    _proto.$_triggerParentUpdate = function $_triggerParentUpdate() {
+      this.$_initRect();
+
+      _Element.prototype.$_triggerParentUpdate.call(this);
+    };
+
+    _proto.$_initRect = function $_initRect() {
+      var width = parseInt(this.$_attrs.get('width'), 10);
+      var height = parseInt(this.$_attrs.get('height'), 10);
+      if (typeof width === 'number' && width >= 0) this.$_style.width = width + "px";
+      if (typeof height === 'number' && height >= 0) this.$_style.height = height + "px";
+    };
+
+    createClass(HTMLVideoElement, [{
+      key: "src",
+      get: function get() {
+        return this.$_attrs.get('src') || '';
+      },
+      set: function set(value) {
+        if (!value || typeof value !== 'string') return;
+        this.$_attrs.set('src', value);
+      }
+    }, {
+      key: "width",
+      get: function get() {
+        return +this.$_attrs.get('width') || 0;
+      },
+      set: function set(value) {
+        if (typeof value !== 'number' || !isFinite(value) || value < 0) return;
+        this.$_attrs.set('width', value);
+        this.$_initRect();
+      }
+    }, {
+      key: "height",
+      get: function get() {
+        return +this.$_attrs.get('height') || 0;
+      },
+      set: function set(value) {
+        if (typeof value !== 'number' || !isFinite(value) || value < 0) return;
+        this.$_attrs.set('height', value);
+        this.$_initRect();
+      }
+    }, {
+      key: "autoplay",
+      get: function get() {
+        return !!this.$_attrs.get('autoplay');
+      },
+      set: function set(value) {
+        value = !!value;
+        this.$_attrs.set('autoplay', value);
+      }
+    }, {
+      key: "loop",
+      get: function get() {
+        return !!this.$_attrs.get('loop');
+      },
+      set: function set(value) {
+        value = !!value;
+        this.$_attrs.set('loop', value);
+      }
+    }, {
+      key: "muted",
+      get: function get() {
+        return !!this.$_attrs.get('muted');
+      },
+      set: function set(value) {
+        value = !!value;
+        this.$_attrs.set('muted', value);
+      }
+    }, {
+      key: "controls",
+      get: function get() {
+        var value = this.$_attrs.get('controls');
+        return value !== undefined ? !!value : true;
+      },
+      set: function set(value) {
+        this.$_attrs.set('controls', value);
+      }
+    }, {
+      key: "poster",
+      get: function get() {
+        return this.$_attrs.get('poster');
+      },
+      set: function set(value) {
+        if (!value || typeof value !== 'string') return;
+        this.$_attrs.set('poster', value);
+      }
+    }, {
+      key: "currentTime",
+      get: function get() {
+        return +this.$_attrs.get('currentTime') || 0;
+      }
+    }, {
+      key: "buffered",
+      get: function get() {
+        return this.$_attrs.get('buffered');
+      }
+    }]);
+
+    return HTMLVideoElement;
+  }(Element);
+
+  var pool$b = new Pool();
+
+  var HTMLCanvasElement = /*#__PURE__*/function (_Element) {
+    inheritsLoose(HTMLCanvasElement, _Element);
+
+    function HTMLCanvasElement() {
+      return _Element.apply(this, arguments) || this;
+    }
+
+    /**
+     * 创建实例
+     */
+    HTMLCanvasElement.$$create = function $$create(options, tree) {
+      var config = cache.getConfig();
+
+      if (config.optimization.elementMultiplexing) {
+        // 复用 element 节点
+        var instance = pool$b.get();
+
+        if (instance) {
+          instance.$$init(options, tree);
+          return instance;
+        }
+      }
+
+      return new HTMLCanvasElement(options, tree);
+    }
+    /**
+     * 覆写父类的 $$init 方法
+     */
+    ;
+
+    var _proto = HTMLCanvasElement.prototype;
+
+    _proto.$$init = function $$init(options, tree) {
+      var width = options.width;
+      var height = options.height;
+      if (typeof width === 'number' && width >= 0) options.attrs.width = width;
+      if (typeof height === 'number' && height >= 0) options.attrs.height = height;
+
+      _Element.prototype.$$init.call(this, options, tree);
+
+      this.$_node = null;
+      this.$_initRect();
+    }
+    /**
+     * 覆写父类的回收实例方法
+     */
+    ;
+
+    _proto.$$recycle = function $$recycle() {
+      this.$$destroy();
+      var config = cache.getConfig();
+
+      if (config.optimization.elementMultiplexing) {
+        // 复用 element 节点
+        pool$b.add(this);
+      }
+    }
+    /**
+     * 准备 canvas 节点
+     */
+    ;
+
+    _proto.$$prepare = function $$prepare() {
+      var _this = this;
+
+      return new Promise(function (resolve, reject) {
+        {
+          _this.$$getNodesRef().then(function (nodesRef) {
+            return nodesRef.node(function (res) {
+              _this.$_node = res.node; // 设置 canvas 宽高
+
+              _this.$_node.width = _this.width;
+              _this.$_node.height = _this.height;
+              resolve(_this);
+            }).exec();
+          }).catch(reject);
+        }
+      });
+    };
+
+    /**
+     * 更新父组件树
+     */
+    _proto.$_triggerParentUpdate = function $_triggerParentUpdate() {
+      this.$_initRect();
+
+      _Element.prototype.$_triggerParentUpdate.call(this);
+    }
+    /**
+     * 初始化长宽
+     */
+    ;
+
+    _proto.$_initRect = function $_initRect() {
+      var width = parseInt(this.$_attrs.get('width'), 10);
+      var height = parseInt(this.$_attrs.get('height'), 10);
+
+      if (typeof width === 'number' && width >= 0) {
+        this.$_style.width = width + "px";
+      }
+
+      if (typeof height === 'number' && height >= 0) {
+        this.$_style.height = height + "px";
+      }
+    }
+    /**
+     * 对外属性和方法
+     */
+    ;
+
+    _proto.getContext = function getContext(type) {
+      if (!this.$_node) {
+        console.warn('canvas is not prepared, please call $$prepare method first');
+        return;
+      }
+
+      return this.$_node.getContext(type);
+    };
+
+    createClass(HTMLCanvasElement, [{
+      key: "$$node",
+      get: function get() {
+        return this.$_node;
+      }
+    }, {
+      key: "width",
+      get: function get() {
+        if (this.$_node) return this.$_node.width;else return +this.$_attrs.get('width') || 0;
+      },
+      set: function set(value) {
+        if (typeof value !== 'number' || !isFinite(value) || value < 0) return;
+        if (this.$_node) this.$_node.width = value;else this.$_attrs.set('width', value);
+      }
+    }, {
+      key: "height",
+      get: function get() {
+        if (this.$_node) return this.$_node.height;else return +this.$_attrs.get('height') || 0;
+      },
+      set: function set(value) {
+        if (typeof value !== 'number' || !isFinite(value) || value < 0) return;
+        if (this.$_node) this.$_node.height = value;else this.$_attrs.set('height', value);
+      }
+    }]);
+
+    return HTMLCanvasElement;
+  }(Element);
+
+  var pool$c = new Pool();
+
+  var HTMLSelectElement = /*#__PURE__*/function (_Element) {
+    inheritsLoose(HTMLSelectElement, _Element);
+
+    function HTMLSelectElement() {
+      return _Element.apply(this, arguments) || this;
+    }
+
+    /**
+     * 创建实例
+     */
+    HTMLSelectElement.$$create = function $$create(options, tree) {
+      var config = cache.getConfig();
+
+      if (config.optimization.elementMultiplexing) {
+        // 复用 element 节点
+        var instance = pool$c.get();
+
+        if (instance) {
+          instance.$$init(options, tree);
+          return instance;
+        }
+      }
+
+      return new HTMLSelectElement(options, tree);
+    }
+    /**
+     * 覆写父类的 $$init 方法
+     */
+    ;
+
+    var _proto = HTMLSelectElement.prototype;
+
+    _proto.$$init = function $$init(options, tree) {
+      _Element.prototype.$$init.call(this, options, tree);
+
+      this.$$resetOptions();
+    }
+    /**
+     * 重置 options 显示
+     */
+    ;
+
+    _proto.$$resetOptions = function $$resetOptions() {
+      var value = this.value;
+
+      if (value !== undefined) {
+        this.options.forEach(function (child) {
+          return child.$$updateSelected(child.value === value);
+        });
+      } else {
+        this.options.forEach(function (child, index) {
+          return child.$$updateSelected(index === 0);
+        });
+      }
+    }
+    /**
+     * 覆写父类的回收实例方法
+     */
+    ;
+
+    _proto.$$recycle = function $$recycle() {
+      this.$$destroy();
+      var config = cache.getConfig();
+
+      if (config.optimization.elementMultiplexing) {
+        // 复用 element 节点
+        pool$c.add(this);
+      }
+    }
+    /**
+     * 调用 $_generateHtml 接口时用于处理额外的属性，
+     */
+    ;
+
+    _proto.$$dealWithAttrsForGenerateHtml = function $$dealWithAttrsForGenerateHtml(html, node) {
+      var value = node.value;
+      if (value) html += " value=\"" + tool.escapeForHtmlGeneration(value) + "\"";
+      var disabled = node.disabled;
+      if (disabled) html += ' disabled';
+      return html;
+    }
+    /**
+     * 调用 outerHTML 的 setter 时用于处理额外的属性
+     */
+    ;
+
+    _proto.$$dealWithAttrsForOuterHTML = function $$dealWithAttrsForOuterHTML(node) {
+      this.name = node.name || '';
+      this.value = node.value || '';
+      this.disabled = !!node.disabled;
+      this.selectedIndex = node.selectedIndex || 0;
+    }
+    /**
+     * 调用 cloneNode 接口时用于处理额外的属性
+     */
+    ;
+
+    _proto.$$dealWithAttrsForCloneNode = function $$dealWithAttrsForCloneNode() {
+      return {
+        value: this.value,
+        disabled: this.disabled
+      };
+    }
+    /**
+     * 对外属性和方法
+     */
+    ;
+
+    createClass(HTMLSelectElement, [{
+      key: "name",
+      get: function get() {
+        return this.$_attrs.get('name');
+      },
+      set: function set(value) {
+        value = '' + value;
+        return this.$_attrs.set('name', value);
+      }
+    }, {
+      key: "value",
+      get: function get() {
+        return this.$_attrs.get('value');
+      },
+      set: function set(value) {
+        value = '' + value;
+        this.$_attrs.set('value', value); // 同步更新 selectedIndex 属性
+
+        this.$_attrs.set('selectedIndex', this.options.findIndex(function (option) {
+          return option.value === value;
+        })); // 同步更新 options 的 selected
+
+        this.$$resetOptions();
+      }
+    }, {
+      key: "disabled",
+      get: function get() {
+        return !!this.$_attrs.get('disabled');
+      },
+      set: function set(value) {
+        value = !!value;
+        this.$_attrs.set('disabled', value);
+      }
+    }, {
+      key: "selectedIndex",
+      get: function get() {
+        return +this.$_attrs.get('selectedIndex');
+      },
+      set: function set(value) {
+        value = +value;
+        this.$_attrs.set('selectedIndex', value); // 同步更新 value 属性
+
+        this.$_attrs.set('value', this.options[value] && this.options[value].value || ''); // 同步更新 options 的 selected
+
+        this.$$resetOptions();
+      }
+    }, {
+      key: "options",
+      get: function get() {
+        // 只考虑儿子节点中的 option
+        return this.$_children.filter(function (child) {
+          return child.tagName === 'OPTION' && !child.disabled;
+        });
+      }
+    }]);
+
+    return HTMLSelectElement;
+  }(Element);
+
+  var pool$d = new Pool();
+
+  var HTMLOptionElement = /*#__PURE__*/function (_Element) {
+    inheritsLoose(HTMLOptionElement, _Element);
+
+    function HTMLOptionElement() {
+      return _Element.apply(this, arguments) || this;
+    }
+
+    /**
+     * 创建实例
+     */
+    HTMLOptionElement.$$create = function $$create(options, tree) {
+      var config = cache.getConfig();
+
+      if (config.optimization.elementMultiplexing) {
+        // 复用 element 节点
+        var instance = pool$d.get();
+
+        if (instance) {
+          instance.$$init(options, tree);
+          return instance;
+        }
+      }
+
+      return new HTMLOptionElement(options, tree);
+    }
+    /**
+     * 覆写父类的回收实例方法
+     */
+    ;
+
+    var _proto = HTMLOptionElement.prototype;
+
+    _proto.$$recycle = function $$recycle() {
+      this.$$destroy();
+      var config = cache.getConfig();
+
+      if (config.optimization.elementMultiplexing) {
+        // 复用 element 节点
+        pool$d.add(this);
+      }
+    }
+    /**
+     * 覆写父类的 $$init 方法
+     */
+    ;
+
+    _proto.$$init = function $$init(options, tree) {
+      _Element.prototype.$$init.call(this, options, tree);
+    }
+    /**
+     * 调用 $_generateHtml 接口时用于处理额外的属性，
+     */
+    ;
+
+    _proto.$$dealWithAttrsForGenerateHtml = function $$dealWithAttrsForGenerateHtml(html, node) {
+      var value = node.value;
+      if (value) html += " value=\"" + tool.tool.escapeForHtmlGeneration(value) + "\"";
+      var label = node.label;
+      if (label) html += " label=\"" + tool.tool.escapeForHtmlGeneration(label) + "\"";
+      var selected = node.selected;
+      if (selected) html += ' selected';
+      return html;
+    }
+    /**
+     * 调用 outerHTML 的 setter 时用于处理额外的属性
+     */
+    ;
+
+    _proto.$$dealWithAttrsForOuterHTML = function $$dealWithAttrsForOuterHTML(node) {
+      this.label = node.label || '';
+      this.value = node.value || '';
+      this.disabled = !!node.disabled;
+      this.selected = !!node.selected;
+    }
+    /**
+     * 更新 selected，不触发 select 的更新
+     */
+    ;
+
+    _proto.$$updateSelected = function $$updateSelected(value) {
+      value = !!value;
+      this.$_attrs.set('selected', value);
+    };
+
+    createClass(HTMLOptionElement, [{
+      key: "label",
+      get: function get() {
+        return this.$_attrs.get('label') || this.textContent;
+      },
+      set: function set(value) {
+        value = '' + value;
+        this.$_attrs.set('label', value);
+      }
+    }, {
+      key: "value",
+      get: function get() {
+        var value = this.$_attrs.get('value');
+        return value !== undefined ? value : this.label;
+      },
+      set: function set(value) {
+        value = '' + value;
+        this.$_attrs.set('value', value);
+      }
+    }, {
+      key: "disabled",
+      get: function get() {
+        return !!this.$_attrs.get('disabled');
+      },
+      set: function set(value) {
+        value = !!value;
+        this.$_attrs.set('disabled', value);
+      }
+    }, {
+      key: "selected",
+      set: function set(value) {
+        this.$$updateSelected(value); // 同步更新 select 的 selectedIndex 和 value，只考虑父亲节点中 select
+
+        var parentNode = this.parentNode;
+
+        if (parentNode && parentNode.tagName === 'SELECT') {
+          parentNode.value = this.value;
+        }
+      },
+      get: function get() {
+        return !!this.$_attrs.get('selected');
+      }
+    }]);
+
+    return HTMLOptionElement;
+  }(Element);
+
+  var pool$e = new Pool();
+
+  var NotSupport = /*#__PURE__*/function (_Element) {
+    inheritsLoose(NotSupport, _Element);
+
+    function NotSupport() {
+      return _Element.apply(this, arguments) || this;
+    }
+
+    /**
+     * 创建实例
+     */
+    NotSupport.$$create = function $$create(options, tree) {
+      var config = cache.getConfig();
+
+      if (config.optimization.elementMultiplexing) {
+        // 复用 element 节点
+        var instance = pool$e.get();
+
+        if (instance) {
+          instance.$$init(options, tree);
+          return instance;
+        }
+      }
+
+      return new NotSupport(options, tree);
+    }
+    /**
+     * 覆写父类的 $$init 方法
+     */
+    ;
+
+    var _proto = NotSupport.prototype;
+
+    _proto.$$init = function $$init(options, tree) {
+      _Element.prototype.$$init.call(this, options, tree); // 处理特殊节点
+
+
+      var window = cache.getWindow(this.$_pageId);
+      if (window.onDealWithNotSupportDom) window.onDealWithNotSupportDom(this);
+    }
+    /**
+     * 覆写父类的 $$destroy 方法
+     */
+    ;
+
+    _proto.$$destroy = function $$destroy() {
+      _Element.prototype.$$destroy.call(this);
+    }
+    /**
+     * 覆写父类的回收实例方法
+     */
+    ;
+
+    _proto.$$recycle = function $$recycle() {
+      this.$$destroy();
+      var config = cache.getConfig();
+
+      if (config.optimization.elementMultiplexing) {
+        // 复用 element 节点
+        pool$e.add(this);
+      }
+    };
+
+    return NotSupport;
+  }(Element);
+
+  var pool$f = new Pool();
+
+  var BuiltInComponent = /*#__PURE__*/function (_Element) {
+    inheritsLoose(BuiltInComponent, _Element);
+
+    function BuiltInComponent() {
+      return _Element.apply(this, arguments) || this;
+    }
+
+    // Create instance
+    BuiltInComponent.$$create = function $$create(options, tree) {
+      var config = cache.getConfig();
+
+      if (config.optimization.elementMultiplexing) {
+        // Reuse element node
+        var instance = pool$f.get();
+
+        if (instance) {
+          instance.$$init(options, tree);
+          return instance;
+        }
+      }
+
+      return new BuiltInComponent(options, tree);
+    } // Override the parent class's recovery instance method
+    ;
+
+    var _proto = BuiltInComponent.prototype;
+
+    _proto.$$recycle = function $$recycle() {
+      this.$$destroy();
+      var config = cache.getConfig();
+
+      if (config.optimization.elementMultiplexing) {
+        // Reuse element node
+        pool$f.add(this);
+      }
+    };
+
+    createClass(BuiltInComponent, [{
+      key: "behavior",
+      get: function get() {
+        return this.$_attrs.get('behavior') || '';
+      },
+      set: function set(value) {
+        if (typeof value !== 'string') return;
+        this.$_attrs.set('behavior', value);
+      }
+    }]);
+
+    return BuiltInComponent;
+  }(Element);
+
+  var pool$g = new Pool();
+
+  var CustomComponent = /*#__PURE__*/function (_Element) {
+    inheritsLoose(CustomComponent, _Element);
+
+    function CustomComponent() {
+      return _Element.apply(this, arguments) || this;
+    }
+
+    // Create instance
+    CustomComponent.$$create = function $$create(options, tree) {
+      var config = cache.getConfig();
+
+      if (config.optimization.elementMultiplexing) {
+        // 复用 element 节点
+        var instance = pool$g.get();
+
+        if (instance) {
+          instance.$$init(options, tree);
+          return instance;
+        }
+      }
+
+      return new CustomComponent(options, tree);
+    }
+    /**
+     * 覆写父类的 $$init 方法
+     */
+    ;
+
+    var _proto = CustomComponent.prototype;
+
+    _proto.$$init = function $$init(options, tree) {
+      this.$_behavior = options.componentName;
+
+      _Element.prototype.$$init.call(this, options, tree);
+    }
+    /**
+     * 覆写父类的 $$destroy 方法
+     */
+    ;
+
+    _proto.$$destroy = function $$destroy() {
+      _Element.prototype.$$destroy.call(this);
+
+      this.$_behavior = null;
+    }
+    /**
+     * 覆写父类的回收实例方法
+     */
+    ;
+
+    _proto.$$recycle = function $$recycle() {
+      this.$$destroy();
+      var config = cache.getConfig();
+
+      if (config.optimization.elementMultiplexing) {
+        // 复用 element 节点
+        pool$g.add(this);
+      }
+    };
+
+    createClass(CustomComponent, [{
+      key: "behavior",
+      get: function get() {
+        return this.$_behavior;
+      }
+    }]);
+
+    return CustomComponent;
+  }(Element);
+
+  var CONSTRUCTOR_MAP = {
+    A: HTMLAnchorElement,
+    IMG: Image,
+    INPUT: HTMLInputElement,
+    TEXTAREA: HTMLTextAreaElement,
+    VIDEO: HTMLVideoElement,
+    CANVAS: HTMLCanvasElement,
+    SELECT: HTMLSelectElement,
+    OPTION: HTMLOptionElement,
+    'BUILTIN-COMPONENT': BuiltInComponent
+  };
+  var BUILTIN_COMPONENT_LIST = ['movable-view', 'cover-image', 'cover-view', 'movable-area', 'scroll-view', 'swiper', 'swiper-item', 'view', 'icon', 'progress', 'rich-text', 'text', 'button', 'checkbox', 'checkbox-group', 'editor', 'form', 'input', 'label', 'picker', 'picker-view', 'picker-view-column', 'radio', 'radio-group', 'slider', 'switch', 'textarea', 'functional-page-navigator', 'navigator', 'audio', 'camera', 'image', 'live-player', 'live-pusher', 'video', 'map', 'canvas', 'ad', 'official-account', 'open-data', 'web-view'];
+  /**
+   * Check this component is builtIn component
+   * @param {string} tagName - component tag name
+   * @return {boolean}
+   */
+
+  function checkIsBuiltInComponent(tagName) {
+    return BUILTIN_COMPONENT_LIST.indexOf(tagName) > -1;
+  }
+
+  var Document = /*#__PURE__*/function (_EventTarget) {
+    inheritsLoose(Document, _EventTarget);
+
+    function Document(pageId, nodeIdMap) {
+      var _this;
+
+      _this = _EventTarget.call(this) || this;
+      var config = cache.getConfig();
+      var nativeCustomComponent = config.nativeCustomComponent || {};
+      _this.usingComponents = nativeCustomComponent.usingComponents || {};
+      _this.$_pageId = pageId; // Used to encapsulate special tag and corresponding constructors
+
+      var that = assertThisInitialized(_this);
+
+      _this.$_imageConstructor = function HTMLImageElement(width, height) {
+        return Image.$$create({
+          tagName: 'img',
+          nodeId: "b-" + tool.getId(),
+          attrs: {},
+          width: width,
+          height: height
+        }, that.$_tree);
+      };
+
+      _this.$_pageId = pageId;
+      _this.$_tree = new Tree(pageId, {
+        type: 'element',
+        tagName: 'body',
+        attrs: {},
+        unary: false,
+        nodeId: 'e-body',
+        children: []
+      }, nodeIdMap, assertThisInitialized(_this));
+      _this.$_config = null; // documentElement
+
+      _this.$_node = _this.$$createElement({
+        tagName: 'html',
+        attrs: {},
+        nodeId: "a-" + tool.getId(),
+        type: Node.DOCUMENT_NODE
+      }); // documentElement's parentNode is document
+
+      _this.$_node.$$updateParent(assertThisInitialized(_this));
+
+      _this.$_node.scrollTop = 0; // head
+
+      _this.$_head = _this.createElement('head'); // update body's parentNode
+
+      _this.$_tree.root.$$updateParent(_this.$_node);
+
+      return _this;
+    } // Image constructor
+
+
+    var _proto = Document.prototype;
+
+    // Event trigger
+    _proto.$$trigger = function $$trigger(eventName, options) {
+      this.documentElement.$$trigger(eventName, options);
+    };
+
+    _proto.$$createElement = function $$createElement(options, tree) {
+      var originTagName = options.tagName;
+      var tagName = originTagName.toUpperCase();
+      var componentName = checkIsBuiltInComponent(originTagName) ? originTagName : null;
+      tree = tree || this.$_tree;
+      var constructorClass = CONSTRUCTOR_MAP[tagName];
+
+      if (constructorClass) {
+        return constructorClass.$$create(options, tree);
+      } else if (componentName) {
+        // Transform to builtin-component
+        options.tagName = 'builtin-component';
+        options.attrs = options.attrs || {};
+        options.attrs.behavior = componentName;
+        return BuiltInComponent.$$create(options, tree);
+      } else if (this.usingComponents[originTagName]) {
+        // Transform to custom-component
+        options.tagName = 'custom-component';
+        options.attrs = options.attrs || {};
+        options.componentName = originTagName;
+        return CustomComponent.$$create(options, tree);
+      } else if (!tool.isTagNameSupport(tagName)) {
+        return NotSupport.$$create(options, tree);
+      } else {
+        return Element.$$create(options, tree);
+      }
+    } // Create text node
+    ;
+
+    _proto.$$createTextNode = function $$createTextNode(options, tree) {
+      return TextNode.$$create(options, tree || this.$_tree);
+    } // Create comment node
+    ;
+
+    _proto.$$createComment = function $$createComment(options, tree) {
+      return Comment.$$create(options, tree || this.$_tree);
+    } // Node type
+    ;
+
+    _proto.getElementById = function getElementById(id) {
+      if (typeof id !== 'string') return;
+      return this.$_tree.getById(id) || null;
+    };
+
+    _proto.getElementsByTagName = function getElementsByTagName(tagName) {
+      if (typeof tagName !== 'string') return [];
+      return this.$_tree.getByTagName(tagName);
+    };
+
+    _proto.getElementsByClassName = function getElementsByClassName(className) {
+      if (typeof className !== 'string') return [];
+      return this.$_tree.getByClassName(className);
+    };
+
+    _proto.querySelector = function querySelector(selector) {
+      if (typeof selector !== 'string') return;
+      return this.$_tree.query(selector)[0] || null;
+    };
+
+    _proto.querySelectorAll = function querySelectorAll(selector) {
+      if (typeof selector !== 'string') return [];
+      return this.$_tree.query(selector);
+    };
+
+    _proto.createElement = function createElement(tagName) {
+      if (typeof tagName !== 'string') return;
+      tagName = tagName.trim();
+      if (!tagName) return;
+      return this.$$createElement({
+        tagName: tagName,
+        nodeId: "b-" + tool.getId()
+      });
+    };
+
+    _proto.createElementNS = function createElementNS(ns, tagName) {
+      // Actually use createElement
+      return this.createElement(tagName);
+    };
+
+    _proto.createTextNode = function createTextNode(content) {
+      content = '' + content;
+      return this.$$createTextNode({
+        content: content,
+        nodeId: "b-" + tool.getId()
+      });
+    };
+
+    _proto.createComment = function createComment() {
+      // Ignore the incoming comment content
+      return this.$$createComment({
+        nodeId: "b-" + tool.getId()
+      });
+    };
+
+    _proto.createDocumentFragment = function createDocumentFragment() {
+      return Element.$$create({
+        tagName: 'documentfragment',
+        nodeId: "b-" + tool.getId(),
+        nodeType: Node.DOCUMENT_FRAGMENT_NODE
+      }, this.$_tree);
+    };
+
+    _proto.createEvent = function createEvent() {
+      var window = cache.getWindow(this.$_pageId);
+      return new window.CustomEvent();
+    };
+
+    _proto.addEventListener = function addEventListener(eventName, handler, options) {
+      this.documentElement.addEventListener(eventName, handler, options);
+    };
+
+    _proto.removeEventListener = function removeEventListener(eventName, handler, isCapture) {
+      this.documentElement.removeEventListener(eventName, handler, isCapture);
+    };
+
+    _proto.dispatchEvent = function dispatchEvent(evt) {
+      this.documentElement.dispatchEvent(evt);
+    };
+
+    createClass(Document, [{
+      key: "$$imageConstructor",
+      get: function get() {
+        return this.$_imageConstructor;
+      }
+    }, {
+      key: "$$pageId",
+      get: function get() {
+        return this.$_pageId;
+      }
+    }, {
+      key: "nodeType",
+      get: function get() {
+        return Node.DOCUMENT_NODE;
+      }
+    }, {
+      key: "documentElement",
+      get: function get() {
+        return this.$_node;
+      }
+    }, {
+      key: "body",
+      get: function get() {
+        return this.$_tree.root;
+      }
+    }, {
+      key: "nodeName",
+      get: function get() {
+        return '#document';
+      }
+    }, {
+      key: "head",
+      get: function get() {
+        return this.$_head;
+      }
+    }, {
+      key: "defaultView",
+      get: function get() {
+        return cache.getWindow(this.$_pageId) || null;
+      }
+    }]);
+
+    return Document;
   }(EventTarget);
 
   /*

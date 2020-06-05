@@ -12,7 +12,7 @@ import tool from '../../util/tool'
 
 const pool = new Pool()
 
-class HTMLAnchorElement extends Element {
+export default class HTMLAnchorElement extends Element {
     /**
      * 创建实例
      */
@@ -167,5 +167,3 @@ class HTMLAnchorElement extends Element {
         this.$_attrs.set('target', value)
     }
 }
-
-module.exports = HTMLAnchorElement

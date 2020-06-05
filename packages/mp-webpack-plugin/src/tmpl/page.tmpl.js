@@ -138,9 +138,15 @@ Page({
     },
     onShow() {
         // 方便调试
-        global.$$runtime = {
-            window: this.window,
-            document: this.document,
+        if (typeof global !== 'undefined') {
+            global.$$runtime = {
+                window: this.window,
+                document: this.document,
+            }
+            console.log(global)
+        } else {
+            console.log('window:', this.window)
+            console.log('document:', this.document)
         }
         this.document.$$visibilityState = 'visible'
         this.window.$$trigger('myshow')
@@ -151,7 +157,7 @@ Page({
         this.window.$$trigger('myready')
     },
     onHide() {
-        global.$$runtime = null
+        if (typeof global !== 'undefined') global.$$runtime = null
         this.document.$$visibilityState = 'hidden'
         this.window.$$trigger('myhide')
         this.document.$$trigger('visibilitychange')
@@ -165,7 +171,7 @@ Page({
         this.window.$$destroy()
 
         mp.destroyPage(this.pageId)
-        global.$$runtime = null
+        if (typeof global !== 'undefined') global.$$runtime = null
 
         this.pageConfig = null
         this.pageId = null

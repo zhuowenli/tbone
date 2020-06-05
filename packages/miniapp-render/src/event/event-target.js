@@ -113,7 +113,9 @@ export default class EventTarget {
         return this.$__eventHandlerMap
     }
 
-    // Trigger event capture, bubble flow
+    /**
+     * 触发事件捕获、冒泡流程
+     */
     static $$process(target, eventName, miniappEvent, extra, callback) {
         let event
 
@@ -134,7 +136,7 @@ export default class EventTarget {
         }
 
         if (path[path.length - 1].tagName === 'BODY') {
-            // If the last node is document.body, the document.documentelement is appended
+            // 如果最后一个节点是 document.body，则追加 document.documentElement
             path.push(parentNode)
         }
 

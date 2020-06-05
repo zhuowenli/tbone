@@ -109,4 +109,11 @@ module.exports = {
         new VueLoaderPlugin(),
         new MpPlugin(require('./miniapp.config.js')),
     ],
+
+    watch: true,
+
+    watchOptions: {
+        aggregateTimeout: 300,
+        poll: 500,
+    },
 }
