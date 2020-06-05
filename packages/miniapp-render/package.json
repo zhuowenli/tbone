@@ -29,10 +29,10 @@
   "miniapp": "dist/wechat",
   "repository": {
     "type": "git",
-    "url": "https://github.com/alibaba/rax.git"
+    "url": "https://github.com/zhuowenli/tbone"
   },
   "author": {
-    "name": "rax"
+    "name": "zhuowenli"
   },
   "license": "MIT",
   "devDependencies": {
