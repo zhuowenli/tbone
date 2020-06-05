@@ -4261,8 +4261,8 @@
       return new CustomComponent(options, tree);
     }
     /**
-       * 覆写父类的 $$init 方法
-       */
+     * 覆写父类的 $$init 方法
+     */
     ;
 
     var _proto = CustomComponent.prototype;
@@ -4273,8 +4273,8 @@
       _Element.prototype.$$init.call(this, options, tree);
     }
     /**
-       * 覆写父类的 $$destroy 方法
-       */
+     * 覆写父类的 $$destroy 方法
+     */
     ;
 
     _proto.$$destroy = function $$destroy() {
@@ -4283,8 +4283,8 @@
       this.$_behavior = null;
     }
     /**
-       * 覆写父类的回收实例方法
-       */
+     * 覆写父类的回收实例方法
+     */
     ;
 
     _proto.$$recycle = function $$recycle() {

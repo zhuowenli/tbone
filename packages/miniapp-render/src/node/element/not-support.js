@@ -1,11 +1,19 @@
+/*
+ * Author: 卓文理
+ * Email: zhuowenligg@gmail.com
+ * Date: 2020-06-05 14:15:46
+ */
+
 import Element from '../element'
 import cache from '../../util/cache'
 import Pool from '../../util/pool'
 
 const pool = new Pool()
 
-class CustomComponent extends Element {
-    // Create instance
+class NotSupport extends Element {
+    /**
+     * 创建实例
+     */
     static $$create(options, tree) {
         const config = cache.getConfig()
 
@@ -19,16 +27,18 @@ class CustomComponent extends Element {
             }
         }
 
-        return new CustomComponent(options, tree)
+        return new NotSupport(options, tree)
     }
 
     /**
      * 覆写父类的 $$init 方法
      */
     $$init(options, tree) {
-        this.$_behavior = options.componentName
-
         super.$$init(options, tree)
+
+        // 处理特殊节点
+        const window = cache.getWindow(this.$_pageId)
+        if (window.onDealWithNotSupportDom) window.onDealWithNotSupportDom(this)
     }
 
     /**
@@ -36,8 +46,6 @@ class CustomComponent extends Element {
      */
     $$destroy() {
         super.$$destroy()
-
-        this.$_behavior = null
     }
 
     /**
@@ -53,10 +61,6 @@ class CustomComponent extends Element {
             pool.add(this)
         }
     }
-
-    get behavior() {
-        return this.$_behavior
-    }
 }
 
-export default CustomComponent
+module.exports = NotSupport

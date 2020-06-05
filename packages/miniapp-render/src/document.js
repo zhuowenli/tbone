@@ -6,20 +6,27 @@ import TextNode from './node/text-node'
 import Comment from './node/comment'
 import tool from './util/tool'
 import cache from './util/cache'
+import A from './node/element/a'
 import Image from './node/element/image'
 import Input from './node/element/input'
 import Textarea from './node/element/textarea'
 import Video from './node/element/video'
 import Canvas from './node/element/canvas'
+import Select from './node/element/select'
+import Option from './node/element/option'
+import NotSupport from './node/element/not-support'
 import BuiltInComponent from './node/element/builtin-component'
 import CustomComponent from './node/element/custom-component'
 
 const CONSTRUCTOR_MAP = {
+    A,
     IMG: Image,
     INPUT: Input,
     TEXTAREA: Textarea,
     VIDEO: Video,
     CANVAS: Canvas,
+    SELECT: Select,
+    OPTION: Option,
     'BUILTIN-COMPONENT': BuiltInComponent,
 }
 const BUILTIN_COMPONENT_LIST = [
@@ -129,7 +136,7 @@ class Document extends EventTarget {
             options.componentName = originTagName
             return CustomComponent.$$create(options, tree)
         } else if (!tool.isTagNameSupport(tagName)) {
-            throw new Error(`${tagName} is not supported.`)
+            return NotSupport.$$create(options, tree)
         } else {
             return Element.$$create(options, tree)
         }
