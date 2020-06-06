@@ -8,7 +8,7 @@
 
     <button class="btn" @click.stop="throwError">throw an error</button>
 
-    <input type="text" v-model="input">
+    <input type="text" v-model="input" @input="onInputChange">
 
     <div style="margin-left: 20px;">
       <p>这是<span>{{input}}</span>段中间插入了span的文本</p>
@@ -28,8 +28,10 @@ export default {
   components: {
     Footer,
   },
-  data: {
-    input: 'input'
+  data() {
+    return {
+      input: '12313'
+    }
   },
   mounted() {
     console.log('TEST_VAR_STRING', TEST_VAR_STRING)
@@ -42,14 +44,18 @@ export default {
     console.log('before set cookie', document.cookie)
     document.cookie = `time=${+new Date()}; expires=Wed Jan 01 2220 00:00:00 GMT+0800; path=/`
     console.log('after set cookie', document.cookie)
+
+    console.log(this);
   },
   methods: {
     throwError() {
-      console.log(1111);
       setTimeout(() => {
         throw new Error('I am an error')
       }, 0)
     },
+    onInputChange(e) {
+      // this.input = e.$_detail.value
+    }
   },
 }
 </script>

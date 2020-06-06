@@ -148,6 +148,7 @@ export default class EventTarget {
                 timeStamp: miniappEvent.timeStamp,
                 touches: miniappEvent.touches,
                 changedTouches: miniappEvent.changedTouches,
+                detail: miniappEvent.detail,
                 bubbles: true,
                 $$extra: extra,
             })

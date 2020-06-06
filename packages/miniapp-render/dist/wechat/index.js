@@ -573,7 +573,9 @@
       this.$_eventHandlerMap = null;
     };
 
-    // Trigger event capture, bubble flow
+    /**
+     * 触发事件捕获、冒泡流程
+     */
     EventTarget.$$process = function $$process(target, eventName, miniappEvent, extra, callback) {
       var event;
 
@@ -593,7 +595,7 @@
       }
 
       if (path[path.length - 1].tagName === 'BODY') {
-        // If the last node is document.body, the document.documentelement is appended
+        // 如果最后一个节点是 document.body，则追加 document.documentElement
         path.push(parentNode);
       }
 
@@ -605,6 +607,7 @@
           timeStamp: miniappEvent.timeStamp,
           touches: miniappEvent.touches,
           changedTouches: miniappEvent.changedTouches,
+          detail: miniappEvent.detail,
           bubbles: true,
           $$extra: extra
         });
@@ -2026,10 +2029,14 @@
           resolve(window.$$createSelectorQuery().select(".miniapp-root >>> .node-" + _this5.$_nodeId));
         }
       });
-    } // Sets properties, but does not trigger updates
+    }
+    /**
+     * 设置属性，但不触发更新
+     */
     ;
 
     _proto.$$setAttributeWithoutUpdate = function $$setAttributeWithoutUpdate(name, value) {
+      if (typeof name !== 'string') return;
       this.$_notTriggerUpdate = true;
       this.setAttribute(name, value);
       this.$_notTriggerUpdate = false;

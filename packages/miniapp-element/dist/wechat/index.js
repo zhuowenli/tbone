@@ -923,6 +923,7 @@ var input = {
   name: 'input',
   props: [{
     name: 'value',
+    canBeUserChanged: true,
     get: function get(domNode) {
       return domNode.value || '';
     }
@@ -980,6 +981,7 @@ var input = {
     }
   }, {
     name: 'focus',
+    canBeUserChanged: true,
     get: function get(domNode) {
       return !!domNode.getAttribute('focus');
     }
@@ -1019,6 +1021,7 @@ var input = {
     }
   }, {
     name: 'checked',
+    canBeUserChanged: true,
     get: function get(domNode) {
       return !!domNode.getAttribute('checked');
     }
@@ -1035,20 +1038,36 @@ var input = {
   }],
   handles: {
     onInputInput: function onInputInput(evt) {
-      if (!this.domNode) return;
-      this._inputOldValue = this.domNode.value;
+      var domNode = this.domNode;
+      if (!domNode) return;
+      var value = '' + evt.detail.value;
+      domNode.$$setAttributeWithoutUpdate('value', value); // 可被用户行为改变的值，需要记录
+
+      domNode._oldValues = domNode._oldValues || {};
+      domNode._oldValues.value = value;
       callEvent('input', evt, null, this.pageId, this.nodeId);
     },
     onInputFocus: function onInputFocus(evt) {
-      this._inputOldValue = this.domNode.value || '';
+      var domNode = this.domNode;
+      if (!domNode) return;
+      domNode._inputOldValue = domNode.value;
+      domNode.$$setAttributeWithoutUpdate('focus', true); // 可被用户行为改变的值，需要记录
+
+      domNode._oldValues = domNode._oldValues || {};
+      domNode._oldValues.focus = true;
       callSimpleEvent('focus', evt, this.domNode);
     },
     onInputBlur: function onInputBlur(evt) {
-      if (!this.domNode) return;
-      this.domNode.setAttribute('focus', false);
+      var domNode = this.domNode;
+      if (!domNode) return;
+      domNode.$$setAttributeWithoutUpdate('focus', false); // this.domNode.setAttribute('focus', false)
+      // 可被用户行为改变的值，需要记录
 
-      if (this._inputOldValue !== undefined && this.domNode.value !== this._inputOldValue) {
-        this._inputOldValue = undefined;
+      domNode._oldValues = domNode._oldValues || {};
+      domNode._oldValues.focus = false;
+
+      if (domNode._inputOldValue !== undefined && domNode.value !== domNode._inputOldValue) {
+        domNode._inputOldValue = undefined;
         callEvent('change', evt, null, this.pageId, this.nodeId);
       }
 
@@ -1068,13 +1087,19 @@ var input = {
       var otherDomNodes = window.document.querySelectorAll("input[name=" + name + "]") || [];
 
       if (value === domNode.value) {
-        domNode.setAttribute('checked', true);
+        domNode.setAttribute('checked', true); // 可被用户行为改变的值，需要记录
+
+        domNode._oldValues = domNode._oldValues || {};
+        domNode._oldValues.checked = true;
 
         for (var _iterator = _createForOfIteratorHelperLoose(otherDomNodes), _step; !(_step = _iterator()).done;) {
           var otherDomNode = _step.value;
 
           if (otherDomNode.type === 'radio' && otherDomNode !== domNode) {
-            otherDomNode.setAttribute('checked', false);
+            otherDomNode.setAttribute('checked', false); // 可被用户行为改变的值，需要记录
+
+            otherDomNode._oldValues = otherDomNode._oldValues || {};
+            otherDomNode._oldValues.checked = false;
           }
         }
       }
@@ -1084,14 +1109,22 @@ var input = {
     },
     onCheckboxChange: function onCheckboxChange(evt) {
       var domNode = this.domNode;
+      if (!domNode) return;
       var value = evt.detail.value || [];
 
       if (value.indexOf(domNode.value) >= 0) {
-        domNode.setAttribute('checked', true);
+        domNode.setAttribute('checked', true); // 可被用户行为改变的值，需要记录
+
+        domNode._oldValues = domNode._oldValues || {};
+        domNode._oldValues.checked = true;
       } else {
-        domNode.setAttribute('checked', false);
+        domNode.setAttribute('checked', false); // 可被用户行为改变的值，需要记录
+
+        domNode._oldValues = domNode._oldValues || {};
+        domNode._oldValues.checked = false;
       }
 
+      callEvent('input', evt, null, this.pageId, this.nodeId);
       callEvent('change', evt, null, this.pageId, this.nodeId);
     }
   }

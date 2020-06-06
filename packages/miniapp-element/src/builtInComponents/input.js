@@ -8,6 +8,7 @@ export default {
     name: 'input',
     props: [{
         name: 'value',
+        canBeUserChanged: true,
         get(domNode) {
             return domNode.value || ''
         },
@@ -65,6 +66,7 @@ export default {
         },
     }, {
         name: 'focus',
+        canBeUserChanged: true,
         get(domNode) {
             return !!domNode.getAttribute('focus')
         },
@@ -104,6 +106,7 @@ export default {
         },
     }, {
         name: 'checked',
+        canBeUserChanged: true,
         get(domNode) {
             return !!domNode.getAttribute('checked')
         },
@@ -120,22 +123,47 @@ export default {
     }],
     handles: {
         onInputInput(evt) {
-            if (!this.domNode) return
-            this._inputOldValue = this.domNode.value
+            const domNode = this.domNode
+            if (!domNode) return
+
+            const value = '' + evt.detail.value
+            domNode.$$setAttributeWithoutUpdate('value', value)
+
+            // 可被用户行为改变的值，需要记录
+            domNode._oldValues = domNode._oldValues || {}
+            domNode._oldValues.value = value
+
             callEvent('input', evt, null, this.pageId, this.nodeId)
         },
         onInputFocus(evt) {
-            this._inputOldValue = this.domNode.value || ''
+            const domNode = this.domNode
+            if (!domNode) return
+
+            domNode._inputOldValue = domNode.value
+            domNode.$$setAttributeWithoutUpdate('focus', true)
+
+            // 可被用户行为改变的值，需要记录
+            domNode._oldValues = domNode._oldValues || {}
+            domNode._oldValues.focus = true
+
             callSimpleEvent('focus', evt, this.domNode)
         },
         onInputBlur(evt) {
-            if (!this.domNode) return
+            const domNode = this.domNode
+            if (!domNode) return
 
-            this.domNode.setAttribute('focus', false)
-            if (this._inputOldValue !== undefined && this.domNode.value !== this._inputOldValue) {
-                this._inputOldValue = undefined
+            domNode.$$setAttributeWithoutUpdate('focus', false)
+            // this.domNode.setAttribute('focus', false)
+
+            // 可被用户行为改变的值，需要记录
+            domNode._oldValues = domNode._oldValues || {}
+            domNode._oldValues.focus = false
+
+            if (domNode._inputOldValue !== undefined && domNode.value !== domNode._inputOldValue) {
+                domNode._inputOldValue = undefined
                 callEvent('change', evt, null, this.pageId, this.nodeId)
             }
+
             callSimpleEvent('blur', evt, this.domNode)
         },
         onInputConfirm(evt) {
@@ -153,9 +181,18 @@ export default {
 
             if (value === domNode.value) {
                 domNode.setAttribute('checked', true)
+
+                // 可被用户行为改变的值，需要记录
+                domNode._oldValues = domNode._oldValues || {}
+                domNode._oldValues.checked = true
+
                 for (const otherDomNode of otherDomNodes) {
                     if (otherDomNode.type === 'radio' && otherDomNode !== domNode) {
                         otherDomNode.setAttribute('checked', false)
+
+                        // 可被用户行为改变的值，需要记录
+                        otherDomNode._oldValues = otherDomNode._oldValues || {}
+                        otherDomNode._oldValues.checked = false
                     }
                 }
             }
@@ -164,12 +201,23 @@ export default {
         },
         onCheckboxChange(evt) {
             const domNode = this.domNode
+            if (!domNode) return
+
             const value = evt.detail.value || []
             if (value.indexOf(domNode.value) >= 0) {
                 domNode.setAttribute('checked', true)
+
+                // 可被用户行为改变的值，需要记录
+                domNode._oldValues = domNode._oldValues || {}
+                domNode._oldValues.checked = true
             } else {
                 domNode.setAttribute('checked', false)
+
+                // 可被用户行为改变的值，需要记录
+                domNode._oldValues = domNode._oldValues || {}
+                domNode._oldValues.checked = false
             }
+            callEvent('input', evt, null, this.pageId, this.nodeId)
             callEvent('change', evt, null, this.pageId, this.nodeId)
         },
     },

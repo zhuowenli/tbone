@@ -359,8 +359,12 @@ class Element extends Node {
         })
     }
 
-    // Sets properties, but does not trigger updates
+    /**
+     * 设置属性，但不触发更新
+     */
     $$setAttributeWithoutUpdate(name, value) {
+        if (typeof name !== 'string') return
+
         this.$_notTriggerUpdate = true
         this.setAttribute(name, value)
         this.$_notTriggerUpdate = false
