@@ -7,7 +7,7 @@
 ## 安装
 
 ```
-npm install --save-dev mp-webpack-plugin
+npm install --save-dev @zhuowenli/mp-webpack-plugin
 ```
 
 ## 使用
