@@ -1,6 +1,6 @@
 {
   "name": "@zhuowenli/miniapp-element",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Custom element for MiniApp",
   "files": [
     "dist"
