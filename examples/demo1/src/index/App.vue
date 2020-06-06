@@ -6,7 +6,7 @@
     </ul>
     <router-view></router-view>
 
-    <button class="btn" @click="throwError">throw an error</button>
+    <button class="btn" @click.stop="throwError">throw an error</button>
 
     <input type="text" v-model="input">
 

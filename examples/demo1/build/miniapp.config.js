@@ -26,7 +26,7 @@ module.exports = {
             ['TEST_VAR_OTHERS', 'window.document'],
             ['open'],
         ],
-        autoBuildNpm: 'cnpm',
+        autoBuildNpm: 'yarn',
         window: {
             defaultTitle: '欢乐逛',
             titleBarColor: '#ffffff',

@@ -66,7 +66,10 @@ function _createForOfIteratorHelperLoose(o, allowArrayLike) {
 }
 
 var Event = render.$$adapter.Event,
-    EventTarget = render.$$adapter.EventTarget; // Call simple node event, no bubbling
+    EventTarget = render.$$adapter.EventTarget;
+/**
+ * 触发简单节点事件，不做冒泡处理，但会走捕获阶段
+ */
 
 function callSimpleEvent (eventName, evt, domNode) {
   if (!domNode) return;
@@ -462,6 +465,11 @@ var text = {
   handles: {}
 };
 
+/*
+ * Author: 卓文理
+ * Email: zhuowenligg@gmail.com
+ * Date: 2020-06-04 17:56:13
+ */
 var button = {
   name: 'button',
   props: [{
@@ -711,20 +719,26 @@ function callEvent (eventName, evt, extra, pageId, nodeId) {
   var originNode = cache.getNode(pageId, originNodeId);
   if (!originNode) return;
   EventTarget$1.$$process(originNode, eventName, evt, extra, function (domNode, evt, isCapture) {
-    // Delay triggering the jump until all synchronous callback processing is complete
+    // 延迟触发跳转，先等所有同步回调处理完成
     setTimeout(function () {
       if (evt.cancelable) return;
-      var window = cache.getWindow(pageId); // Handle special node event
+      var window = cache.getWindow(pageId); // 处理特殊节点事件
 
-      if (domNode.tagName === 'LABEL' && evt.type === 'click' && !isCapture) {
-        // Handle label
+      if (domNode.tagName === 'A' && evt.type === 'click' && !isCapture) {
+        // 处理 a 标签的跳转
+        var href = domNode.href;
+        var target = domNode.target;
+        if (!href || href.indexOf('javascript') !== -1) return;
+        if (target === '_blank') window.open(href);else window.location.href = href;
+      } else if (domNode.tagName === 'LABEL' && evt.type === 'click' && !isCapture) {
+        // 处理 label 的点击
         var forValue = domNode.getAttribute('for');
         var targetDomNode;
 
         if (forValue) {
           targetDomNode = window.document.getElementById(forValue);
         } else {
-          targetDomNode = domNode.querySelector('input'); // Find switch node
+          targetDomNode = domNode.querySelector('input'); // 寻找 switch 节点
 
           if (!targetDomNode) {
             targetDomNode = domNode.querySelector('builtin-component[behavior=switch]');
@@ -789,7 +803,7 @@ function callEvent (eventName, evt, extra, pageId, nodeId) {
           }
         }
       } else if ((domNode.tagName === 'BUTTON' || domNode.tagName === 'BUILTIN-COMPONENT' && domNode.behavior === 'button') && evt.type === 'click' && !isCapture) {
-        // Handle button click
+        // 处理 button 点击
         var _type = domNode.tagName === 'BUTTON' ? domNode.getAttribute('type') : domNode.getAttribute('form-type');
 
         var formAttr = domNode.getAttribute('form');
@@ -2475,9 +2489,8 @@ var NEET_SPLIT_CLASS_STYLE_FROM_CUSTOM_ELEMENT = ['INPUT', 'TEXTAREA', 'VIDEO', 
 
 var NEET_RENDER_TO_CUSTOM_ELEMENT = [].concat(NOT_SUPPORT, NEET_SPLIT_CLASS_STYLE_FROM_CUSTOM_ELEMENT);
 
-var _render$$$adapter$1 = render__default.$$adapter,
-    cache$3 = _render$$$adapter$1.cache,
-    tool = _render$$$adapter$1.tool; // Filter nodes only reserve childs
+// import render from '@zhuowenli/miniapp-render'
+// Filter nodes only reserve childs
 
 function filterNodes(domNode, level) {
   var childNodes = domNode.childNodes || [];
@@ -2722,9 +2735,9 @@ function getLifeCycle (_ref) {
   }
 }
 
-var _render$$$adapter$2 = render__default.$$adapter,
-    cache$4 = _render$$$adapter$2.cache,
-    tool$1 = _render$$$adapter$2.tool; // The number of levels of dom subtrees rendered as custom components
+var _render$$$adapter$1 = render__default.$$adapter,
+    cache$3 = _render$$$adapter$1.cache,
+    tool = _render$$$adapter$1.tool; // The number of levels of dom subtrees rendered as custom components
 
 var MAX_DOM_SUB_TREE_LEVEL = 10;
 var DOM_SUB_TREE_LEVEL = 10;
@@ -2870,23 +2883,35 @@ var config = _extends({
     onImgLoad: function onImgLoad(evt) {
       var pageId = this.pageId;
       var originNodeId = evt.currentTarget.dataset.privateNodeId || this.nodeId;
-      var originNode = cache$4.getNode(pageId, originNodeId);
+      var originNode = cache$3.getNode(pageId, originNodeId);
       if (!originNode) return;
-      callSimpleEvent('load', evt, originNode);
+      var domNode = originNode || this.getDomNodeFromEvt(evt);
+      callSimpleEvent('load', evt, domNode);
     },
     onImgError: function onImgError(evt) {
       var pageId = this.pageId;
       var originNodeId = evt.currentTarget.dataset.privateNodeId || this.nodeId;
-      var originNode = cache$4.getNode(pageId, originNodeId);
+      var originNode = cache$3.getNode(pageId, originNodeId);
       if (!originNode) return;
-      callSimpleEvent('error', evt, originNode);
+      var domNode = originNode || this.getDomNodeFromEvt(evt);
+      callSimpleEvent('error', evt, domNode);
+    },
+
+    /**
+     * 从小程序事件对象中获取 domNode
+     */
+    getDomNodeFromEvt: function getDomNodeFromEvt(evt) {
+      if (!evt) return;
+      var pageId = this.pageId;
+      var originNodeId = evt.currentTarget && evt.currentTarget.dataset.privateNodeId || this.nodeId;
+      return cache$3.getNode(pageId, originNodeId);
     }
   }, handlesMap)
 });
 
 var lifeCycles = getLifeCycle({
   init: function init() {
-    var config = cache$4.getConfig(); // Resets global variables according to configuration
+    var config = cache$3.getConfig(); // Resets global variables according to configuration
 
     if (config.optimization) {
       var domSubTreeLevel = +config.optimization.domSubTreeLevel;
@@ -2905,7 +2930,7 @@ var lifeCycles = getLifeCycle({
     this.nodeId = nodeId;
     this.pageId = pageId; // Record dom
 
-    this.domNode = cache$4.getNode(pageId, nodeId);
+    this.domNode = cache$3.getNode(pageId, nodeId);
     if (!this.domNode) return; // TODO, for the sake of compatibility with a bug in the underlying library, is implemented as follows
 
     if (this.domNode.tagName === 'CANVAS') {
@@ -2913,12 +2938,12 @@ var lifeCycles = getLifeCycle({
     } // Store document
 
 
-    this.document = cache$4.getDocument(pageId); // Listen global event
+    this.document = cache$3.getDocument(pageId); // Listen global event
 
-    this.onChildNodesUpdate = tool$1.throttle(this.onChildNodesUpdate.bind(this));
+    this.onChildNodesUpdate = tool.throttle(this.onChildNodesUpdate.bind(this));
     this.domNode.$$clearEvent('$$childNodesUpdate');
     this.domNode.addEventListener('$$childNodesUpdate', this.onChildNodesUpdate);
-    this.onSelfNodeUpdate = tool$1.throttle(this.onSelfNodeUpdate.bind(this));
+    this.onSelfNodeUpdate = tool.throttle(this.onSelfNodeUpdate.bind(this));
     this.domNode.$$clearEvent('$$domNodeUpdate');
     this.domNode.addEventListener('$$domNodeUpdate', this.onSelfNodeUpdate); // init
 

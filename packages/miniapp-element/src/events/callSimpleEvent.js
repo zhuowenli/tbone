@@ -2,7 +2,9 @@ import {$$adapter} from '@zhuowenli/miniapp-render'
 
 const {Event, EventTarget} = $$adapter
 
-// Call simple node event, no bubbling
+/**
+ * 触发简单节点事件，不做冒泡处理，但会走捕获阶段
+ */
 export default function(eventName, evt, domNode) {
     if (!domNode) return
 

@@ -31,17 +31,16 @@ const config = {
         addGlobalClass: true // global style
     },
     methods: {
-    // Watch child nodes update
+        // Watch child nodes update
         onChildNodesUpdate() {
             // Node unomunted
             if (!this.pageId || !this.nodeId) return
 
             // child nodes update
             const childNodes = filterNodes(this.domNode, DOM_SUB_TREE_LEVEL - 1)
-            const oldChildNodes =
-        this.data.builtinComponentName || this.data.customComponentName
-            ? this.data.innerChildNodes
-            : this.data.childNodes
+            const oldChildNodes = this.data.builtinComponentName || this.data.customComponentName
+                ? this.data.innerChildNodes
+                : this.data.childNodes
             if (checkDiffChildNodes(childNodes, oldChildNodes)) {
                 const dataChildNodes = dealWithLeafAndSimple(
                     childNodes,
@@ -66,8 +65,8 @@ const config = {
             while (childNode) {
                 if (
                     childNode.type === 'element' &&
-          !childNode.isLeaf &&
-          !childNode.isSimple
+                    !childNode.isLeaf &&
+                    !childNode.isSimple
                 ) {
                     childNode.domNode.$$trigger('$$childNodesUpdate')
                 }
@@ -143,26 +142,37 @@ const config = {
         },
         onImgLoad(evt) {
             const pageId = this.pageId
-            const originNodeId =
-        evt.currentTarget.dataset.privateNodeId || this.nodeId
+            const originNodeId = evt.currentTarget.dataset.privateNodeId || this.nodeId
             const originNode = cache.getNode(pageId, originNodeId)
 
             if (!originNode) return
 
-            callSimpleEvent('load', evt, originNode)
+            const domNode = originNode || this.getDomNodeFromEvt(evt)
+            callSimpleEvent('load', evt, domNode)
         },
         onImgError(evt) {
             const pageId = this.pageId
-            const originNodeId =
-        evt.currentTarget.dataset.privateNodeId || this.nodeId
+            const originNodeId = evt.currentTarget.dataset.privateNodeId || this.nodeId
             const originNode = cache.getNode(pageId, originNodeId)
 
             if (!originNode) return
 
-            callSimpleEvent('error', evt, originNode)
+            const domNode = originNode || this.getDomNodeFromEvt(evt)
+            callSimpleEvent('error', evt, domNode)
         },
+
+        /**
+         * 从小程序事件对象中获取 domNode
+         */
+        getDomNodeFromEvt(evt) {
+            if (!evt) return
+            const pageId = this.pageId
+            const originNodeId = evt.currentTarget && evt.currentTarget.dataset.privateNodeId || this.nodeId
+            return cache.getNode(pageId, originNodeId)
+        },
+
         ...handlesMap
-    }
+    },
 }
 
 const lifeCycles = getLifeCycle({
@@ -222,6 +232,7 @@ const lifeCycles = getLifeCycle({
             data.childNodes = dataChildNodes
         }
         this.setData(data)
+
         if (isMiniApp) {
             if (this.domNode.tagName === 'CANVAS') {
                 this.domNode.$$trigger('canvasReady')

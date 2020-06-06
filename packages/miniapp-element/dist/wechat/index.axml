@@ -208,6 +208,7 @@
     onError="onButtonError"
     onOpenSetting="onButtonOpenSetting"
     onLaunchApp="onButtonLaunchApp"
+    onTap="onTap"
 ><subtree childNodes="{{innerChildNodes}}" inCover="{{inCover}}" onTouchStart="onTouchStart" onTouchMove="onTouchMove" onTouchEnd="onTouchEnd" onTouchCancel="onTouchCancel" onTap="onTap" onLoad="onImgLoad" onError="onImgError"></subtree></button>
 <form
     a:elif="{{builtinComponentName === 'form'}}"

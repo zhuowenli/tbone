@@ -1,11 +1,11 @@
-import render from '@zhuowenli/miniapp-render'
+// import render from '@zhuowenli/miniapp-render'
 import {propsMap} from '../component'
 import {
     NOT_SUPPORT, NEET_SPLIT_CLASS_STYLE_FROM_CUSTOM_ELEMENT,
     NEET_BEHAVIOR_NORMAL_CUSTOM_ELEMENT, NEET_RENDER_TO_CUSTOM_ELEMENT
 } from '../constants'
 
-const {cache, tool} = render.$$adapter
+// const {cache, tool} = render.$$adapter
 
 // Filter nodes only reserve childs
 export default function filterNodes(domNode, level) {

@@ -422,18 +422,22 @@ class MpPlugin {
                 return callback()
             }
 
-            const build = () => {
-                _.copyDir(path.resolve(distDir, './node_modules/@zhuowenli/miniapp-element/dist/ali'), path.resolve(distDir, './miniapp_npm/miniapp-element'))
-                _.copyDir(path.resolve(distDir, './node_modules/@zhuowenli/miniapp-render/dist/ali'), path.resolve(distDir, './miniapp_npm/miniapp-render'))
-                callback()
-            }
+            // const build = () => {
+            //     _.copyDir(path.resolve(distDir, './node_modules/@zhuowenli/miniapp-element/dist/ali'), path.resolve(distDir, './miniapp_npm/miniapp-element'))
+            //     _.copyDir(path.resolve(distDir, './node_modules/@zhuowenli/miniapp-render/dist/ali'), path.resolve(distDir, './miniapp_npm/miniapp-render'))
+            //     callback()
+            // }
             console.log(colors.bold('\nstart building dependencies...\n'))
 
             const command = autoBuildNpm === 'yarn' ? 'yarn' : 'npm'
             execa(command, ['install', '--production'], {cwd: distDir}).then(({exitCode}) => {
+                console.log('exitCode', exitCode)
+
                 if (!exitCode) {
                     console.log(colors.bold(`\nbuilt dependencies ${colors.green('successfully')}\n`))
-                    build()
+                    // build()
+                    // eslint-disable-next-line promise/no-callback-in-promise
+                    callback()
                 } else {
                     console.log(colors.bold(`\nbuilt dependencies ${colors.red('failed')}, please enter "${colors.yellow(distDir)}" and run install manually\n`))
                     // eslint-disable-next-line promise/no-callback-in-promise

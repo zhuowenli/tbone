@@ -44,7 +44,7 @@
     "cross-env": "^5.2.0",
     "fs-extra": "^8.1.0",
     "jest": "^24.9.0",
-    "miniapp-simulate": "^1.1.5",
+    "miniprogram-simulate": "^1.1.5",
     "rollup": "^1.13.1",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-clear": "^2.0.7",
