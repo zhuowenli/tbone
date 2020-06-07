@@ -3,7 +3,7 @@
   <div className="cnt2">
     <div class="group" v-for="item in list" :key="item">
       <div class="label">{{item}}</div>
-      <wx-view class="comp">
+      <view class="comp">
         <div v-if="item === 'normal'">
           <div>
             <div class="inline">hello </div>
@@ -11,27 +11,6 @@
           </div>
           <div>
             <a class="margin-left-10 block" href="javascript: void(0)">fake jump</a>
-          </div>
-        </div>
-        <div v-if="item === 'event'">
-          <div @click="onRootClick">
-            <wx-capture @touchstart="onParentTouchStart" @touchend="onParentTouchEnd" @click="onParentClick">
-              <button @click="onClick">capture-inner({{eventCount}})</button>
-            </wx-capture>
-            <wx-catch @touchstart="onParentTouchStart" @touchend="onParentTouchEnd" @click="onParentClick">
-              <button @click="onClick">catch-inner1({{eventCount}})</button>
-            </wx-catch>
-            <wx-catch @click="onParentClick">
-              <button @click="onClick">catch-inner2({{eventCount}})</button>
-            </wx-catch>
-            <wx-catch>{{eventCountComputed}}</wx-catch>
-            <div class="event-cnt">
-              <wx-animation :class="['event-t', transition ? 'event-t-s' : 'event-t-e']" @transitionend="onTransitionEnd"></wx-animation>
-              <button @click="startTranstion">transition</button>
-            </div>
-            <div class="event-cnt">
-              <wx-animation class="event-a" @animationstart="onAnimationStart" @animationiteration="onAnimationIteration" @animationend="onAnimationEnd"></wx-animation>
-            </div>
           </div>
         </div>
         <!-- 可使用 html 标签替代的内置组件 -->
@@ -42,55 +21,65 @@
         <div v-else-if="item === 'input'">
           <input type="text" placeholder="请输入文本内容" @input="onInput" v-model="input.inputText" @change="onInputChange" />
           <input type="number" placeholder="请输入数字内容" @input="onInput" v-model="input.inputNumber" data-is-number="yes" />
-          <input type="radio" />
-          <input type="radio" name="radio" value="radio1" @input="onInput" v-model="input.inputRadio" />
-          <input type="radio" name="radio" value="radio2" @input="onInput" v-model="input.inputRadio" />
+          <input type="radio">
+          <label>
+            <input type="radio" name="radio" value="radio1" @input="onInput" v-model="input.inputRadio" />
+            aaaa
+          </label>
+          <label>
+            <input type="radio" name="radio" value="radio2" @input="onInput" v-model="input.inputRadio" />
+            bbbb
+          </label>
           <input type="checkbox" @input="onInput" v-model="input.inputCheckbox" />
           <input type="hidden" value="I am Hidden" />
         </div>
         <textarea v-else-if="item === 'textarea'" class="textarea-node" style="height: 30px;" placeholder="请输入内容" maxlength="50" :auto-height="true" adjust-position="" value="我是 textarea" @input="onTextareaInput" />
         <div v-else-if="item === 'label'">
           <!-- input -->
-          <label>
-            <div>输入框1</div>
-            <input placeholder="输入框1" @change="onLabelChange"/>
-          </label>
-          <label for="input2">
-            <div>输入框2</div>
-          </label>
-          <input id="input2" placeholder="输入框2" @change="onLabelChange"/>
+          <div>
+            <label>
+              <div>输入框1</div>
+              <input placeholder="输入框1" @change="onLabelChange"/>
+            </label>
+          </div>
+          <div style="display: flex;align-items: center;">
+            <label for="input2">
+              <div>输入框2</div>
+            </label>
+            <input id="input2" placeholder="输入框2" @change="onLabelChange"/>
+          </div>
           <!-- radio -->
           <label>
-            <div>radio1</div>
+            <text>radio1</text>
             <input name="label-radio" type="radio" checked="checked" @change="onLabelChange"/>
           </label>
           <label for="input3">
-            <div>radio2</div>
+            <text>radio2</text>
           </label>
           <input name="label-radio" type="radio" id="input3" @change="onLabelChange"/>
           <!-- checkbox -->
           <label>
-            <div>checkbox1</div>
+            <text>checkbox1</text>
             <input type="checkbox" @change="onLabelChange"/>
           </label>
           <label for="input4">
-            <div>checkbox2</div>
+            <text>checkbox2</text>
           </label>
           <input type="checkbox" id="input4" @change="onLabelChange"/>
           <!-- switch -->
           <label>
-            <div>switch1</div>
+            <text>switch1</text>
             <template>
-              <wx-component v-if="!wxPrefix" behavior="switch" @change="onLabelChange"></wx-component>
-              <wx-switch v-else class="switch-node" @change="onLabelChange"></wx-switch>
+              <builtin-component v-if="!builtinPrefix" behavior="switch" @change="onLabelChange"></builtin-component>
+              <switch v-else class="switch-node" @change="onLabelChange"></switch>
             </template>
           </label>
           <label for="switch2">
-            <div>switch2</div>
+            <text>switch2</text>
           </label>
           <template>
-            <wx-component v-if="!wxPrefix" behavior="switch" id="switch2" @change="onLabelChange"></wx-component>
-            <wx-switch v-else id="switch2" @change="onLabelChange"></wx-switch>
+            <builtin-component v-if="!builtinPrefix" behavior="switch" id="switch2" @change="onLabelChange"></builtin-component>
+            <switch v-else id="switch2" @change="onLabelChange"></switch>
           </template>
         </div>
         <video v-else-if="item === 'video'" class="video" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400" :muted="true" :show-mute-btn="true" :controls="true">
@@ -108,79 +97,79 @@
           </select>
           <span>Selected: {{select.selected}}</span>
         </div>
-        <!-- 使用 wx-component 来创建内置组件 -->
+        <!-- 使用 builtin-component 来创建内置组件 -->
         <template v-else-if="item === 'view'">
-          <wx-component v-if="!wxPrefix" :behavior="item">我是视图</wx-component>
-          <wx-view v-else-if="wxPrefix === 1">我是视图</wx-view>
-          <view v-else-if="wxPrefix === 2">我是视图</view>
-          <wx-component v-if="!wxPrefix" :behavior="item" :hidden="true">我是 hidden 视图</wx-component>
-          <wx-view v-else-if="wxPrefix === 1" :hidden="true">我是 hidden 视图</wx-view>
-          <view v-else-if="wxPrefix === 2" :hidden="true">我是 hidden 视图</view>
+          <builtin-component v-if="!builtinPrefix" :behavior="item">我是视图</builtin-component>
+          <view v-else-if="builtinPrefix === 1">我是视图</view>
+          <view v-else-if="builtinPrefix === 2">我是视图</view>
+          <builtin-component v-if="!builtinPrefix" :behavior="item" :hidden="true">我是 hidden 视图</builtin-component>
+          <view v-else-if="builtinPrefix === 1" :hidden="true">我是 hidden 视图</view>
+          <view v-else-if="builtinPrefix === 2" :hidden="true">我是 hidden 视图</view>
         </template>
         <template v-else-if="item === 'text'">
-          <wx-component v-if="!wxPrefix" :behavior="item" :selectable="true">{{'this is first line\nthis is second line'}}</wx-component>
-          <wx-text v-else-if="wxPrefix === 1" :selectable="true">{{'this is first line\nthis is second line'}}</wx-text>
-          <text v-else-if="wxPrefix === 2" :selectable="true">{{'this is first line\nthis is second line'}}</text>
+          <builtin-component v-if="!builtinPrefix" :behavior="item" :selectable="true">{{'this is first line\nthis is second line'}}</builtin-component>
+          <text v-else-if="builtinPrefix === 1" :selectable="true">{{'this is first line\nthis is second line'}}</text>
+          <text v-else-if="builtinPrefix === 2" :selectable="true">{{'this is first line\nthis is second line'}}</text>
         </template>
         <template v-else-if="item === 'rich-text'">
-          <wx-component v-if="!wxPrefix" :behavior="item" :nodes="richText.nodes"></wx-component>
-          <wx-rich-text v-else-if="wxPrefix === 1" :nodes="richText.nodes"></wx-rich-text>
-          <rich-text v-else-if="wxPrefix === 2" :nodes="richText.nodes"></rich-text>
+          <builtin-component v-if="!builtinPrefix" :behavior="item" :nodes="richText.nodes"></builtin-component>
+          <rich-text v-else-if="builtinPrefix === 1" :nodes="richText.nodes"></rich-text>
+          <rich-text v-else-if="builtinPrefix === 2" :nodes="richText.nodes"></rich-text>
         </template>
         <template v-else-if="item === 'swiper'">
-          <wx-component v-if="!wxPrefix" :behavior="item" :class="item" :indicator-dots="swiper.indicatorDots" :autoplay="swiper.autoplay" :interval="5000" :duration="500" @change="onSwiperChange">
-            <wx-component behavior="swiper-item" class="swiper-item-1" item-id="1"><span>A</span></wx-component>
-            <wx-component behavior="swiper-item" class="swiper-item-2" item-id="2"><span>B</span></wx-component>
-            <wx-component behavior="swiper-item" class="swiper-item-3" item-id="3"><span>C</span></wx-component>
+          <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" :indicator-dots="swiper.indicatorDots" :autoplay="swiper.autoplay" :interval="5000" :duration="500" @change="onSwiperChange">
+            <builtin-component behavior="swiper-item" class="swiper-item-1" item-id="1"><span>A</span></builtin-component>
+            <builtin-component behavior="swiper-item" class="swiper-item-2" item-id="2"><span>B</span></builtin-component>
+            <builtin-component behavior="swiper-item" class="swiper-item-3" item-id="3"><span>C</span></builtin-component>
             <div>不会被渲染</div>
-          </wx-component>
-          <wx-swiper v-else-if="wxPrefix === 1" :class="item" :indicator-dots="swiper.indicatorDots" :autoplay="swiper.autoplay" :interval="5000" :duration="500" @change="onSwiperChange">
-            <wx-swiper-item class="swiper-item-1" item-id="1"><span>A</span></wx-swiper-item>
-            <wx-swiper-item class="swiper-item-2" item-id="2"><span>B</span></wx-swiper-item>
-            <wx-swiper-item class="swiper-item-3" item-id="3"><span>C</span></wx-swiper-item>
+          </builtin-component>
+          <swiper v-else-if="builtinPrefix === 1" :class="item" :indicator-dots="swiper.indicatorDots" :autoplay="swiper.autoplay" :interval="5000" :duration="500" @change="onSwiperChange">
+            <swiper-item class="swiper-item-1" item-id="1"><span>A</span></swiper-item>
+            <swiper-item class="swiper-item-2" item-id="2"><span>B</span></swiper-item>
+            <swiper-item class="swiper-item-3" item-id="3"><span>C</span></swiper-item>
             <div>不会被渲染</div>
-          </wx-swiper>
-          <swiper v-else-if="wxPrefix === 2" :class="item" :indicator-dots="swiper.indicatorDots" :autoplay="swiper.autoplay" :interval="5000" :duration="500" @change="onSwiperChange">
+          </swiper>
+          <swiper v-else-if="builtinPrefix === 2" :class="item" :indicator-dots="swiper.indicatorDots" :autoplay="swiper.autoplay" :interval="5000" :duration="500" @change="onSwiperChange">
             <swiper-item class="swiper-item-1" item-id="1"><span>A</span></swiper-item>
             <swiper-item class="swiper-item-2" item-id="2"><span>B</span></swiper-item>
             <swiper-item class="swiper-item-3" item-id="3"><span>C</span></swiper-item>
             <div>不会被渲染</div>
           </swiper>
           <div>
-            <wx-switch name="switch-a" :checked="swiper.indicatorDots" @change="swiper.indicatorDots = !swiper.indicatorDots" /> 指示点
+            <switch name="switch-a" :checked="swiper.indicatorDots" @change="swiper.indicatorDots = !swiper.indicatorDots" /> 指示点
           </div>
           <div>
-            <wx-switch name="switch-a" :checked="swiper.autoplay" @change="swiper.autoplay = !swiper.autoplay" /> 自动播放
+            <switch name="switch-a" :checked="swiper.autoplay" @change="swiper.autoplay = !swiper.autoplay" /> 自动播放
           </div>
         </template>
         <template v-else-if="item === 'movable'">
-          <wx-component v-if="!wxPrefix" :behavior="item" :class="item" :scale-area="true">
-            <wx-component ref="movable-view" class="movable-view" behavior="movable-view" direction="all" :inertia="true" :out-of-bounds="true" :x="movable.x" :y="movable.y" :scale-value="movable.scaleValue" :scale="true" @change="onMovableChange" @scale="onMovableScale"><span>text</span></wx-component>
-            <wx-component class="movable-view" behavior="movable-view" direction="all" :x="0" :y="0">plaintext</wx-component>
-          </wx-component>
-          <wx-movable-area v-else-if="wxPrefix === 1" :class="item" :scale-area="true">
-            <wx-movable-view ref="movable-view" class="movable-view" direction="all" :inertia="true" :out-of-bounds="true" :x="movable.x" :y="movable.y" :scale-value="movable.scaleValue" :scale="true" @change="onMovableChange" @scale="onMovableScale"><span>text</span></wx-movable-view>
-            <wx-movable-view class="movable-view" direction="all" :x="0" :y="0">plaintext</wx-movable-view>
-          </wx-movable-area>
-          <movable-area v-else-if="wxPrefix === 2" :class="item" :scale-area="true">
+          <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" :scale-area="true">
+            <builtin-component ref="movable-view" class="movable-view" behavior="movable-view" direction="all" :inertia="true" :out-of-bounds="true" :x="movable.x" :y="movable.y" :scale-value="movable.scaleValue" :scale="true" @change="onMovableChange" @scale="onMovableScale"><span>text</span></builtin-component>
+            <builtin-component class="movable-view" behavior="movable-view" direction="all" :x="0" :y="0">plaintext</builtin-component>
+          </builtin-component>
+          <movable-area v-else-if="builtinPrefix === 1" :class="item" :scale-area="true">
             <movable-view ref="movable-view" class="movable-view" direction="all" :inertia="true" :out-of-bounds="true" :x="movable.x" :y="movable.y" :scale-value="movable.scaleValue" :scale="true" @change="onMovableChange" @scale="onMovableScale"><span>text</span></movable-view>
             <movable-view class="movable-view" direction="all" :x="0" :y="0">plaintext</movable-view>
           </movable-area>
-          <wx-button @click="onClickMovableMove">move to (30px, 30px)</wx-button>
-          <wx-button @click="onClickMovableScale">scale to 3.0</wx-button>
+          <movable-area v-else-if="builtinPrefix === 2" :class="item" :scale-area="true">
+            <movable-view ref="movable-view" class="movable-view" direction="all" :inertia="true" :out-of-bounds="true" :x="movable.x" :y="movable.y" :scale-value="movable.scaleValue" :scale="true" @change="onMovableChange" @scale="onMovableScale"><span>text</span></movable-view>
+            <movable-view class="movable-view" direction="all" :x="0" :y="0">plaintext</movable-view>
+          </movable-area>
+          <button @click="onClickMovableMove">move to (30px, 30px)</button>
+          <button @click="onClickMovableScale">scale to 3.0</button>
         </template>
         <template v-else-if="item === 'form'">
           <!-- form 组件 -->
-          <wx-form :report-submit="true" @submit="onFormSubmit" @reset="onFormReset">
+          <form :report-submit="true" @submit="onFormSubmit" @reset="onFormReset">
             <div>
               <div>form 组件</div>
               <input type="text" name="text-a" value="text value" />
               <input type="text" value="text value2" />
               <input type="number" name="number-a" value="123" />
               <textarea name="textare-a" value="textare value" />
-              <wx-switch name="switch-a" :checked="true" />
-              <wx-slider name="slider-a" min="50" max="200" :show-value="true" />
-              <wx-picker name="picker-a" :value="1" :range="['美国', '中国', '巴西', '日本']">点击&nbsp;&nbsp;选择国家</wx-picker>
+              <switch name="switch-a" :checked="true" />
+              <slider name="slider-a" min="50" max="200" :show-value="true" />
+              <picker name="picker-a" :value="1" :range="['美国', '中国', '巴西', '日本']">点击&nbsp;&nbsp;选择国家</picker>
               <div class="ipt-group"><input type="radio" name="radio-a" value="radio1" :checked="true" />radio1</div>
               <div class="ipt-group"><input type="radio" name="radio-a" value="radio2" />radio2</div>
               <div class="ipt-group"><input type="checkbox" name="checkbox-a" value="checkbox1" :checked="true" />checkbox1</div>
@@ -190,11 +179,11 @@
               <button type="submit">submit（普通标签）</button>
               <button type="reset">reset（普通标签）</button>
               <button>什么也不做（普通标签）</button>
-              <wx-button form-type="submit">submit（内置组件）</wx-button>
-              <wx-button form-type="reset">reset（内置组件）</wx-button>
-              <wx-button>什么也不做（内置组件）</wx-button>
+              <button form-type="submit">submit（内置组件）</button>
+              <button form-type="reset">reset（内置组件）</button>
+              <button>什么也不做（内置组件）</button>
             </div>
-          </wx-form>
+          </form>
           <!-- form 标签 -->
           <form @submit="onFormSubmit" @reset="onFormReset">
             <div>
@@ -203,9 +192,9 @@
               <input type="text" value="text value2" />
               <input type="number" name="number-b" value="123" />
               <textarea name="textare-b" value="textare value" />
-              <wx-switch name="switch-b" :checked="true" />
-              <wx-slider name="slider-b" min="50" max="200" :show-value="true" />
-              <wx-picker name="picker-a" :value="1" :range="['美国', '中国', '巴西', '日本']">点击&nbsp;&nbsp;选择国家</wx-picker>
+              <switch name="switch-b" :checked="true" />
+              <slider name="slider-b" min="50" max="200" :show-value="true" />
+              <picker name="picker-a" :value="1" :range="['美国', '中国', '巴西', '日本']">点击&nbsp;&nbsp;选择国家</picker>
               <div class="ipt-group"><input type="radio" name="radio-b" value="radio1" :checked="true" />radio1</div>
               <div class="ipt-group"><input type="radio" name="radio-b" value="radio2" />radio2</div>
               <div class="ipt-group"><input type="checkbox" name="checkbox-b" value="checkbox1" :checked="true" />checkbox1</div>
@@ -215,72 +204,72 @@
               <button type="submit">submit（普通标签）</button>
               <button type="reset">reset（普通标签）</button>
               <button>什么也不做（普通标签）</button>
-              <wx-button form-type="submit">submit（内置组件）</wx-button>
-              <wx-button form-type="reset">reset（内置组件）</wx-button>
-              <wx-button>什么也不做（内置组件）</wx-button>
+              <button form-type="submit">submit（内置组件）</button>
+              <button form-type="reset">reset（内置组件）</button>
+              <button>什么也不做（内置组件）</button>
             </div>
           </form>
         </template>
         <template v-else-if="item === 'button'">
           <!-- className 属性用来测试 -->
-          <wx-component v-if="!wxPrefix" :behavior="item" className="wx-button-custom" open-type="share">分享</wx-component>
-          <wx-button v-else-if="wxPrefix === 1" className="wx-button-custom" open-type="share">分享</wx-button>
-          <button v-else-if="wxPrefix === 2" className="wx-button-custom" open-type="share">分享</button>
-          <wx-component v-if="!wxPrefix" :behavior="item" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">获取手机号</wx-component>
-          <wx-button v-else-if="wxPrefix === 1" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">获取手机号</wx-button>
-          <button v-else-if="wxPrefix === 2" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">获取手机号</button>
-          <wx-component v-if="!wxPrefix" :behavior="item">
+          <builtin-component v-if="!builtinPrefix" :behavior="item" className="button-custom" open-type="share">分享</builtin-component>
+          <button v-else-if="builtinPrefix === 1" className="button-custom" open-type="share">分享</button>
+          <button v-else-if="builtinPrefix === 2" className="button-custom" open-type="share">分享</button>
+          <builtin-component v-if="!builtinPrefix" :behavior="item" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">获取手机号</builtin-component>
+          <button v-else-if="builtinPrefix === 1" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">获取手机号</button>
+          <button v-else-if="builtinPrefix === 2" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">获取手机号</button>
+          <builtin-component v-if="!builtinPrefix" :behavior="item">
             <span>span1</span>
             <input type="checkbox"/>
             <span>span2</span>
-          </wx-component>
-          <wx-button v-else-if="wxPrefix === 1">
+          </builtin-component>
+          <button v-else-if="builtinPrefix === 1">
             <span>span1</span>
             <input type="checkbox"/>
             <span>span2</span>
-          </wx-button>
-          <button v-else-if="wxPrefix === 2">
+          </button>
+          <button v-else-if="builtinPrefix === 2">
             <span>span1</span>
             <input type="checkbox"/>
             <span>span2</span>
           </button>
         </template>
         <template v-else-if="item === 'image'">
-          <wx-component v-if="!wxPrefix" :behavior="item" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></wx-component>
-          <wx-image v-else-if="wxPrefix === 1" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></wx-image>
-          <image v-else-if="wxPrefix === 2" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></image>
+          <builtin-component v-if="!builtinPrefix" :behavior="item" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></builtin-component>
+          <image v-else-if="builtinPrefix === 1" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></image>
+          <image v-else-if="builtinPrefix === 2" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></image>
         </template>
         <template v-else-if="item === 'icon'">
-          <div v-if="!wxPrefix">
-            <div><wx-component :behavior="item" v-for="subItem in icon.size" :key="subItem" type="success" :size="subItem"></wx-component></div>
-            <div><wx-component :behavior="item" v-for="subItem in icon.color" :key="subItem" type="success" size="40" :color="subItem"></wx-component></div>
-            <div><wx-component :behavior="item" v-for="subItem in icon.type" :key="subItem" :type="subItem" size="40"></wx-component></div>
+          <div v-if="!builtinPrefix">
+            <div><builtin-component :behavior="item" v-for="subItem in icon.size" :key="subItem" type="success" :size="subItem"></builtin-component></div>
+            <div><builtin-component :behavior="item" v-for="subItem in icon.color" :key="subItem" type="success" size="40" :color="subItem"></builtin-component></div>
+            <div><builtin-component :behavior="item" v-for="subItem in icon.type" :key="subItem" :type="subItem" size="40"></builtin-component></div>
           </div>
-          <div v-else-if="wxPrefix === 1">
-            <div><wx-icon v-for="subItem in icon.size" :key="subItem" type="success" :size="subItem"></wx-icon></div>
-            <div><wx-icon v-for="subItem in icon.color" :key="subItem" type="success" size="40" :color="subItem"></wx-icon></div>
-            <div><wx-icon v-for="subItem in icon.type" :key="subItem" :type="subItem" size="40"></wx-icon></div>
+          <div v-else-if="builtinPrefix === 1">
+            <div><icon v-for="subItem in icon.size" :key="subItem" type="success" :size="subItem"></icon></div>
+            <div><icon v-for="subItem in icon.color" :key="subItem" type="success" size="40" :color="subItem"></icon></div>
+            <div><icon v-for="subItem in icon.type" :key="subItem" :type="subItem" size="40"></icon></div>
           </div>
-          <div v-else-if="wxPrefix === 2">
+          <div v-else-if="builtinPrefix === 2">
             <div><icon v-for="subItem in icon.size" :key="subItem" type="success" :size="subItem"></icon></div>
             <div><icon v-for="subItem in icon.color" :key="subItem" type="success" size="40" :color="subItem"></icon></div>
             <div><icon v-for="subItem in icon.type" :key="subItem" :type="subItem" size="40"></icon></div>
           </div>
         </template>
         <template v-else-if="item === 'progress'">
-          <div v-if="!wxPrefix">
-            <wx-component :behavior="item" percent="20" :show-info="true"></wx-component>
-            <wx-component :behavior="item" percent="40" stroke-width="12"></wx-component>
-            <wx-component :behavior="item" percent="60" color="pink"></wx-component>
-            <wx-component :behavior="item" percent="80" :active="true"></wx-component>
+          <div v-if="!builtinPrefix">
+            <builtin-component :behavior="item" percent="20" :show-info="true"></builtin-component>
+            <builtin-component :behavior="item" percent="40" stroke-width="12"></builtin-component>
+            <builtin-component :behavior="item" percent="60" color="pink"></builtin-component>
+            <builtin-component :behavior="item" percent="80" :active="true"></builtin-component>
           </div>
-          <div v-else-if="wxPrefix === 1">
-            <wx-progress percent="20" :show-info="true"></wx-progress>
-            <wx-progress percent="40" stroke-width="12"></wx-progress>
-            <wx-progress percent="60" color="pink"></wx-progress>
-            <wx-progress percent="80" :active="true"></wx-progress>
+          <div v-else-if="builtinPrefix === 1">
+            <progress percent="20" :show-info="true"></progress>
+            <progress percent="40" stroke-width="12"></progress>
+            <progress percent="60" color="pink"></progress>
+            <progress percent="80" :active="true"></progress>
           </div>
-          <div v-else-if="wxPrefix === 2">
+          <div v-else-if="builtinPrefix === 2">
             <progress percent="20" :show-info="true"></progress>
             <progress percent="40" stroke-width="12"></progress>
             <progress percent="60" color="pink"></progress>
@@ -288,32 +277,32 @@
           </div>
         </template>
         <template v-else-if="item === 'navigator'">
-          <wx-component v-if="!wxPrefix" :behavior="item" target="miniapp" open-type="exit">退出小程序</wx-component>
-          <wx-navigator v-else-if="wxPrefix === 1" target="miniapp" open-type="exit">退出小程序</wx-navigator>
-          <navigator v-else-if="wxPrefix === 2" target="miniapp" open-type="exit">退出小程序</navigator>
+          <builtin-component v-if="!builtinPrefix" :behavior="item" target="miniapp" open-type="exit">退出小程序</builtin-component>
+          <navigator v-else-if="builtinPrefix === 1" target="miniapp" open-type="exit">退出小程序</navigator>
+          <navigator v-else-if="builtinPrefix === 2" target="miniapp" open-type="exit">退出小程序</navigator>
         </template>
         <template v-else-if="item === 'open-data'">
-          <div v-if="!wxPrefix">
-            <wx-component :behavior="item" type="userNickName"></wx-component>
-            <wx-component :behavior="item" type="userAvatarUrl"></wx-component>
-            <wx-component :behavior="item" type="userGender"></wx-component>
-            <wx-component :behavior="item" type="userGender" lang="zh_CN"></wx-component>
-            <wx-component :behavior="item" type="userCity"></wx-component>
-            <wx-component :behavior="item" type="userProvince"></wx-component>
-            <wx-component :behavior="item" type="userCountry"></wx-component>
-            <wx-component :behavior="item" type="userLanguage"></wx-component>
+          <div v-if="!builtinPrefix">
+            <builtin-component :behavior="item" type="userNickName"></builtin-component>
+            <builtin-component :behavior="item" type="userAvatarUrl"></builtin-component>
+            <builtin-component :behavior="item" type="userGender"></builtin-component>
+            <builtin-component :behavior="item" type="userGender" lang="zh_CN"></builtin-component>
+            <builtin-component :behavior="item" type="userCity"></builtin-component>
+            <builtin-component :behavior="item" type="userProvince"></builtin-component>
+            <builtin-component :behavior="item" type="userCountry"></builtin-component>
+            <builtin-component :behavior="item" type="userLanguage"></builtin-component>
           </div>
-          <div v-else-if="wxPrefix === 1">
-            <wx-open-data type="userNickName"></wx-open-data>
-            <wx-open-data type="userAvatarUrl"></wx-open-data>
-            <wx-open-data type="userGender"></wx-open-data>
-            <wx-open-data type="userGender" lang="zh_CN"></wx-open-data>
-            <wx-open-data type="userCity"></wx-open-data>
-            <wx-open-data type="userProvince"></wx-open-data>
-            <wx-open-data type="userCountry"></wx-open-data>
-            <wx-open-data type="userLanguage"></wx-open-data>
+          <div v-else-if="builtinPrefix === 1">
+            <open-data type="userNickName"></open-data>
+            <open-data type="userAvatarUrl"></open-data>
+            <open-data type="userGender"></open-data>
+            <open-data type="userGender" lang="zh_CN"></open-data>
+            <open-data type="userCity"></open-data>
+            <open-data type="userProvince"></open-data>
+            <open-data type="userCountry"></open-data>
+            <open-data type="userLanguage"></open-data>
           </div>
-          <div v-else-if="wxPrefix === 2">
+          <div v-else-if="builtinPrefix === 2">
             <open-data type="userNickName"></open-data>
             <open-data type="userAvatarUrl"></open-data>
             <open-data type="userGender"></open-data>
@@ -325,21 +314,21 @@
           </div>
         </template>
         <template v-else-if="item === 'picker'">
-          <div v-if="!wxPrefix">
-            <wx-component :behavior="item" :value="1" :range="['美国', '中国', '巴西', '日本']">点击&nbsp;&nbsp;选择国家</wx-component>
-            <wx-component :behavior="item" mode="region" @change="onPickerChange">
+          <div v-if="!builtinPrefix">
+            <builtin-component :behavior="item" :value="1" :range="['美国', '中国', '巴西', '日本']">点击&nbsp;&nbsp;选择国家</builtin-component>
+            <builtin-component :behavior="item" mode="region" @change="onPickerChange">
               <span>点击&nbsp;&nbsp;</span>
               <span>选择城市</span>
-            </wx-component>
+            </builtin-component>
           </div>
-          <div v-else-if="wxPrefix === 1">
-            <wx-picker :value="1" :range="['美国', '中国', '巴西', '日本']">点击&nbsp;&nbsp;选择国家</wx-picker>
-            <wx-picker mode="region" @change="onPickerChange">
+          <div v-else-if="builtinPrefix === 1">
+            <picker :value="1" :range="['美国', '中国', '巴西', '日本']">点击&nbsp;&nbsp;选择国家</picker>
+            <picker mode="region" @change="onPickerChange">
               <span>点击&nbsp;&nbsp;</span>
               <span>选择城市</span>
-            </wx-picker>
+            </picker>
           </div>
-          <div v-else-if="wxPrefix === 2">
+          <div v-else-if="builtinPrefix === 2">
             <picker :value="1" :range="['美国', '中国', '巴西', '日本']">点击&nbsp;&nbsp;选择国家</picker>
             <picker mode="region" @change="onPickerChange">
               <span>点击&nbsp;&nbsp;</span>
@@ -349,33 +338,33 @@
         </template>
         <template v-else-if="item === 'picker-view'">
           <div>{{pickerView.year}}年{{pickerView.month}}月{{pickerView.day}}日</div>
-          <div v-if="!wxPrefix">
-            <wx-component :behavior="item" indicator-style="height: 50px;" style="width: 100%; height: 300px;" :value="pickerView.value" @change="onPickerViewChange">
-              <wx-component behavior="picker-view-column">
+          <div v-if="!builtinPrefix">
+            <builtin-component :behavior="item" indicator-style="height: 50px;" style="width: 100%; height: 300px;" :value="pickerView.value" @change="onPickerViewChange">
+              <builtin-component behavior="picker-view-column">
                 <div v-for="item in pickerView.years" :key="item" style="line-height: 50px">{{item}}年</div>
-              </wx-component>
-              <wx-component behavior="picker-view-column">
+              </builtin-component>
+              <builtin-component behavior="picker-view-column">
                 <div v-for="item in pickerView.months" :key="item" style="line-height: 50px">{{item}}月</div>
-              </wx-component>
-              <wx-component behavior="picker-view-column">
+              </builtin-component>
+              <builtin-component behavior="picker-view-column">
                 <div v-for="item in pickerView.days" :key="item" style="line-height: 50px">{{item}}日</div>
-              </wx-component>
-            </wx-component>
+              </builtin-component>
+            </builtin-component>
           </div>
-          <div v-else-if="wxPrefix === 1">
-            <wx-picker-view indicator-style="height: 50px;" style="width: 100%; height: 300px;" :value="pickerView.value" @change="onPickerViewChange">
-              <wx-picker-view-column>
+          <div v-else-if="builtinPrefix === 1">
+            <picker-view indicator-style="height: 50px;" style="width: 100%; height: 300px;" :value="pickerView.value" @change="onPickerViewChange">
+              <picker-view-column>
                 <div v-for="item in pickerView.years" :key="item" style="line-height: 50px">{{item}}年</div>
-              </wx-picker-view-column>
-              <wx-picker-view-column>
+              </picker-view-column>
+              <picker-view-column>
                 <div v-for="item in pickerView.months" :key="item" style="line-height: 50px">{{item}}月</div>
-              </wx-picker-view-column>
-              <wx-picker-view-column>
+              </picker-view-column>
+              <picker-view-column>
                 <div v-for="item in pickerView.days" :key="item" style="line-height: 50px">{{item}}日</div>
-              </wx-picker-view-column>
-            </wx-picker-view>
+              </picker-view-column>
+            </picker-view>
           </div>
-          <div v-else-if="wxPrefix === 2">
+          <div v-else-if="builtinPrefix === 2">
             <picker-view indicator-style="height: 50px;" style="width: 100%; height: 300px;" :value="pickerView.value" @change="onPickerViewChange">
               <picker-view-column>
                 <div v-for="item in pickerView.years" :key="item" style="line-height: 50px">{{item}}年</div>
@@ -390,137 +379,137 @@
           </div>
         </template>
         <template v-else-if="item === 'switch'">
-          <div v-if="!wxPrefix">
-            <wx-component :behavior="item" type="switch" :checked="true" @change="onSwitchChange"></wx-component>
-            <wx-component :behavior="item" type="checkbox" @change="onSwitchChange"></wx-component>
+          <div v-if="!builtinPrefix">
+            <builtin-component :behavior="item" type="switch" :checked="true" @change="onSwitchChange"></builtin-component>
+            <builtin-component :behavior="item" type="checkbox" @change="onSwitchChange"></builtin-component>
           </div>
-          <div v-else-if="wxPrefix === 1">
-            <wx-switch type="switch" :checked="true" @change="onSwitchChange"></wx-switch>
-            <wx-switch type="checkbox" @change="onSwitchChange"></wx-switch>
+          <div v-else-if="builtinPrefix === 1">
+            <switch type="switch" :checked="true" @change="onSwitchChange"></switch>
+            <switch type="checkbox" @change="onSwitchChange"></switch>
           </div>
-          <div v-else-if="wxPrefix === 2">
+          <div v-else-if="builtinPrefix === 2">
             <switch type="switch" :checked="true" @change="onSwitchChange"></switch>
             <switch type="checkbox" @change="onSwitchChange"></switch>
           </div>
         </template>
         <template v-else-if="item === 'slider'">
-          <wx-component v-if="!wxPrefix" :behavior="item" min="50" max="200" :show-value="true" @change="onSliderChange"></wx-component>
-          <wx-slider v-else-if="wxPrefix === 1" min="50" max="200" :show-value="true" @change="onSliderChange"></wx-slider>
-          <slider v-else-if="wxPrefix === 2" min="50" max="200" :show-value="true" @change="onSliderChange"></slider>
+          <builtin-component v-if="!builtinPrefix" :behavior="item" min="50" max="200" :show-value="true" @change="onSliderChange"></builtin-component>
+          <slider v-else-if="builtinPrefix === 1" min="50" max="200" :show-value="true" @change="onSliderChange"></slider>
+          <slider v-else-if="builtinPrefix === 2" min="50" max="200" :show-value="true" @change="onSliderChange"></slider>
         </template>
         <template v-else-if="item === 'map'">
-          <wx-component v-if="!wxPrefix" :behavior="item" :class="item" :longitude="map.longitude" :latitude="map.latitude" :scale="map.scale" :controls="map.controls" :markers="map.markers" :polyline="map.polyline" :show-location="true" @markertap="onMapMarkerTap" @regionchange="onMapRegionChange" @controltap="onMapControlTap">
+          <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" :longitude="map.longitude" :latitude="map.latitude" :scale="map.scale" :controls="map.controls" :markers="map.markers" :polyline="map.polyline" :show-location="true" @markertap="onMapMarkerTap" @regionchange="onMapRegionChange" @controltap="onMapControlTap">
             <Inner></Inner>
-          </wx-component>
-          <wx-map v-else-if="wxPrefix === 1" :class="item" :longitude="map.longitude" :latitude="map.latitude" :scale="map.scale" :controls="map.controls" :markers="map.markers" :polyline="map.polyline" :show-location="true" @markertap="onMapMarkerTap" @regionchange="onMapRegionChange" @controltap="onMapControlTap">
+          </builtin-component>
+          <map v-else-if="builtinPrefix === 1" :class="item" :longitude="map.longitude" :latitude="map.latitude" :scale="map.scale" :controls="map.controls" :markers="map.markers" :polyline="map.polyline" :show-location="true" @markertap="onMapMarkerTap" @regionchange="onMapRegionChange" @controltap="onMapControlTap">
             <Inner></Inner>
-          </wx-map>
-          <map v-else-if="wxPrefix === 2" :class="item" :longitude="map.longitude" :latitude="map.latitude" :scale="map.scale" :controls="map.controls" :markers="map.markers" :polyline="map.polyline" :show-location="true" @markertap="onMapMarkerTap" @regionchange="onMapRegionChange" @controltap="onMapControlTap">
+          </map>
+          <map v-else-if="builtinPrefix === 2" :class="item" :longitude="map.longitude" :latitude="map.latitude" :scale="map.scale" :controls="map.controls" :markers="map.markers" :polyline="map.polyline" :show-location="true" @markertap="onMapMarkerTap" @regionchange="onMapRegionChange" @controltap="onMapControlTap">
             <Inner></Inner>
           </map>
           <!-- 基础库暂未支持 regionchange 事件提供坐标和 scale，故注释 -->
           <!-- <button @click="resetMap">reset</button> -->
         </template>
         <template v-else-if="item === 'cover-view'">
-          <wx-compoennt v-if="!wxPrefix" :behavior="item">测试 cover-view</wx-compoennt>
-          <wx-cover-view v-else-if="wxPrefix === 1">测试 cover-view</wx-cover-view>
-          <cover-view v-else-if="wxPrefix === 2">测试 cover-view</cover-view>
+          <compoennt v-if="!builtinPrefix" :behavior="item">测试 cover-view</compoennt>
+          <cover-view v-else-if="builtinPrefix === 1">测试 cover-view</cover-view>
+          <cover-view v-else-if="builtinPrefix === 2">测试 cover-view</cover-view>
         </template>
         <template v-else-if="item === 'cover-image'">
-          <wx-component v-if="!wxPrefix" behavior="cover-view">
-            <wx-component :behavior="item" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></wx-component>
-          </wx-component>
-          <wx-cover-view v-else-if="wxPrefix === 1">
-            <wx-cover-image src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></wx-cover-image>
-          </wx-cover-view>
-          <cover-view v-else-if="wxPrefix === 2">
-            <wx-cover-image src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></wx-cover-image>
+          <builtin-component v-if="!builtinPrefix" behavior="cover-view">
+            <builtin-component :behavior="item" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></builtin-component>
+          </builtin-component>
+          <cover-view v-else-if="builtinPrefix === 1">
+            <cover-image src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></cover-image>
+          </cover-view>
+          <cover-view v-else-if="builtinPrefix === 2">
+            <cover-image src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></cover-image>
           </cover-view>
         </template>
         <template v-else-if="item === 'live-player'">
-          <wx-component v-if="!wxPrefix" :behavior="item" :class="item" mode="live" :autoplay="true" src="rtmp://live.hkstv.hk.lxdns.com/live/hks" @statechange="onLivePlayerStateChange">
+          <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" mode="live" :autoplay="true" src="rtmp://live.hkstv.hk.lxdns.com/live/hks" @statechange="onLivePlayerStateChange">
             <Inner></Inner>
-          </wx-component>
-          <wx-live-player v-else-if="wxPrefix === 1" :class="item" mode="live" :autoplay="true" src="rtmp://live.hkstv.hk.lxdns.com/live/hks" @statechange="onLivePlayerStateChange">
+          </builtin-component>
+          <live-player v-else-if="builtinPrefix === 1" :class="item" mode="live" :autoplay="true" src="rtmp://live.hkstv.hk.lxdns.com/live/hks" @statechange="onLivePlayerStateChange">
             <Inner></Inner>
-          </wx-live-player>
-          <live-player v-else-if="wxPrefix === 2" :class="item" mode="live" :autoplay="true" src="rtmp://live.hkstv.hk.lxdns.com/live/hks" @statechange="onLivePlayerStateChange">
+          </live-player>
+          <live-player v-else-if="builtinPrefix === 2" :class="item" mode="live" :autoplay="true" src="rtmp://live.hkstv.hk.lxdns.com/live/hks" @statechange="onLivePlayerStateChange">
             <Inner></Inner>
           </live-player>
         </template>
         <template v-else-if="item === 'live-pusher'">
-          <wx-component v-if="!wxPrefix" :behavior="item" :class="item" mode="RTC" :autopush="true" url="https://domain/push_stream" @statechange="onLivePusherStateChange">
+          <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" mode="RTC" :autopush="true" url="https://domain/push_stream" @statechange="onLivePusherStateChange">
             <Inner></Inner>
-          </wx-component>
-          <wx-live-pusher v-else-if="wxPrefix === 1" :class="item" mode="RTC" :autopush="true" url="https://domain/push_stream" @statechange="onLivePusherStateChange">
+          </builtin-component>
+          <live-pusher v-else-if="builtinPrefix === 1" :class="item" mode="RTC" :autopush="true" url="https://domain/push_stream" @statechange="onLivePusherStateChange">
             <Inner></Inner>
-          </wx-live-pusher>
-          <live-pusher v-else-if="wxPrefix === 2" :class="item" mode="RTC" :autopush="true" url="https://domain/push_stream" @statechange="onLivePusherStateChange">
+          </live-pusher>
+          <live-pusher v-else-if="builtinPrefix === 2" :class="item" mode="RTC" :autopush="true" url="https://domain/push_stream" @statechange="onLivePusherStateChange">
             <Inner></Inner>
           </live-pusher>
         </template>
         <template v-else-if="item === 'editor'">
-          <wx-component v-if="!wxPrefix" :behavior="item" placeholder="请输入内容" :show-img-size="true" :show-img-toolbar="true" :show-img-resize="true" @statuschange="onEditorStatusChange" @ready="onEditorReady"></wx-component>
-          <wx-editor v-else-if="wxPrefix === 1" placeholder="请输入内容" :show-img-size="true" :show-img-toolbar="true" :show-img-resize="true" @statuschange="onEditorStatusChange" @ready="onEditorReady"></wx-editor>
-          <editor v-else-if="wxPrefix === 2" placeholder="请输入内容" :show-img-size="true" :show-img-toolbar="true" :show-img-resize="true" @statuschange="onEditorStatusChange" @ready="onEditorReady"></editor>
+          <builtin-component v-if="!builtinPrefix" :behavior="item" placeholder="请输入内容" :show-img-size="true" :show-img-toolbar="true" :show-img-resize="true" @statuschange="onEditorStatusChange" @ready="onEditorReady"></builtin-component>
+          <editor v-else-if="builtinPrefix === 1" placeholder="请输入内容" :show-img-size="true" :show-img-toolbar="true" :show-img-resize="true" @statuschange="onEditorStatusChange" @ready="onEditorReady"></editor>
+          <editor v-else-if="builtinPrefix === 2" placeholder="请输入内容" :show-img-size="true" :show-img-toolbar="true" :show-img-resize="true" @statuschange="onEditorStatusChange" @ready="onEditorReady"></editor>
         </template>
         <template v-else-if="item === 'camera'">
-          <wx-component v-if="!wxPrefix" :behavior="item" :class="item">
+          <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item">
             <Inner></Inner>
-          </wx-component>
-          <wx-camera v-else-if="wxPrefix === 1" :class="item">
+          </builtin-component>
+          <camera v-else-if="builtinPrefix === 1" :class="item">
             <Inner></Inner>
-          </wx-camera>
-          <camera v-else-if="wxPrefix === 2" :class="item">
+          </camera>
+          <camera v-else-if="builtinPrefix === 2" :class="item">
             <Inner></Inner>
           </camera>
         </template>
         <template v-else-if="item === 'ad'">
-          <wx-component v-if="!wxPrefix" :behavior="item" :class="item" unit-id="123" @error="onAdError"></wx-component>
-          <wx-ad v-else-if="wxPrefix === 1" :class="item" unit-id="123" @error="onAdError"></wx-ad>
-          <ad v-else-if="wxPrefix === 2" :class="item" unit-id="123" @error="onAdError"></ad>
+          <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" unit-id="123" @error="onAdError"></builtin-component>
+          <ad v-else-if="builtinPrefix === 1" :class="item" unit-id="123" @error="onAdError"></ad>
+          <ad v-else-if="builtinPrefix === 2" :class="item" unit-id="123" @error="onAdError"></ad>
         </template>
         <template v-else-if="item === 'official-account'">
-          <wx-component v-if="!wxPrefix" :behavior="item" :class="item" @error="onOfficialAccountError"></wx-component>
-          <wx-official-account v-else-if="wxPrefix === 1" :class="item" @error="onOfficialAccountError"></wx-official-account>
-          <official-account v-else-if="wxPrefix === 2" :class="item" @error="onOfficialAccountError"></official-account>
+          <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" @error="onOfficialAccountError"></builtin-component>
+          <official-account v-else-if="builtinPrefix === 1" :class="item" @error="onOfficialAccountError"></official-account>
+          <official-account v-else-if="builtinPrefix === 2" :class="item" @error="onOfficialAccountError"></official-account>
         </template>
         <template v-else-if="item === 'web-view'">
-          <wx-component v-if="!wxPrefix" :behavior="item" :class="item" src="https://www.qq.com/"></wx-component>
-          <wx-web-view v-else-if="wxPrefix === 1" :class="item" src="https://www.qq.com/"></wx-web-view>
-          <web-view v-else-if="wxPrefix === 2" :class="item" src="https://www.qq.com/"></web-view>
+          <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" src="https://www.qq.com/"></builtin-component>
+          <web-view v-else-if="builtinPrefix === 1" :class="item" src="https://www.qq.com/"></web-view>
+          <web-view v-else-if="builtinPrefix === 2" :class="item" src="https://www.qq.com/"></web-view>
         </template>
         <template v-else-if="item === 'scroll-view'">
           <div>
-            <wx-component ref="scroll-view" v-if="!wxPrefix" :behavior="item" :class="item + '-y'" :scroll-into-view="'y1' + scrollView.yDest" :scroll-top="scrollView.scrollTop" :scroll-y="true" :scroll-with-animation="scrollView.yAnimation" @scroll="onScrollViewScroll"><Inner2 type="y1"/></wx-component>
-            <wx-scroll-view ref="scroll-view" v-else-if="wxPrefix === 1" :class="item + '-y'" :scroll-into-view="'y2' + scrollView.yDest" :scroll-top="scrollView.scrollTop" :scroll-y="true" :scroll-with-animation="scrollView.yAnimation" @scroll="onScrollViewScroll"><Inner2 type="y2"/></wx-scroll-view>
-            <scroll-view ref="scroll-view" v-else-if="wxPrefix === 2" :class="item + '-y'" :scroll-into-view="'y3' + scrollView.yDest" :scroll-top="scrollView.scrollTop" :scroll-y="true" :scroll-with-animation="scrollView.yAnimation" @scroll="onScrollViewScroll"><Inner2 type="y3"/></scroll-view>
+            <builtin-component ref="scroll-view" v-if="!builtinPrefix" :behavior="item" :class="item + '-y'" :scroll-into-view="'y1' + scrollView.yDest" :scroll-top="scrollView.scrollTop" :scroll-y="true" :scroll-with-animation="scrollView.yAnimation" @scroll="onScrollViewScroll"><Inner2 type="y1"/></builtin-component>
+            <scroll-view ref="scroll-view" v-else-if="builtinPrefix === 1" :class="item + '-y'" :scroll-into-view="'y2' + scrollView.yDest" :scroll-top="scrollView.scrollTop" :scroll-y="true" :scroll-with-animation="scrollView.yAnimation" @scroll="onScrollViewScroll"><Inner2 type="y2"/></scroll-view>
+            <scroll-view ref="scroll-view" v-else-if="builtinPrefix === 2" :class="item + '-y'" :scroll-into-view="'y3' + scrollView.yDest" :scroll-top="scrollView.scrollTop" :scroll-y="true" :scroll-with-animation="scrollView.yAnimation" @scroll="onScrollViewScroll"><Inner2 type="y3"/></scroll-view>
             <div class="scroll-view-btn" @click="onClickScrollViewYBtn">滚动到第三个滑块</div>
             <div class="scroll-view-btn" @click="onClickScrollViewYTopBtn">滚动到 120px 处</div>
             <div class="scroll-view-btn" @click="onClickScrollViewYAnimBtn">{{scrollView.yAnimation ? '关闭' : '打开'}}动画</div>
           </div>
           <div>
-            <wx-component ref="scroll-view" v-if="!wxPrefix" :behavior="item" :class="item + '-x'" :scroll-into-view="'x1' + scrollView.xDest" :scroll-x="true" :scroll-with-animation="true" @scroll="onScrollViewScroll"><Inner2 type="x1"/></wx-component>
-            <wx-scroll-view ref="scroll-view" v-else-if="wxPrefix === 1" :class="item + '-x'" :scroll-into-view="'x2' + scrollView.xDest" :scroll-x="true" :scroll-with-animation="true" @scroll="onScrollViewScroll"><Inner2 type="x2"/></wx-scroll-view>
-            <scroll-view ref="scroll-view" v-else-if="wxPrefix === 2" :class="item + '-x'" :scroll-into-view="'x3' + scrollView.xDest" :scroll-x="true" :scroll-with-animation="true" @scroll="onScrollViewScroll"><Inner2 type="x3"/></scroll-view>
+            <builtin-component ref="scroll-view" v-if="!builtinPrefix" :behavior="item" :class="item + '-x'" :scroll-into-view="'x1' + scrollView.xDest" :scroll-x="true" :scroll-with-animation="true" @scroll="onScrollViewScroll"><Inner2 type="x1"/></builtin-component>
+            <scroll-view ref="scroll-view" v-else-if="builtinPrefix === 1" :class="item + '-x'" :scroll-into-view="'x2' + scrollView.xDest" :scroll-x="true" :scroll-with-animation="true" @scroll="onScrollViewScroll"><Inner2 type="x2"/></scroll-view>
+            <scroll-view ref="scroll-view" v-else-if="builtinPrefix === 2" :class="item + '-x'" :scroll-into-view="'x3' + scrollView.xDest" :scroll-x="true" :scroll-with-animation="true" @scroll="onScrollViewScroll"><Inner2 type="x3"/></scroll-view>
             <div class="scroll-view-btn" @click="onClickScrollViewXBtn">滚动到第二个滑块</div>
           </div>
         </template>
         <!-- 不支持标签 -->
         <template v-else-if="item === 'xxxx'" >
-          <wx-component v-if="!wxPrefix" :behavior="item"></wx-component>
-          <wx-xxxx v-else-if="wxPrefix === 1"></wx-xxxx>
+          <builtin-component v-if="!builtinPrefix" :behavior="item"></builtin-component>
+          <xxxx v-else-if="builtinPrefix === 1"></xxxx>
         </template>
         <iframe v-else-if="item === 'iframe'"></iframe>
         <div v-else-if="item === 'intersection'">
           <div>{{intersection.appear ? '小球出现' : '小球消失'}}</div>
-          <wx-scroll-view class="intersection-scroll-view" :scroll-y="true">
+          <scroll-view class="intersection-scroll-view" :scroll-y="true">
             <div class="intersection-scroll-area" :style="intersection.appear ? 'background: #ccc' : ''">
               <div class="intersection-ball"></div>
             </div>
-          </wx-scroll-view>
+          </scroll-view>
         </div>
-      </wx-view>
+      </view>
     </div>
   </div>
 </template>
@@ -535,7 +524,12 @@ export default {
     Inner,
     Inner2,
   },
-  props: ['wxPrefix'],
+  props: {
+    builtinPrefix: {
+      type: Number,
+      default: 1
+    }
+  },
   data() {
     const date = new Date()
     const years = []
@@ -557,45 +551,45 @@ export default {
     return {
       list: [
         'normal',
-        'event',
+        // 'event',
         'img',
         'input',
         'textarea',
         'select',
         'label',
-        'video',
-        'canvas',
-        'view',
-        'text',
-        'rich-text',
-        'swiper',
-        'movable',
-        'picker-view',
-        'form',
-        'button',
-        'icon',
-        'progress',
-        'open-data',
-        'navigator',
-        'picker',
-        'picker-view',
-        'switch',
-        'slider',
-        'image',
-        'map',
-        'cover-view',
-        'cover-image',
-        'live-player',
-        'live-pusher',
-        'camera',
-        'editor',
-        'ad',
-        'official-account',
-        'scroll-view',
-        // 'web-view',
-        'xxxx',
-        'iframe',
-        'intersection',
+        // 'video',
+        // 'canvas',
+        // 'view',
+        // 'text',
+        // 'rich-text',
+        // 'swiper',
+        // 'movable',
+        // 'picker-view',
+        // 'form',
+        // 'button',
+        // 'icon',
+        // 'progress',
+        // 'open-data',
+        // 'navigator',
+        // 'picker',
+        // 'picker-view',
+        // 'switch',
+        // 'slider',
+        // 'image',
+        // 'map',
+        // 'cover-view',
+        // 'cover-image',
+        // 'live-player',
+        // 'live-pusher',
+        // 'camera',
+        // 'editor',
+        // 'ad',
+        // 'official-account',
+        // 'scroll-view',
+        // // 'web-view',
+        // 'xxxx',
+        // 'iframe',
+        // 'intersection',
       ],
       eventCount: 0,
       transition: false,
@@ -718,48 +712,48 @@ export default {
     }
   },
   mounted() {
-    wx.login({
-      success(res) {
-        console.log('login success', res)
-      }
-    })
+    // wx.login({
+    //   success(res) {
+    //     console.log('login success', res)
+    //   }
+    // })
 
-    const canvas = this.$refs.canvas[0]
-    canvas.$$prepare().then(domNode => {
-      domNode.width = 300
-      domNode.height = 200
-      const context = domNode.getContext('2d')
+    // const canvas = this.$refs.canvas[0]
+    // canvas.$$prepare().then(domNode => {
+    //   domNode.width = 300
+    //   domNode.height = 200
+    //   const context = domNode.getContext('2d')
 
-      context.strokeStyle = '#00ff00'
-      context.lineWidth = 5
-      context.rect(0, 0, 200, 200)
-      context.stroke()
-      context.strokeStyle = '#ff0000'
-      context.lineWidth = 2
-      context.moveTo(160, 100)
-      context.arc(100, 100, 60, 0, 2 * Math.PI, true)
-      context.moveTo(140, 100)
-      context.arc(100, 100, 40, 0, Math.PI, false)
-      context.moveTo(85, 80)
-      context.arc(80, 80, 5, 0, 2 * Math.PI, true)
-      context.moveTo(125, 80)
-      context.arc(120, 80, 5, 0, 2 * Math.PI, true)
-      context.stroke()
-    }).catch(console.error)
+    //   context.strokeStyle = '#00ff00'
+    //   context.lineWidth = 5
+    //   context.rect(0, 0, 200, 200)
+    //   context.stroke()
+    //   context.strokeStyle = '#ff0000'
+    //   context.lineWidth = 2
+    //   context.moveTo(160, 100)
+    //   context.arc(100, 100, 60, 0, 2 * Math.PI, true)
+    //   context.moveTo(140, 100)
+    //   context.arc(100, 100, 40, 0, Math.PI, false)
+    //   context.moveTo(85, 80)
+    //   context.arc(80, 80, 5, 0, 2 * Math.PI, true)
+    //   context.moveTo(125, 80)
+    //   context.arc(120, 80, 5, 0, 2 * Math.PI, true)
+    //   context.stroke()
+    // }).catch(console.error)
 
-    canvas.$$getNodesRef().then(nodesRef => {
-      nodesRef.boundingClientRect(res => {
-        console.log('test $$getNodesRef', res)
-      }).exec()
-    })
+    // canvas.$$getNodesRef().then(nodesRef => {
+    //   nodesRef.boundingClientRect(res => {
+    //     console.log('test $$getNodesRef', res)
+    //   }).exec()
+    // })
 
-    this.observer = window.$$createIntersectionObserver()
-    this.observer
-      .relativeTo('.h5-body >>> .intersection-scroll-view')
-      .observe('.h5-body >>> .intersection-ball', res => {
-        console.log(res)
-        this.intersection.appear = res.intersectionRatio > 0
-      })
+    // this.observer = window.$$createIntersectionObserver()
+    // this.observer
+    //   .relativeTo('.h5-body >>> .intersection-scroll-view')
+    //   .observe('.h5-body >>> .intersection-ball', res => {
+    //     console.log(res)
+    //     this.intersection.appear = res.intersectionRatio > 0
+    //   })
   },
   methods: {
     onClick() {
@@ -878,8 +872,8 @@ export default {
     onClickScrollViewYBtn() {
       const domNodes = this.$refs['scroll-view'] || []
       if (domNodes[0]) {
-        const wxPrefix = this.wxPrefix
-        const prefix = wxPrefix === 1 ? 'y2' : wxPrefix === 2 ? 'y3' : 'y1'
+        const builtinPrefix = this.builtinPrefix
+        const prefix = builtinPrefix === 1 ? 'y2' : builtinPrefix === 2 ? 'y3' : 'y1'
         // 会被 vue 给 diff 掉，得走 setAttribute
         domNodes[0].setAttribute('scroll-into-view', prefix + 'block3')
       }
@@ -902,8 +896,8 @@ export default {
     onClickScrollViewXBtn() {
       const domNodes = this.$refs['scroll-view'] || []
       if (domNodes[1]) {
-        const wxPrefix = this.wxPrefix
-        const prefix = wxPrefix === 1 ? 'x2' : wxPrefix === 2 ? 'x3' : 'x1'
+        const builtinPrefix = this.builtinPrefix
+        const prefix = builtinPrefix === 1 ? 'x2' : builtinPrefix === 2 ? 'x3' : 'x1'
         domNodes[1].setAttribute('scroll-into-view', prefix + 'block2')
       }
       this.scrollView.xDest = 'block2'
@@ -1026,7 +1020,7 @@ export default {
   background: rgba(7, 193, 96, 0.06);
 }
 
-textarea .wx-comp-textarea {
+textarea .comp-textarea {
   background-color: #ddd;
 }
 
@@ -1044,6 +1038,10 @@ textarea .wx-comp-textarea {
 
 .comp {
   padding: 10px 20px;
+}
+
+.comp radio-group, .comp checkbox-group{
+  display: inline-flex;
 }
 
 .video {

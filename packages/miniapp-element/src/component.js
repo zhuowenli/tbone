@@ -8,6 +8,7 @@ import view from './builtInComponents/view'
 import icon from './builtInComponents/icon'
 import progress from './builtInComponents/progress'
 import text from './builtInComponents/text'
+import label from './builtInComponents/label'
 import button from './builtInComponents/button'
 import editor from './builtInComponents/editor'
 import form from './builtInComponents/form'
@@ -39,7 +40,7 @@ const components = [
     coverImage, coverView, movableArea, scrollView, swiper, view, icon, progress,
     text, button, editor, form, input, picker, pickerView, slider, switchCom, textarea,
     navigator, camera, image, livePlayer, livePusher, video, map, canvas, ad, officialAccount,
-    openData, webView
+    openData, webView, label
 ]
 
 const subComponents = [movableView, swiperItem, pickerViewColumn]

@@ -19,8 +19,8 @@ export default {
         supportComponentGenerics: false
     },
     wechat: {
-        xml: 'axml',
-        css: 'acss',
+        xml: 'wxml',
+        css: 'wxss',
         if: 'wx:if',
         else: 'wx:else',
         elseif: 'wx:elif',

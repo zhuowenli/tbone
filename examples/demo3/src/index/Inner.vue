@@ -12,7 +12,7 @@
             <div>this is video</div>
         </div>
         <div class="btn-cnt">
-            <wx-component class="video-btn" behavior="button" open-type="share">分享</wx-component>
+            <builtin-component class="video-btn" behavior="button" open-type="share">分享</builtin-component>
         </div>
     </div>
 </template>

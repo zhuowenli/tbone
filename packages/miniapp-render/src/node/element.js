@@ -342,17 +342,27 @@ class Element extends Node {
         })
     }
 
-    // Gets the NodesRef object for the corresponding node
+
+    /**
+     * 获取对应节点的 NodesRef 对象
+     * https://developers.weixin.qq.com/miniprogram/dev/api/wxml/NodesRef.html
+     */
     $$getNodesRef() {
-    // Clears out setData
+        // 先清空 setData
         tool.flushThrottleCache()
         const window = cache.getWindow(this.$_pageId)
         return new Promise((resolve, reject) => {
             if (!window) reject()
 
             if (this.tagName === 'CANVAS') {
-                // TODO, for the sake of compatibility with a bug in the underlying library, for the time being
-                resolve(CONTAINER.createSelectorQuery().in(this._builtInComponent).select(`.node-${this.$_nodeId}`))
+                // TODO: 为了兼容基础库的一个 bug，暂且如此实现
+                // 为防止 _builtInComponent 找不到，先加一个延迟
+                setTimeout(() => {
+                    console.log(this._builtInComponent)
+                    console.log(my.createSelectorQuery().in(this._builtInComponent))
+                    console.log(`.node-${this.$_nodeId}`)
+                    resolve(my.createSelectorQuery().in(this._builtInComponent).select(`.node-${this.$_nodeId}`))
+                }, 0)
             } else {
                 resolve(window.$$createSelectorQuery().select(`.miniapp-root >>> .node-${this.$_nodeId}`))
             }

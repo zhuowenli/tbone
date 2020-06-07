@@ -91,8 +91,7 @@ module.exports = function({types: t}, {platform = 'ali'}) {
                                         ])
                                     )
                                 } else {
-                                    const newNodeInit =
-                    specObj.imported === platformMap[platform]
+                                    const newNodeInit = specObj.imported === platformMap[platform]
                                     let newNode = variableDeclarationMethod(
                                         specObj.imported,
                                         newNodeInit

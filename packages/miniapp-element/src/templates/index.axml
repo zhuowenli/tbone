@@ -132,7 +132,19 @@
     hover-stop-propagation="{{hoverStopPropagation}}"
     hover-start-time="{{hoverStayTime}}"
     hover-stay-time="{{hoverStayTime}}"
-><subtree childNodes="{{innerChildNodes}}" inCover="{{inCover}}" onTouchStart="onTouchStart" onTouchMove="onTouchMove" onTouchEnd="onTouchEnd" onTouchCancel="onTouchCancel" onTap="onTap" onLoad="onImgLoad" onError="onImgError"></subtree></view>
+>
+    <subtree childNodes="{{innerChildNodes}}" inCover="{{inCover}}" onTouchStart="onTouchStart" onTouchMove="onTouchMove" onTouchEnd="onTouchEnd" onTouchCancel="onTouchCancel" onTap="onTap" onLoad="onImgLoad" onError="onImgError"></subtree>
+</view>
+<label
+    a:elif="{{builtinComponentName === 'label'}}"
+    id="{{id}}"
+    for="{{for}}"
+    animation="{{animation}}"
+    class="{{class}}"
+    style="{{style}}"
+>
+    <subtree childNodes="{{innerChildNodes}}" inCover="{{inCover}}" onTouchStart="onTouchStart" onTouchMove="onTouchMove" onTouchEnd="onTouchEnd" onTouchCancel="onTouchCancel" onTap="onTap" onLoad="onImgLoad" onError="onImgError"></subtree>
+</label>
 <!-- Base content -->
 <icon
     a:elif="{{builtinComponentName === 'icon'}}"
@@ -223,17 +235,21 @@
     onReset="onFormReset"
 ><subtree childNodes="{{innerChildNodes}}" inCover="{{inCover}}" onTouchStart="onTouchStart" onTouchMove="onTouchMove" onTouchEnd="onTouchEnd" onTouchCancel="onTouchCancel" onTap="onTap" onLoad="onImgLoad" onError="onImgError"></subtree></form>
 <block a:elif="{{builtinComponentName === 'input'}}">
-    <radio-group a:if="{{type === 'radio'}}" onChange="onRadioChange"><radio
-        id="{{id}}"
-        class="{{class}}"
-        animation="{{animation}}"
-        style="{{style}}"
-        hidden="{{hidden}}"
-        value="{{value}}"
-        disabled="{{disabled}}"
-        checked="{{checked}}"
-        color="{{color}}"
-    ><subtree childNodes="{{innerChildNodes}}" inCover="{{inCover}}" onTouchStart="onTouchStart" onTouchMove="onTouchMove" onTouchEnd="onTouchEnd" onTouchCancel="onTouchCancel" onTap="onTap" onLoad="onImgLoad" onError="onImgError"></subtree></radio></radio-group>
+    <radio-group a:if="{{type === 'radio'}}" onChange="onRadioChange">
+        <radio
+            id="{{id}}"
+            class="{{class}}"
+            animation="{{animation}}"
+            style="{{style}}"
+            hidden="{{hidden}}"
+            value="{{value}}"
+            disabled="{{disabled}}"
+            checked="{{checked}}"
+            color="{{color}}"
+        >
+        <!-- <subtree childNodes="{{innerChildNodes}}" inCover="{{inCover}}" onTouchStart="onTouchStart" onTouchMove="onTouchMove" onTouchEnd="onTouchEnd" onTouchCancel="onTouchCancel" onTap="onTap" onLoad="onImgLoad" onError="onImgError"></subtree> -->
+        </radio>
+    </radio-group>
     <checkbox-group a:elif="{{type === 'checkbox'}}" onChange="onCheckboxChange"><checkbox
         id="{{id}}"
         class="{{class}}"
@@ -243,7 +259,9 @@
         disabled="{{disabled}}"
         checked="{{checked}}"
         color="{{color}}"
-    ><subtree childNodes="{{innerChildNodes}}" inCover="{{inCover}}" onTouchStart="onTouchStart" onTouchMove="onTouchMove" onTouchEnd="onTouchEnd" onTouchCancel="onTouchCancel" onTap="onTap" onLoad="onImgLoad" onError="onImgError"></subtree></checkbox></checkbox-group>
+    >
+        <!-- <subtree childNodes="{{innerChildNodes}}" inCover="{{inCover}}" onTouchStart="onTouchStart" onTouchMove="onTouchMove" onTouchEnd="onTouchEnd" onTouchCancel="onTouchCancel" onTap="onTap" onLoad="onImgLoad" onError="onImgError"></subtree> -->
+    </checkbox></checkbox-group>
     <input
         a:elif="{{type !== 'hidden'}}"
         id="{{id}}"
@@ -565,5 +583,5 @@
   class="{{class}}"
   style="{{style}}"
 >
-  <subtree  childNodes="{{childNodes}}" inCover="{{inCover}}" onTouchStart="onTouchStart" onTouchMove="onTouchMove" onTouchEnd="onTouchEnd" onTouchCancel="onTouchCancel" onTap="onTap" onLoad="onImgLoad" onError="onImgError"></subtree>
+    <subtree childNodes="{{childNodes}}" inCover="{{inCover}}" onTouchStart="onTouchStart" onTouchMove="onTouchMove" onTouchEnd="onTouchEnd" onTouchCancel="onTouchCancel" onTap="onTap" onLoad="onImgLoad" onError="onImgError"></subtree>
 </view>

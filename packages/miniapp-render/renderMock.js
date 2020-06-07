@@ -27,7 +27,7 @@ const html = `<div class="aa">
     </div>
 </div>`
 
-global.wx = {
+global.my = {
     redirectTo(options) {
         if (typeof global.expectCallMethod === 'string') expect(global.expectCallMethod).toBe('redirectTo')
         if (typeof global.expectPagePath === 'string') expect(options.url).toBe(global.expectPagePath)
@@ -51,7 +51,7 @@ global.wx = {
     login() {}
 }
 
-global.CONTAINER = global.wx
+global.CONTAINER = global.my
 
 export default {
     html,

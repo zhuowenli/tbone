@@ -1,0 +1,7 @@
+label{
+    display: inline-flex;
+    align-items: center;
+}
+label radio-group{
+    display: inline-flex;
+}
