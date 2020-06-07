@@ -98,7 +98,7 @@ export default class History extends EventTarget {
             // 同源才允许操作
             if (title && typeof title === 'string') {
                 // 设置标题
-                wx.setNavigationBarTitle({title})
+                my.setNavigationBar({title})
             }
 
 
@@ -119,7 +119,7 @@ export default class History extends EventTarget {
             // 同源才允许操作
             if (title && typeof title === 'string') {
                 // 设置标题
-                wx.setNavigationBarTitle({title})
+                my.setNavigationBar({title})
             }
 
             // 替换 href，但不做跳转

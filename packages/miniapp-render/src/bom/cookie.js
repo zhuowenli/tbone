@@ -172,7 +172,7 @@ export default class Cookie {
         // 持久化 cookie
         if (this.cookieStore !== 'memory' && this.cookieStore !== 'globalmemory') {
             const key = this.cookieStore === 'storage' ? `PAGE_COOKIE_${this.$_pageName}` : 'PAGE_COOKIE'
-            wx.setStorage({
+            my.setStorage({
                 key,
                 data: this.serialize(),
             })

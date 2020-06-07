@@ -12,7 +12,7 @@ const defineProperty = Object.defineProperty
  */
 function useGlobal() {
     // 页面删除时清除缓存
-    window.addEventListener('wxunload', () => {
+    window.addEventListener('myunload', () => {
         // 删除页面上的 observer
         OBSERVER_CACHE[document.$$pageId] = null
     })

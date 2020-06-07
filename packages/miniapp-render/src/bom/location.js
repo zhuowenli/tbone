@@ -140,7 +140,7 @@ export default class Location extends EventTarget {
                 param = '?' + param.join('&')
 
                 const callMethod = window.$$miniapp.isTabBarPage(matchRoute) ? 'switchTab' : 'redirectTo'
-                wx[callMethod]({
+                my[callMethod]({
                     url: `${matchRoute}${param}`,
                 })
 
@@ -209,7 +209,7 @@ export default class Location extends EventTarget {
             param = '?' + param.join('&')
 
             const callMethod = window.$$miniapp.isTabBarPage(matchRoute) ? 'switchTab' : 'navigateTo'
-            wx[callMethod]({
+            my[callMethod]({
                 url: `${matchRoute}${param}`,
             })
         } else {
@@ -576,7 +576,7 @@ export default class Location extends EventTarget {
         param = '?' + param.join('&')
 
         const callMethod = window.$$miniapp.isTabBarPage(this.$_pageRoute) ? 'switchTab' : 'redirectTo'
-        wx[callMethod]({
+        my[callMethod]({
             url: `${this.$_pageRoute}${param}`,
         })
     }

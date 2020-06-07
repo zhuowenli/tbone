@@ -16,7 +16,7 @@ export default class LocalStorage {
      */
     $_updateInfo() {
         try {
-            const info = wx.getStorageInfoSync()
+            const info = my.getStorageInfoSync()
             const pages = getCurrentPages() || []
             pages.forEach(page => {
                 if (page && page.window) {
@@ -74,16 +74,16 @@ export default class LocalStorage {
     getItem(key) {
         if (!key || typeof key !== 'string') return null
 
-        return wx.getStorageSync(key) || null
+        return my.getStorageSync(key) || null
     }
 
     setItem(key, data) {
         if (!key || typeof key !== 'string') return
         data = '' + data
 
-        const oldValue = wx.getStorageSync(key) || null
+        const oldValue = my.getStorageSync(key) || null
 
-        wx.setStorageSync(key, data)
+        my.setStorageSync(key, data)
         this.$_updateInfo()
         this.$_triggerStorage(key, data, oldValue)
     }
@@ -91,15 +91,15 @@ export default class LocalStorage {
     removeItem(key) {
         if (!key || typeof key !== 'string') return
 
-        const oldValue = wx.getStorageSync(key) || null
+        const oldValue = my.getStorageSync(key) || null
 
-        wx.removeStorageSync(key)
+        my.removeStorageSync(key)
         this.$_updateInfo()
         this.$_triggerStorage(key, null, oldValue)
     }
 
     clear() {
-        wx.clearStorageSync()
+        my.clearStorageSync()
         this.$_updateInfo()
         this.$_triggerStorage(null, null, null, true)
     }

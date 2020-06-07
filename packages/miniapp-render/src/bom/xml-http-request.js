@@ -124,7 +124,7 @@ class XMLHttpRequest extends EventTarget {
         let url = this.$_url
         url = url.indexOf('//') === -1 ? this.$_window.location.origin + url : url
 
-        this.$_requestTask = wx.request({
+        this.$_requestTask = my.request({
             url,
             data: this.$_data || {},
             header,

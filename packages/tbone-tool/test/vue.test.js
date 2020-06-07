@@ -31,7 +31,7 @@ test('useGlobal', () => {
     }
     const rmOb = pageId => {
         document.$$pageId = pageId
-        window.dispatchEvent(new window.CustomEvent('wxunload'))
+        window.dispatchEvent(new window.CustomEvent('myunload'))
     }
     state.list._callNotify = function() {
         if (this.__ob__) this.__ob__.dep.notify()
