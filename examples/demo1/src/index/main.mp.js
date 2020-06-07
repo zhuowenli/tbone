@@ -9,15 +9,16 @@ export default function createApp() {
     container.id = 'app'
     document.body.appendChild(container)
 
+    // TODO: 暂时不可用
     // rem 和页面样式修改
-    window.onload = function() {
-        document.documentElement.style.fontSize = my.getSystemInfoSync().screenWidth / 16 + 'px'
-        document.documentElement.style.backgroundColor = '#fffbe7'
-    }
-    window.onerror = (message, source, lineno, colno, error) => {
-        console.log('window.onerror => ', message, source, lineno, colno, error)
-    }
-    window.addEventListener('error', evt => console.log('window.addEventListener(\'error\') =>', evt))
+    // window.onload = function() {
+    //     document.documentElement.style.fontSize = my.getSystemInfoSync().screenWidth / 16 + 'px'
+    //     document.documentElement.style.backgroundColor = '#fffbe7'
+    // }
+    // window.onerror = (message, source, lineno, colno, error) => {
+    //     console.log('window.onerror => ', message, source, lineno, colno, error)
+    // }
+    // window.addEventListener('error', evt => console.log('window.addEventListener(\'error\') =>', evt))
 
     Vue.use(Router)
 

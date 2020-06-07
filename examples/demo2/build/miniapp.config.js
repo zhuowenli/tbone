@@ -1,10 +1,9 @@
 module.exports = {
     origin: 'https://test.miniapp.com',
-    entry: '/test/aaa',
+    entry: '/',
     router: {
         index: [
-            '/test/aaa',
-            '/test/bbb',
+            '/',
         ],
     },
     redirect: {
@@ -24,7 +23,7 @@ module.exports = {
         ],
         autoBuildNpm: 'yarn',
         window: {
-            defaultTitle: 'zhuowenli\'s miniapp',
+            defaultTitle: '@zhuowenli\'s tbone demo',
             titleBarColor: '#ffffff',
             navigationBarForceEnable: true
         },
@@ -44,6 +43,6 @@ module.exports = {
 
     // package.json
     packageConfig: {
-        author: 'lvjian',
+        author: 'zhuowenli',
     },
 }
