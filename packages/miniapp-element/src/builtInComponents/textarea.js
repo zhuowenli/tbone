@@ -102,34 +102,56 @@ export default {
     }],
     handles: {
         onTextareaFocus(evt) {
-            this._textareaOldValue = this.domNode.value
+            const domNode = this.domNode
+            if (!domNode) return
+
+            domNode._textareaOldValue = domNode.value
+            domNode.$$setAttributeWithoutUpdate('focus', true)
+
+            // 可被用户行为改变的值，需要记录
+            domNode._oldValues = domNode._oldValues || {}
+            domNode._oldValues.focus = true
+
             callSimpleEvent('focus', evt, this.domNode)
         },
         onTextareaBlur(evt) {
-            if (!this.domNode) return
+            const domNode = this.domNode
+            if (!domNode) return
 
-            this.domNode.setAttribute('focus', false)
-            if (this._textareaOldValue !== undefined && this.domNode.value !== this._textareaOldValue) {
-                this._textareaOldValue = undefined
+            domNode.$$setAttributeWithoutUpdate('focus', false)
+
+            // 可被用户行为改变的值，需要记录
+            domNode._oldValues = domNode._oldValues || {}
+            domNode._oldValues.focus = false
+
+            if (domNode._textareaOldValue !== undefined && domNode.value !== domNode._textareaOldValue) {
+                domNode._textareaOldValue = undefined
                 this.callEvent('change', evt)
             }
+
             callSimpleEvent('blur', evt, this.domNode)
         },
         onTextareaLineChange(evt) {
             callSimpleEvent('linechange', evt, this.domNode)
         },
         onTextareaInput(evt) {
-            if (!this.domNode) return
+            const domNode = this.domNode
+            if (!domNode) return
 
             const value = '' + evt.detail.value
-            this.domNode.setAttribute('value', value)
+            domNode.$$setAttributeWithoutUpdate('value', value)
+
+            // 可被用户行为改变的值，需要记录
+            domNode._oldValues = domNode._oldValues || {}
+            domNode._oldValues.value = value
+
             callEvent('input', evt, null, this.pageId, this.nodeId)
         },
         onTextareaConfirm(evt) {
             callSimpleEvent('confirm', evt, this.domNode)
         },
         onTextareaKeyBoardHeightChange(evt) {
-            callSimpleEvent('keyboardheightchange', this.domNode)
+            callSimpleEvent('keyboardheightchange', evt, this.domNode)
         },
     },
 }

@@ -1,104 +1,104 @@
-import Pool from '../util/pool';
-import cache from '../util/cache';
-import tool from '../util/tool';
-import Node from '../node/node';
+import Pool from '../util/pool'
+import cache from '../util/cache'
+import tool from '../util/tool'
+import Node from './node'
 
-const pool = new Pool();
+const pool = new Pool()
 
 class TextNode extends Node {
-  static $$create(options, tree) {
-    const config = cache.getConfig();
+    static $$create(options, tree) {
+        const config = cache.getConfig()
 
-    if (config.optimization.textMultiplexing) {
-      const instance = pool.get();
+        if (config.optimization.textMultiplexing) {
+            const instance = pool.get()
 
-      if (instance) {
-        instance.$$init(options, tree);
-        return instance;
-      }
+            if (instance) {
+                instance.$$init(options, tree)
+                return instance
+            }
+        }
+
+        return new TextNode(options, tree)
     }
 
-    return new TextNode(options, tree);
-  }
+    $$init(options, tree) {
+        options.type = 'text'
 
-  $$init(options, tree) {
-    options.type = 'text';
+        super.$$init(options, tree)
 
-    super.$$init(options, tree);
-
-    this.$_content = options.content || '';
-  }
-
-  $$destroy() {
-    super.$$destroy();
-
-    this.$_content = '';
-  }
-
-  $$recycle() {
-    this.$$destroy();
-
-    const config = cache.getConfig();
-
-    if (config.optimization.textMultiplexing) {
-      pool.add(this);
+        this.$_content = options.content || ''
     }
-  }
 
-  $_triggerParentUpdate() {
-    if (this.parentNode) this.parentNode.$$trigger('$$childNodesUpdate');
-  }
+    $$destroy() {
+        super.$$destroy()
 
-  get $$domInfo() {
-    return {
-      nodeId: this.$_nodeId,
-      pageId: this.$_pageId,
-      type: this.$_type,
-      content: this.$_content,
-    };
-  }
+        this.$_content = ''
+    }
 
-  get nodeName() {
-    return '#text';
-  }
+    $$recycle() {
+        this.$$destroy()
 
-  get nodeType() {
-    return Node.TEXT_NODE;
-  }
+        const config = cache.getConfig()
 
-  get nodeValue() {
-    return this.textContent;
-  }
+        if (config.optimization.textMultiplexing) {
+            pool.add(this)
+        }
+    }
 
-  set nodeValue(value) {
-    this.textContent = value;
-  }
+    $_triggerParentUpdate() {
+        if (this.parentNode) this.parentNode.$$trigger('$$childNodesUpdate')
+    }
 
-  get textContent() {
-    return this.$_content;
-  }
+    get $$domInfo() {
+        return {
+            nodeId: this.$_nodeId,
+            pageId: this.$_pageId,
+            type: this.$_type,
+            content: this.$_content,
+        }
+    }
 
-  set textContent(value) {
-    value += '';
+    get nodeName() {
+        return '#text'
+    }
 
-    this.$_content = value;
-    this.$_triggerParentUpdate();
-  }
+    get nodeType() {
+        return Node.TEXT_NODE
+    }
 
-  get data() {
-    return this.textContent;
-  }
+    get nodeValue() {
+        return this.textContent
+    }
 
-  set data(value) {
-    this.textContent = value;
-  }
+    set nodeValue(value) {
+        this.textContent = value
+    }
 
-  cloneNode() {
-    return this.ownerDocument.$$createTextNode({
-      content: this.$_content,
-      nodeId: `b-${tool.getId()}`,
-    });
-  }
+    get textContent() {
+        return this.$_content
+    }
+
+    set textContent(value) {
+        value += ''
+
+        this.$_content = value
+        this.$_triggerParentUpdate()
+    }
+
+    get data() {
+        return this.textContent
+    }
+
+    set data(value) {
+        this.textContent = value
+    }
+
+    cloneNode() {
+        return this.ownerDocument.$$createTextNode({
+            content: this.$_content,
+            nodeId: `b-${tool.getId()}`,
+        })
+    }
 }
 
-export default TextNode;
+export default TextNode

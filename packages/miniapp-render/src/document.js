@@ -121,6 +121,7 @@ class Document extends EventTarget {
         tree = tree || this.$_tree
 
         const constructorClass = CONSTRUCTOR_MAP[tagName]
+
         if (constructorClass) {
             return constructorClass.$$create(options, tree)
         } else if (componentName) {

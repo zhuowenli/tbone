@@ -4,6 +4,7 @@
       <li><router-link class="link" to="/test/aaa">aaa</router-link></li>
       <li><router-link class="link" to="/test/bbb">bbb</router-link></li>
     </ul>
+
     <router-view></router-view>
 
     <button class="btn" @click.stop="throwError">throw an error</button>
@@ -13,6 +14,7 @@
     <div style="margin-left: 20px;">
       <p>这是<span>{{input}}</span>段中间插入了span的文本</p>
     </div>
+
     <div style="margin: 20px;">
       <p style="width: 10rem;">这段看起来特别特别长的文字宽度是 10 rem，测试测试测试测试测试测试测试测试测试测试测试测试</p>
     </div>
@@ -34,18 +36,18 @@ export default {
     }
   },
   mounted() {
-    console.log('TEST_VAR_STRING', TEST_VAR_STRING)
-    console.log('TEST_VAR_NUMBER', TEST_VAR_NUMBER)
-    console.log('TEST_VAR_BOOL', TEST_VAR_BOOL)
-    console.log('TEST_VAR_FUNCTION', TEST_VAR_FUNCTION)
-    console.log('TEST_VAR_OTHERS', TEST_VAR_OTHERS)
+    // console.log('TEST_VAR_STRING', TEST_VAR_STRING)
+    // console.log('TEST_VAR_NUMBER', TEST_VAR_NUMBER)
+    // console.log('TEST_VAR_BOOL', TEST_VAR_BOOL)
+    // console.log('TEST_VAR_FUNCTION', TEST_VAR_FUNCTION)
+    // console.log('TEST_VAR_OTHERS', TEST_VAR_OTHERS)
 
-    // cookie
-    console.log('before set cookie', document.cookie)
-    document.cookie = `time=${+new Date()}; expires=Wed Jan 01 2220 00:00:00 GMT+0800; path=/`
-    console.log('after set cookie', document.cookie)
+    // // cookie
+    // console.log('before set cookie', document.cookie)
+    // document.cookie = `time=${+new Date()}; expires=Wed Jan 01 2220 00:00:00 GMT+0800; path=/`
+    // console.log('after set cookie', document.cookie)
 
-    console.log(this);
+    // console.log(this);
   },
   methods: {
     throwError() {
@@ -55,6 +57,10 @@ export default {
     },
     onInputChange(e) {
       // this.input = e.$_detail.value
+    },
+    jump(url){
+      console.log(url);
+      this.$router.push(url)
     }
   },
 }

@@ -15,7 +15,7 @@ import Location from './bom/location'
 import Navigator from './bom/navigator'
 import Screen from './bom/screen'
 import History from './bom/history'
-import miniapp from './bom/miniapp'
+import Miniapp from './bom/miniapp'
 import LocalStorage from './bom/local-storage'
 import SessionStorage from './bom/session-storage'
 import Performance from './bom/performance'
@@ -58,7 +58,7 @@ class Window extends EventTarget {
         this.$_navigator = new Navigator()
         this.$_screen = new Screen()
         this.$_history = new History(this.$_location)
-        this.$_miniapp = new miniapp(pageId)
+        this.$_miniapp = new Miniapp(pageId)
         this.$_localStorage = new LocalStorage(this)
         this.$_sessionStorage = new SessionStorage(this)
         this.$_performance = new Performance(timeOrigin)

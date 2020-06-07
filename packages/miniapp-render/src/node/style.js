@@ -1,142 +1,142 @@
-import styleList from './style-list';
-import Pool from '../util/pool';
-import cache from '../util/cache';
-import tool from '../util/tool';
+import styleList from './style-list'
+import Pool from '../util/pool'
+import cache from '../util/cache'
+import tool from '../util/tool'
 
-const pool = new Pool();
+const pool = new Pool()
 
 /**
  * Parse style string
  */
 function parse(styleText) {
-  const rules = {};
+    const rules = {}
 
-  if (styleText) {
-    styleText = tool.decodeContent(styleText);
-    // deal with the semicolon in the value first
-    styleText = styleText.replace(/url\([^)]+\)/ig, all => all.replace(/;/ig, ':#||#:'));
-    styleText.split(';').forEach(rule => {
-      rule = rule.trim();
-      if (!rule) return;
+    if (styleText) {
+        styleText = tool.decodeContent(styleText)
+        // deal with the semicolon in the value first
+        styleText = styleText.replace(/url\([^)]+\)/ig, all => all.replace(/;/ig, ':#||#:'))
+        styleText.split(';').forEach(rule => {
+            rule = rule.trim()
+            if (!rule) return
 
-      const split = rule.indexOf(':');
-      if (split === -1) return;
+            const split = rule.indexOf(':')
+            if (split === -1) return
 
-      const name = tool.toCamel(rule.substr(0, split).trim());
-      rules[name] = rule.substr(split + 1).replace(/:#\|\|#:/ig, ';').trim();
-    });
-  }
+            const name = tool.toCamel(rule.substr(0, split).trim())
+            rules[name] = rule.substr(split + 1).replace(/:#\|\|#:/ig, ';').trim()
+        })
+    }
 
-  return rules;
+    return rules
 }
 
 class Style {
-  constructor(onUpdate) {
-    this.__settedStyle = {};
-    this.$$init(onUpdate);
-  }
-
-  static $$create(onUpdate) {
-    const config = cache.getConfig();
-
-    if (config.optimization.domExtendMultiplexing) {
-      // reuse dom extension objects
-      const instance = pool.get();
-
-      if (instance) {
-        instance.$$init(onUpdate);
-        return instance;
-      }
+    constructor(onUpdate) {
+        this.__settedStyle = {}
+        this.$$init(onUpdate)
     }
 
-    return new Style(onUpdate);
-  }
+    static $$create(onUpdate) {
+        const config = cache.getConfig()
 
-  // Init instance
-  $$init(onUpdate) {
-    this.$_doUpdate = onUpdate || (() => {});
-    // Whether checking for updates is disabled
-    this.$_disableCheckUpdate = false;
-  }
+        if (config.optimization.domExtendMultiplexing) {
+            // reuse dom extension objects
+            const instance = pool.get()
 
-  $$destroy() {
-    this.$_doUpdate = null;
-    this.$_disableCheckUpdate = false;
+            if (instance) {
+                instance.$$init(onUpdate)
+                return instance
+            }
+        }
 
-    styleList.forEach(name => {
-      this.__settedStyle[name] = undefined;
-    });
-  }
-
-  $$recycle() {
-    this.$$destroy();
-
-    const config = cache.getConfig();
-
-    if (config.optimization.domExtendMultiplexing) {
-      // reuse dom extension objects
-      pool.add(this);
+        return new Style(onUpdate)
     }
-  }
 
-  $_checkUpdate() {
-    if (!this.$_disableCheckUpdate) {
-      this.$_doUpdate();
+    // Init instance
+    $$init(onUpdate) {
+        this.$_doUpdate = onUpdate || (() => {})
+        // Whether checking for updates is disabled
+        this.$_disableCheckUpdate = false
     }
-  }
 
-  get cssText() {
-    return Object.keys(this.__settedStyle).reduce((cssText, name) => {
-      if (this.__settedStyle[name]) {
-        return cssText + `${tool.toDash(name)}:${this.__settedStyle[name].trim()};`;
-      }
-      return cssText;
-    }, '');
-  }
+    $$destroy() {
+        this.$_doUpdate = null
+        this.$_disableCheckUpdate = false
 
-  set cssText(styleText) {
-    if (typeof styleText !== 'string') return;
-
-    styleText = styleText.replace(/"/g, '\'');
-
-    // Parse style
-    const rules = parse(styleText);
-
-    // Merge the Settings for each rule into an update
-    this.$_disableCheckUpdate = true;
-    for (const name of styleList) {
-      this[name] = rules[name];
+        styleList.forEach(name => {
+            this.__settedStyle[name] = undefined
+        })
     }
-    this.$_disableCheckUpdate = false;
-    this.$_checkUpdate();
-  }
 
-  getPropertyValue(name) {
-    if (typeof name !== 'string') return '';
+    $$recycle() {
+        this.$$destroy()
 
-    name = tool.toCamel(name);
-    return this[name] || '';
-  }
+        const config = cache.getConfig()
+
+        if (config.optimization.domExtendMultiplexing) {
+            // reuse dom extension objects
+            pool.add(this)
+        }
+    }
+
+    $_checkUpdate() {
+        if (!this.$_disableCheckUpdate) {
+            this.$_doUpdate()
+        }
+    }
+
+    get cssText() {
+        return Object.keys(this.__settedStyle).reduce((cssText, name) => {
+            if (this.__settedStyle[name]) {
+                return cssText + `${tool.toDash(name)}:${this.__settedStyle[name].trim()};`
+            }
+            return cssText
+        }, '')
+    }
+
+    set cssText(styleText) {
+        if (typeof styleText !== 'string') return
+
+        styleText = styleText.replace(/"/g, '\'')
+
+        // Parse style
+        const rules = parse(styleText)
+
+        // Merge the Settings for each rule into an update
+        this.$_disableCheckUpdate = true
+        for (const name of styleList) {
+            this[name] = rules[name]
+        }
+        this.$_disableCheckUpdate = false
+        this.$_checkUpdate()
+    }
+
+    getPropertyValue(name) {
+        if (typeof name !== 'string') return ''
+
+        name = tool.toCamel(name)
+        return this[name] || ''
+    }
 }
 
 /**
  * Set the getters and setters for each property
  */
-const properties = {};
+const properties = {}
 styleList.forEach(name => {
-  properties[name] = {
-    get() {
-      return this.__settedStyle[name] || '';
-    },
-    set(value) {
-      const oldValue = this.__settedStyle[name];
-      value = value !== undefined ? '' + value : undefined;
+    properties[name] = {
+        get() {
+            return this.__settedStyle[name] || ''
+        },
+        set(value) {
+            const oldValue = this.__settedStyle[name]
+            value = value !== undefined ? '' + value : undefined
 
-      this.__settedStyle[name] = value;
-      if (oldValue !== value) this.$_checkUpdate();
-    },
-  };
-});
-Object.defineProperties(Style.prototype, properties);
+            this.__settedStyle[name] = value
+            if (oldValue !== value) this.$_checkUpdate()
+        },
+    }
+})
+Object.defineProperties(Style.prototype, properties)
 
-export default Style;
+export default Style

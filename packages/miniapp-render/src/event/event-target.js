@@ -75,7 +75,7 @@ export default class EventTarget {
     }
 
     $$init() {
-    // Supplement the instance's properties for the 'XXX' in XXX judgment
+        // Supplement the instance's properties for the 'XXX' in XXX judgment
         this.ontouchstart = null
         this.ontouchmove = null
         this.ontouchend = null

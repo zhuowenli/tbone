@@ -1,5 +1,5 @@
-import path from 'path'
 import fs from 'fs-extra'
+import path from 'path'
 import adapter from './adapter'
 
 const DOM_SUBTREE_LEVEL = 10

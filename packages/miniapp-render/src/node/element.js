@@ -873,7 +873,7 @@ class Element extends Node {
     }
 
     getBoundingClientRect() {
-    // Do not make any implementation, only for compatible use
+        // Do not make any implementation, only for compatible use
         console.warn('getBoundingClientRect is not supported, please use npm package universal-element to get DOM info in miniapp')
         return {}
     }

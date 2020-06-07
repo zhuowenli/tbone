@@ -8,7 +8,7 @@ import cache from '../util/cache'
 
 let pageUrlRouteMap = null
 
-export default class miniapp {
+export default class Miniapp {
     constructor(pageId) {
         this.$_pageId = pageId
         this.$_pageUrl = '' // 页面真实 url

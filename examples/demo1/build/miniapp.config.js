@@ -11,10 +11,6 @@ module.exports = {
         notFound: 'index',
         accessDenied: 'index',
     },
-    global: {
-        rem: true, // 是否支持 rem
-        pageStyle: true, // 是否支持修改页面样式
-    },
 
     // app.json
     generate: {
