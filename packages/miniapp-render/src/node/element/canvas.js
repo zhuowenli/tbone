@@ -111,37 +111,38 @@ class HTMLCanvasElement extends Element {
 
         if (typeof width === 'number' && width >= 0) {
             this.$_style.width = `${width}px`
+            if (this.$_node) this.$_node.width = width
         }
         if (typeof height === 'number' && height >= 0) {
             this.$_style.height = `${height}px`
+            if (this.$_node) this.$_node.height = height
         }
     }
 
     /**
      * 对外属性和方法
      */
+
     get width() {
-        if (this.$_node) return this.$_node.width
-        else return +this.$_attrs.get('width') || 0
+        return +this.$_attrs.get('width') || 0
     }
 
     set width(value) {
         if (typeof value !== 'number' || !isFinite(value) || value < 0) return
 
-        if (this.$_node) this.$_node.width = value
-        else this.$_attrs.set('width', value)
+        this.$_attrs.set('width', value)
+        this.$_initRect()
     }
 
     get height() {
-        if (this.$_node) return this.$_node.height
-        else return +this.$_attrs.get('height') || 0
+        return +this.$_attrs.get('height') || 0
     }
 
     set height(value) {
         if (typeof value !== 'number' || !isFinite(value) || value < 0) return
 
-        if (this.$_node) this.$_node.height = value
-        else this.$_attrs.set('height', value)
+        this.$_attrs.set('height', value)
+        this.$_initRect()
     }
 
     getContext(type) {

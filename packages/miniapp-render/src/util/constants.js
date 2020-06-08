@@ -1,4 +1,4 @@
 export default {
     MINIAPP: 'miniapp',
-    WECHAT_miniapp: 'wechat-miniapp'
+    WECHAT_MINIPROGRAM: 'wechat-miniprogram'
 }

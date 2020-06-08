@@ -45,6 +45,7 @@ class Element extends Node {
 
         this.$_initAttrs(options.attrs)
 
+        this.options = []
         this.onclick = null
         this.ontouchstart = null
         this.ontouchmove = null
@@ -279,11 +280,11 @@ class Element extends Node {
     get $$domInfo() {
         return {
             nodeId: this.$$nodeId,
-            pageId: this.$$pageId,
+            pageId: this.$_pageId,
             type: this.$_type,
             tagName: this.$_tagName,
             id: this.id,
-            class: this.className,
+            className: this.className,
             style: this.$__style ? this.style.cssText : '',
             animation: this.$__attrs ? this.$__attrs.get('animation') : {}
         }
@@ -309,35 +310,20 @@ class Element extends Node {
         return {}
     }
 
-    $$getBoundingClientRect() {
-    // Clears out setData
-        tool.flushThrottleCache()
-        const window = cache.getWindow(this.$_pageId)
-        return new Promise((resolve, reject) => {
-            if (!window) reject()
-
-            if (this.tagName === 'BODY') {
-                window.$$createSelectorQuery().selectViewport().scrollOffset(res => (res ? resolve(res) : reject())).exec()
-            } else {
-                window.$$createSelectorQuery().select(`.miniapp-root >>> .node-${this.$_nodeId}`).boundingClientRect(res => (res ? resolve(res) : reject())).exec()
-            }
-        })
-    }
-
     // Gets the context object of the corresponding widget component
     $$getContext() {
     // Clears out setData
         tool.flushThrottleCache()
-        const window = cache.getWindow(this.$_pageId)
+        const window = cache.getWindow()
         return new Promise((resolve, reject) => {
             if (!window) reject()
 
             if (this.tagName === 'CANVAS') {
                 // TODO, for the sake of compatibility with a bug in the underlying library, for the time being
-                CONTAINER.createSelectorQuery().in(this._builtInComponent).select(`.node-${this.$_nodeId}`).context(res => (res && res.context ? resolve(res.context) : reject()))
+                my.createSelectorQuery().in(this._builtInComponent).select(`.node-${this.$_nodeId}`).context(res => (res && res.context ? resolve(res.context) : reject()))
                     .exec()
             } else {
-                window.$$createSelectorQuery().select(`.miniapp-root >>> .node-${this.$_nodeId}`).context(res => (res && res.context ? resolve(res.context) : reject())).exec()
+                window.$$createSelectorQuery().select(`.miniprogram-root >>> .node-${this.$_nodeId}`).context(res => (res && res.context ? resolve(res.context) : reject())).exec()
             }
         })
     }
@@ -350,7 +336,7 @@ class Element extends Node {
     $$getNodesRef() {
         // 先清空 setData
         tool.flushThrottleCache()
-        const window = cache.getWindow(this.$_pageId)
+        const window = cache.getWindow()
         return new Promise((resolve, reject) => {
             if (!window) reject()
 
@@ -358,9 +344,6 @@ class Element extends Node {
                 // TODO: 为了兼容基础库的一个 bug，暂且如此实现
                 // 为防止 _builtInComponent 找不到，先加一个延迟
                 setTimeout(() => {
-                    console.log(this._builtInComponent)
-                    console.log(my.createSelectorQuery().in(this._builtInComponent))
-                    console.log(`.node-${this.$_nodeId}`)
                     resolve(my.createSelectorQuery().in(this._builtInComponent).select(`.node-${this.$_nodeId}`))
                 }, 0)
             } else {
@@ -376,7 +359,7 @@ class Element extends Node {
         if (typeof name !== 'string') return
 
         this.$_notTriggerUpdate = true
-        this.setAttribute(name, value)
+        this.$_attrs.set(name, value)
         this.$_notTriggerUpdate = false
     }
 
@@ -753,6 +736,7 @@ class Element extends Node {
 
         // Trigger the webview update
         if (hasUpdate) this.$_triggerMeUpdate()
+
 
         return node
     }

@@ -639,4 +639,15 @@ class Window extends EventTarget {
     }
 }
 
-export default Window
+let window
+
+export function createWindow(pageId) {
+    if (!window) {
+        return window = new Window(pageId)
+    }
+    return window
+}
+
+export function getWindow() {
+    return window
+}

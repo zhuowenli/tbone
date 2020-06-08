@@ -193,6 +193,12 @@ const lifeCycles = getLifeCycle({
         this.domNode = cache.getNode(pageId, nodeId)
         if (!this.domNode) return
 
+
+        // TODO, for the sake of compatibility with a bug in the underlying library, is implemented as follows
+        if (this.domNode.tagName === 'CANVAS') {
+            this.domNode._builtInComponent = this
+        }
+
         // Store document
         this.document = cache.getDocument(pageId)
 

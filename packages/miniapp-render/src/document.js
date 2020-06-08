@@ -12,9 +12,6 @@ import Input from './node/element/input'
 import Textarea from './node/element/textarea'
 import Video from './node/element/video'
 import Canvas from './node/element/canvas'
-import Select from './node/element/select'
-import Option from './node/element/option'
-import NotSupport from './node/element/not-support'
 import BuiltInComponent from './node/element/builtin-component'
 import CustomComponent from './node/element/custom-component'
 
@@ -25,8 +22,6 @@ const CONSTRUCTOR_MAP = {
     TEXTAREA: Textarea,
     VIDEO: Video,
     CANVAS: Canvas,
-    SELECT: Select,
-    OPTION: Option,
     'BUILTIN-COMPONENT': BuiltInComponent,
 }
 const BUILTIN_COMPONENT_LIST = [
@@ -105,6 +100,7 @@ class Document extends EventTarget {
         return this.$_imageConstructor
     }
 
+
     get $$pageId() {
         return this.$_pageId
     }
@@ -125,19 +121,19 @@ class Document extends EventTarget {
         if (constructorClass) {
             return constructorClass.$$create(options, tree)
         } else if (componentName) {
-            // Transform to builtin-component
+        // Transform to builtin-component
             options.tagName = 'builtin-component'
             options.attrs = options.attrs || {}
             options.attrs.behavior = componentName
             return BuiltInComponent.$$create(options, tree)
         } else if (this.usingComponents[originTagName]) {
-            // Transform to custom-component
+        // Transform to custom-component
             options.tagName = 'custom-component'
             options.attrs = options.attrs || {}
             options.componentName = originTagName
             return CustomComponent.$$create(options, tree)
         } else if (!tool.isTagNameSupport(tagName)) {
-            return NotSupport.$$create(options, tree)
+            throw new Error(`${tagName} is not supported.`)
         } else {
             return Element.$$create(options, tree)
         }
@@ -175,7 +171,7 @@ class Document extends EventTarget {
     }
 
     get defaultView() {
-        return cache.getWindow(this.$_pageId) || null
+        return cache.getWindow() || null
     }
 
     getElementById(id) {
@@ -221,7 +217,7 @@ class Document extends EventTarget {
     }
 
     createElementNS(ns, tagName) {
-    // Actually use createElement
+        // Actually use createElement
         return this.createElement(tagName)
     }
 
@@ -235,7 +231,7 @@ class Document extends EventTarget {
     }
 
     createComment() {
-    // Ignore the incoming comment content
+        // Ignore the incoming comment content
         return this.$$createComment({
             nodeId: `b-${tool.getId()}`,
         })
@@ -250,7 +246,7 @@ class Document extends EventTarget {
     }
 
     createEvent() {
-        const window = cache.getWindow(this.$_pageId)
+        const window = cache.getWindow()
 
         return new window.CustomEvent()
     }
