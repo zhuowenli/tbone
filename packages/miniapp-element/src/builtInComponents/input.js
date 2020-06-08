@@ -1,6 +1,7 @@
 import render from '@zhuowenli/miniapp-render'
 import callEvent from '../events/callEvent'
 import callSimpleEvent from '../events/callSimpleEvent'
+import callSingleEvent from '../events/callSingleEvent'
 
 const {cache} = render.$$adapter
 
@@ -11,6 +12,11 @@ export default {
         canBeUserChanged: true,
         get(domNode) {
             return domNode.value || ''
+        },
+    }, {
+        name: 'name',
+        get(domNode) {
+            return domNode.getAttribute('name') || ''
         },
     }, {
         name: 'type',
@@ -120,79 +126,75 @@ export default {
         get(domNode) {
             return domNode.getAttribute('animation')
         }
+    }, {
+        name: 'controlled',
+        get(domNode) {
+            return !!domNode.getAttribute('controlled')
+        },
     }],
     handles: {
         onInputInput(evt) {
-            const domNode = this.domNode
+            const domNode = this.getDomNodeFromEvt('input', evt)
             if (!domNode) return
-
             const value = '' + evt.detail.value
             domNode.$$setAttributeWithoutUpdate('value', value)
 
-            // 可被用户行为改变的值，需要记录
-            domNode._oldValues = domNode._oldValues || {}
-            domNode._oldValues.value = value
+            domNode.__oldValues = domNode.__oldValues || {}
+            domNode.__oldValues.value = value
 
             callEvent('input', evt, null, this.pageId, this.nodeId)
         },
         onInputFocus(evt) {
-            const domNode = this.domNode
+            const domNode = this.getDomNodeFromEvt('focus', evt)
             if (!domNode) return
-
-            domNode._inputOldValue = domNode.value
+            domNode.__inputOldValue = domNode.value
             domNode.$$setAttributeWithoutUpdate('focus', true)
 
-            // 可被用户行为改变的值，需要记录
-            domNode._oldValues = domNode._oldValues || {}
-            domNode._oldValues.focus = true
-
-            callSimpleEvent('focus', evt, this.domNode)
+            domNode.__oldValues = domNode.__oldValues || {}
+            domNode.__oldValues.focus = true
+            callSimpleEvent('focus', evt, domNode)
         },
         onInputBlur(evt) {
-            const domNode = this.domNode
+            const domNode = this.getDomNodeFromEvt('blur', evt)
             if (!domNode) return
 
             domNode.$$setAttributeWithoutUpdate('focus', false)
-            // this.domNode.setAttribute('focus', false)
 
-            // 可被用户行为改变的值，需要记录
-            domNode._oldValues = domNode._oldValues || {}
-            domNode._oldValues.focus = false
-
-            if (domNode._inputOldValue !== undefined && domNode.value !== domNode._inputOldValue) {
-                domNode._inputOldValue = undefined
+            domNode.__oldValues = domNode.__oldValues || {}
+            domNode.__oldValues.focus = false
+            if (this.__inputOldValue !== undefined && domNode.value !== this.__inputOldValue) {
+                this.__inputOldValue = undefined
                 callEvent('change', evt, null, this.pageId, this.nodeId)
             }
-
-            callSimpleEvent('blur', evt, this.domNode)
+            callSimpleEvent('blur', evt, domNode)
         },
         onInputConfirm(evt) {
-            callSimpleEvent('confirm', evt, this.domNode)
+            const domNode = this.getDomNodeFromEvt('confirm', evt)
+            callSimpleEvent('confirm', evt, domNode)
         },
         onInputKeyBoardHeightChange(evt) {
-            callSimpleEvent('keyboardheightchange', evt, this.domNode)
+            callSingleEvent('keyboardheightchange', evt, this)
         },
         onRadioChange(evt) {
-            const window = cache.getWindow(this.pageId)
-            const domNode = this.domNode
+            const domNode = this.getDomNodeFromEvt('change', evt)
+            if (!domNode) return
+            const window = cache.getWindow()
             const value = evt.detail.value
             const name = domNode.name
-            const otherDomNodes = window.document.querySelectorAll(`input[name=${name}]`) || []
 
             if (value === domNode.value) {
-                domNode.setAttribute('checked', true)
+                domNode.$$setAttributeWithoutUpdate('checked', true)
 
-                // 可被用户行为改变的值，需要记录
-                domNode._oldValues = domNode._oldValues || {}
-                domNode._oldValues.checked = true
+                domNode.__oldValues = domNode.__oldValues || {}
+                domNode.__oldValues.checked = true
 
+                const otherDomNodes = window.document.querySelectorAll(`input[name=${name}]`) || []
                 for (const otherDomNode of otherDomNodes) {
                     if (otherDomNode.type === 'radio' && otherDomNode !== domNode) {
-                        otherDomNode.setAttribute('checked', false)
+                        otherDomNode.$$setAttributeWithoutUpdate('checked', false)
 
-                        // 可被用户行为改变的值，需要记录
-                        otherDomNode._oldValues = otherDomNode._oldValues || {}
-                        otherDomNode._oldValues.checked = false
+                        otherDomNode.__oldValues = otherDomNode.__oldValues || {}
+                        otherDomNode.__oldValues.checked = false
                     }
                 }
             }
@@ -200,24 +202,27 @@ export default {
             callEvent('change', evt, null, this.pageId, this.nodeId)
         },
         onCheckboxChange(evt) {
-            const domNode = this.domNode
+            const domNode = this.getDomNodeFromEvt('change', evt)
             if (!domNode) return
-
             const value = evt.detail.value || []
             if (value.indexOf(domNode.value) >= 0) {
-                domNode.setAttribute('checked', true)
+                domNode.$$setAttributeWithoutUpdate('checked', true)
 
-                // 可被用户行为改变的值，需要记录
-                domNode._oldValues = domNode._oldValues || {}
-                domNode._oldValues.checked = true
+                domNode.__oldValues = domNode.__oldValues || {}
+                domNode.__oldValues.checked = true
             } else {
-                domNode.setAttribute('checked', false)
+                domNode.$$setAttributeWithoutUpdate('checked', false)
 
-                // 可被用户行为改变的值，需要记录
-                domNode._oldValues = domNode._oldValues || {}
-                domNode._oldValues.checked = false
+                domNode.__oldValues = domNode.__oldValues || {}
+                domNode.__oldValues.checked = false
             }
-            callEvent('input', evt, null, this.pageId, this.nodeId)
+            callEvent('change', evt, null, this.pageId, this.nodeId)
+        },
+        onCheckboxItemChange(evt) {
+            const domNode = this.getDomNodeFromEvt('change', evt)
+            if (!domNode) return
+            const value = evt.detail.value || false
+            domNode.setAttribute('checked', value)
             callEvent('change', evt, null, this.pageId, this.nodeId)
         },
     },

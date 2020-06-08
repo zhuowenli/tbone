@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {isWeChatminiapp} from 'universal-env'
-import callSimpleEvent from '../events/callSimpleEvent'
+import {isWeChatMiniProgram} from 'universal-env'
+import callSingleEvent from '../events/callSingleEvent'
 
 const picker = {
     name: 'picker',
@@ -9,6 +9,11 @@ const picker = {
             name: 'disabled',
             get(domNode) {
                 return !!domNode.getAttribute('disabled')
+            },
+        }, {
+            name: 'name',
+            get(domNode) {
+                return domNode.getAttribute('name') || ''
             },
         }, {
             name: 'range',
@@ -23,6 +28,7 @@ const picker = {
             },
         }, {
             name: 'value',
+            canBeUserChanged: true,
             get(domNode) {
                 const mode = domNode.getAttribute('mode') || 'selector'
                 const value = domNode.getAttribute('value')
@@ -47,18 +53,21 @@ const picker = {
     ],
     handles: {
         onPickerChange(evt) {
-            if (!this.domNode) return
+            const domNode = this.getDomNodeFromEvt('change', evt)
+            if (!domNode) return
 
-            this.domNode.$$setAttributeWithoutUpdate('value', evt.detail.value)
-            callSimpleEvent('change', evt, this.domNode)
+            domNode.$$setAttributeWithoutUpdate('value', evt.detail.value)
+            domNode.__oldValues = domNode.__oldValues || {}
+            domNode.__oldValues.value = evt.detail.value
+            callSingleEvent('change', evt, this)
         },
         onPickerCancel(evt) {
-            callSimpleEvent('cancel', evt, this.domNode)
+            callSingleEvent('cancel', evt, this)
         },
     }
 }
 
-if (isWeChatminiapp) {
+if (isWeChatMiniProgram) {
     picker.props.concat([
         {
             name: 'mode',
@@ -88,7 +97,7 @@ if (isWeChatminiapp) {
         }
     ])
     picker.handles.onPickerColumnChange = function(evt) {
-        callSimpleEvent('columnchange', evt, this.domNode)
+        callSingleEvent('columnchange', evt, this)
     }
 }
 

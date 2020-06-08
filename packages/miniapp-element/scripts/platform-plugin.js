@@ -1,10 +1,10 @@
 const t = require('@babel/types')
 // Collect import specifiers
 const specified = []
-const platformEnvValues = ['isMiniApp', 'isWeChatminiapp']
+const platformEnvValues = ['isMiniApp', 'isWeChatMiniProgram']
 const platformMap = {
     ali: 'isMiniApp',
-    wechat: 'isWeChatminiapp'
+    wechat: 'isWeChatMiniProgram'
 }
 
 function variableDeclarationMethod(name, value) {
@@ -23,7 +23,7 @@ function variableDeclarationMethod(name, value) {
  *
  *   {
  *     isMiniApp: true,
- *     isWechatminiapp: false
+ *     isWechatMiniProgram: false
  *   }
  */
 function objectExpressionMethod(platformName) {
@@ -62,7 +62,7 @@ module.exports = function({types: t}, {platform = 'ali'}) {
                 }
             },
             ImportDeclaration: {
-                enter(path, {filename: name}) {
+                enter(path) {
                     const {node} = path
                     if (node.source.value === 'universal-env') {
                         node.specifiers.forEach(spec => {

@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
+/* eslint-disable prefer-rest-params,no-inner-declarations */
 import {isMiniApp} from 'universal-env'
 
 export default function({

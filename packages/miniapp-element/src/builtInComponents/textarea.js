@@ -1,12 +1,19 @@
 import callSimpleEvent from '../events/callSimpleEvent'
 import callEvent from '../events/callEvent'
+import callSingleEvent from '../events/callSingleEvent'
 
 export default {
     name: 'textarea',
     props: [{
         name: 'value',
+        canBeUserChanged: true,
         get(domNode) {
             return domNode.value || ''
+        },
+    }, {
+        name: 'name',
+        get(domNode) {
+            return domNode.getAttribute('name') || ''
         },
     }, {
         name: 'placeholder',
@@ -99,59 +106,59 @@ export default {
         get(domNode) {
             return domNode.getAttribute('animation')
         }
+    }, {
+        name: 'controlled',
+        get(domNode) {
+            return !!domNode.getAttribute('controlled')
+        },
     }],
     handles: {
         onTextareaFocus(evt) {
-            const domNode = this.domNode
+            const domNode = this.getDomNodeFromEvt('focus', evt)
             if (!domNode) return
-
-            domNode._textareaOldValue = domNode.value
+            domNode.__textareaOldValue = domNode.value
             domNode.$$setAttributeWithoutUpdate('focus', true)
 
-            // 可被用户行为改变的值，需要记录
-            domNode._oldValues = domNode._oldValues || {}
-            domNode._oldValues.focus = true
-
-            callSimpleEvent('focus', evt, this.domNode)
+            domNode.__oldValues = domNode.__oldValues || {}
+            domNode.__oldValues.focus = true
+            callSimpleEvent('focus', evt, domNode)
         },
         onTextareaBlur(evt) {
-            const domNode = this.domNode
+            const domNode = this.getDomNodeFromEvt('blur', evt)
             if (!domNode) return
 
             domNode.$$setAttributeWithoutUpdate('focus', false)
 
-            // 可被用户行为改变的值，需要记录
-            domNode._oldValues = domNode._oldValues || {}
-            domNode._oldValues.focus = false
-
-            if (domNode._textareaOldValue !== undefined && domNode.value !== domNode._textareaOldValue) {
-                domNode._textareaOldValue = undefined
-                this.callEvent('change', evt)
+            domNode.__oldValues = domNode.__oldValues || {}
+            domNode.__oldValues.focus = false
+            if (this.__textareaOldValue !== undefined && domNode.value !== this.__textareaOldValue) {
+                this.__textareaOldValue = undefined
+                callEvent('change', evt, this.pageId, this.nodeId)
             }
-
-            callSimpleEvent('blur', evt, this.domNode)
+            callSimpleEvent('blur', evt, domNode)
         },
         onTextareaLineChange(evt) {
-            callSimpleEvent('linechange', evt, this.domNode)
+            const domNode = this.getDomNodeFromEvt('linechange', evt)
+            callSimpleEvent('linechange', evt, domNode)
         },
         onTextareaInput(evt) {
-            const domNode = this.domNode
+            const domNode = this.getDomNodeFromEvt('blur', evt)
             if (!domNode) return
 
             const value = '' + evt.detail.value
             domNode.$$setAttributeWithoutUpdate('value', value)
 
-            // 可被用户行为改变的值，需要记录
-            domNode._oldValues = domNode._oldValues || {}
-            domNode._oldValues.value = value
+            domNode.__oldValues = domNode.__oldValues || {}
+            domNode.__oldValues.value = value
 
             callEvent('input', evt, null, this.pageId, this.nodeId)
         },
         onTextareaConfirm(evt) {
-            callSimpleEvent('confirm', evt, this.domNode)
+            const domNode = this.getDomNodeFromEvt('confirm', evt)
+            callSimpleEvent('confirm', evt, domNode)
         },
         onTextareaKeyBoardHeightChange(evt) {
-            callSimpleEvent('keyboardheightchange', evt, this.domNode)
+            callSingleEvent('keyboardheightchange', evt, this)
         },
     },
 }

@@ -64,17 +64,17 @@ class HTMLCanvasElement extends Element {
         return new Promise((resolve, reject) => {
             if (isMiniApp) {
                 this.addEventListener('canvasReady', () => {
-                    // resolve(this)
+                    resolve(this)
 
-                    this.$$getNodesRef().then(nodesRef => nodesRef.node(res => {
-                        this.$_node = res.node
+                    // this.$$getNodesRef().then(nodesRef => nodesRef.node(res => {
+                    //     this.$_node = res.node
 
-                        // 设置 canvas 宽高
-                        this.$_node.width = this.width
-                        this.$_node.height = this.height
+                    //     // 设置 canvas 宽高
+                    //     this.$_node.width = this.width
+                    //     this.$_node.height = this.height
 
-                        resolve(this)
-                    }).exec()).catch(reject)
+                    //     resolve(this)
+                    // }).exec()).catch(reject)
                 })
             } else if (isWeChatminiapp) {
                 this.$$getNodesRef().then(nodesRef => nodesRef.node(res => {
