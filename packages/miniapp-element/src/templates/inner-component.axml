@@ -245,36 +245,51 @@
 <template name="input">
     <radio-group
         a:if="{{type === 'radio'}}"
+        id="{{id}}"
+        class="{{className}}"
+        style="{{style}}"
+        data-private-node-id="{{nodeId}}"
+        data-private-page-id="{{pageId}}"
         onChange="onRadioChange"
-    >
-        <radio
-            id="{{id}}"
-            class="{{className}}"
-            style="{{style}}"
-            name="{{name}}"
-            hidden="{{hidden}}"
-            value="{{value}}"
-            disabled="{{disabled}}"
-            checked="{{checked}}"
-            color="{{color}}"
-        ></radio>
-    </radio-group>
+    ><radio
+        id="{{id}}"
+        class="{{className}}"
+        style="{{style}}"
+        hidden="{{hidden}}"
+        data-private-node-id="{{nodeId}}"
+        data-private-page-id="{{pageId}}"
+        onTouchStart="onTouchStart"
+        onTouchMove="onTouchMove"
+        onTouchEnd="onTouchEnd"
+        onTouchCancel="onTouchCancel"
+        onTap="onTap"
+        value="{{value}}"
+        disabled="{{disabled}}"
+        checked="{{checked}}"
+        color="{{color}}"
+    ></radio></radio-group>
     <checkbox-group
         a:elif="{{type === 'checkbox'}}"
+        id="{{id}}"
+        class="{{className}}"
+        style="{{style}}"
+        data-private-node-id="{{nodeId}}"
+        data-private-page-id="{{pageId}}"
         onChange="onCheckboxChange"
-    >
-        <checkbox
-            id="{{id}}"
-            class="{{className}}"
-            style="{{style}}"
-            name="{{name}}"
-            hidden="{{hidden}}"
-            value="{{value}}"
-            disabled="{{disabled}}"
-            checked="{{checked}}"
-            color="{{color}}"
-        ></checkbox>
-    </checkbox-group>
+    ><checkbox
+        hidden="{{hidden}}"
+        data-private-node-id="{{nodeId}}"
+        data-private-page-id="{{pageId}}"
+        onTouchStart="onTouchStart"
+        onTouchMove="onTouchMove"
+        onTouchEnd="onTouchEnd"
+        onTouchCancel="onTouchCancel"
+        onTap="onTap"
+        value="{{value}}"
+        disabled="{{disabled}}"
+        checked="{{checked}}"
+        color="{{color}}"
+    ></checkbox></checkbox-group>
     <input
         a:elif="{{type !== 'hidden'}}"
         id="{{id}}"

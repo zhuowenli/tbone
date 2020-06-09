@@ -84,9 +84,8 @@ export default function filterNodes(domNode, level, component) {
             }
 
             // Check wheather use template
-            const templateName = domInfo.tagName === 'builtin-component'
-                ? child.behavior
-                : child.tagName
+            const templateName = domInfo.tagName === 'builtin-component' ? child.behavior : child.tagName
+
             domInfo.useTemplate = !domInfo.isImage && USE_TEMPLATE.indexOf(templateName) !== -1
 
             if (domInfo.useTemplate) {
@@ -97,13 +96,10 @@ export default function filterNodes(domNode, level, component) {
                         domInfo,
                         compName,
                         extra,
-                        `h5-${domInfo.tagName} ${
-                            domInfo.tagName === 'builtin-component'
-                                ? 'builtin-' + child.behavior
-                                : ''
-                        }`
+                        `h5-${domInfo.tagName} ${domInfo.tagName === 'builtin-component' ? 'builtin-' + child.behavior : ''}`
                     )
                 }
+
                 extra.pageId = domInfo.pageId
                 extra.nodeId = domInfo.nodeId
                 extra.inCover = component.data.inCover
@@ -142,6 +138,7 @@ export default function filterNodes(domNode, level, component) {
                 domInfo.type === 'element' &&
                 NEET_RENDER_TO_CUSTOM_ELEMENT.indexOf(child.tagName) === -1 &&
                 level > 0
+
             if (domInfo.isSimple) {
                 domInfo.content = ''
                 domInfo.childNodes = filterNodes(child, level - 1, component)

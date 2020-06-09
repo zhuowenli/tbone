@@ -82,7 +82,6 @@ Page({
             if (query.search) this.window.location.search = decodeURIComponent(query.search)
             if (query.hash) this.window.location.hash = decodeURIComponent(query.hash)
         } else {
-            console.log(this.window)
             this.window.$$miniapp.init()
         }
 
@@ -143,7 +142,7 @@ Page({
                 window: this.window,
                 document: this.document,
             }
-            console.log(global)
+            console.log('global', global)
         } else {
             console.log('window:', this.window)
             console.log('document:', this.document)

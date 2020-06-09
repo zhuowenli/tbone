@@ -27,11 +27,11 @@
                         data-is-number="yes" />
                     <input type="radio">
                     <label>
-                        <input type="radio" name="radio" value="radio1" @input="onInput" v-model="input.inputRadio" />
+                        <input type="radio" name="radio" value="radio1" @input="onInput" v-model="input.inputRadio"  @change="onLabelChange"/>
                         aaaa
                     </label>
                     <label>
-                        <input type="radio" name="radio" value="radio2" @input="onInput" v-model="input.inputRadio" />
+                        <input type="radio" name="radio" value="radio2" @input="onInput" v-model="input.inputRadio"  @change="onLabelChange"/>
                         bbbb
                     </label>
                     <input type="checkbox" @input="onInput" v-model="input.inputCheckbox" />
@@ -40,11 +40,12 @@
                 <textarea v-else-if="item === 'textarea'" class="textarea-node" style="height: 30px;"
                     placeholder="请输入内容" maxlength="50" :auto-height="true" adjust-position="" value="我是 textarea"
                     @input="onTextareaInput" />
+
                 <div v-else-if="item === 'label'">
                     <div>
                         <label>
-                        <div>输入框1</div>
-                        <input placeholder="输入框1" @change="onLabelChange"/>
+                            <div>输入框1</div>
+                            <input placeholder="输入框1" @change="onLabelChange"/>
                         </label>
                     </div>
                     <div style="display: flex;align-items: center;">
@@ -72,8 +73,8 @@
                     <label>
                         <text>switch1</text>
                         <template>
-                        <builtin-component v-if="!builtinPrefix" behavior="switch" @change="onLabelChange"></builtin-component>
-                        <switch v-else class="switch-node" @change="onLabelChange"></switch>
+                            <builtin-component v-if="!builtinPrefix" behavior="switch" @change="onLabelChange"></builtin-component>
+                            <switch v-else class="switch-node" @change="onLabelChange"></switch>
                         </template>
                     </label>
                     <label for="switch2">

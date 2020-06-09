@@ -67,7 +67,6 @@ subComponents.forEach(({name, props, handles}) => {
     Object.assign(handlesMap, handles)
 })
 
-
 export {
     componentNameMap,
     propsMap,
