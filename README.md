@@ -88,7 +88,9 @@ npm run build
 
 ## TODOS
 
-- [ ] 云函数
+* [ ] 云函数适配
+* [ ] canvas 适配
+* [ ] Echarts 适配
 
 ## License
 
