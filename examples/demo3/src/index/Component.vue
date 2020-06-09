@@ -160,183 +160,119 @@
                     <button @click="onClickMovableScale">scale to 3.0</button>
                 </template>
                 <template v-else-if="item === 'form'">
-                <!-- form 组件 -->
-                <form :report-submit="true" @submit="onFormSubmit" @reset="onFormReset">
-                    <div>
-                    <div>form 组件</div>
-                    <input type="text" name="text-a" value="text value" />
-                    <input type="text" value="text value2" />
-                    <input type="number" name="number-a" value="123" />
-                    <textarea name="textare-a" value="textare value" />
-                    <switch name="switch-a" :checked="true" />
-                    <slider name="slider-a" min="50" max="200" :show-value="true" />
-                    <picker name="picker-a" :value="1" :range="['美国', '中国', '巴西', '日本']">点击&nbsp;&nbsp;选择国家</picker>
-                    <div class="ipt-group"><input type="radio" name="radio-a" value="radio1" :checked="true" />radio1</div>
-                    <div class="ipt-group"><input type="radio" name="radio-a" value="radio2" />radio2</div>
-                    <div class="ipt-group"><input type="checkbox" name="checkbox-a" value="checkbox1" :checked="true" />checkbox1</div>
-                    <div class="ipt-group"><input type="checkbox" name="checkbox-a" value="checkbox2" :checked="true" />checkbox2</div>
-                    <div class="ipt-group"><input type="checkbox" name="checkbox-a" value="checkbox3" />checkbox3</div>
-                    <input type="hidden" name="hidden-a" value="hidden value" />
-                    <button type="submit">submit（普通标签）</button>
-                    <button type="reset">reset（普通标签）</button>
-                    <button>什么也不做（普通标签）</button>
-                    <button form-type="submit">submit（内置组件）</button>
-                    <button form-type="reset">reset（内置组件）</button>
-                    <button>什么也不做（内置组件）</button>
-                    </div>
-                </form>
-                <!-- form 标签 -->
-                <form @submit="onFormSubmit" @reset="onFormReset">
-                    <div>
-                    <div>form 标签</div>
-                    <input type="text" name="text-b" value="text value" />
-                    <input type="text" value="text value2" />
-                    <input type="number" name="number-b" value="123" />
-                    <textarea name="textare-b" value="textare value" />
-                    <switch name="switch-b" :checked="true" />
-                    <slider name="slider-b" min="50" max="200" :show-value="true" />
-                    <picker name="picker-a" :value="1" :range="['美国', '中国', '巴西', '日本']">点击&nbsp;&nbsp;选择国家</picker>
-                    <div class="ipt-group"><input type="radio" name="radio-b" value="radio1" :checked="true" />radio1</div>
-                    <div class="ipt-group"><input type="radio" name="radio-b" value="radio2" />radio2</div>
-                    <div class="ipt-group"><input type="checkbox" name="checkbox-b" value="checkbox1" :checked="true" />checkbox1</div>
-                    <div class="ipt-group"><input type="checkbox" name="checkbox-b" value="checkbox2" :checked="true" />checkbox2</div>
-                    <div class="ipt-group"><input type="checkbox" name="checkbox-b" value="checkbox3" />checkbox3</div>
-                    <input type="hidden" name="hidden-b" value="hidden value" />
-                    <button type="submit">submit（普通标签）</button>
-                    <button type="reset">reset（普通标签）</button>
-                    <button>什么也不做（普通标签）</button>
-                    <button form-type="submit">submit（内置组件）</button>
-                    <button form-type="reset">reset（内置组件）</button>
-                    <button>什么也不做（内置组件）</button>
-                    </div>
-                </form>
+                    <!-- form 组件 -->
+                    <form :report-submit="true" @submit="onFormSubmit" @reset="onFormReset">
+                        <div>
+                            <div>form 组件</div>
+                            <input type="text" name="text-a" value="text value" />
+                            <input type="text" value="text value2" />
+                            <input type="number" name="number-a" value="123" />
+                            <textarea name="textare-a" value="textare value" />
+                            <switch name="switch-a" :checked="true" />
+                            <slider name="slider-a" min="50" max="200" :show-value="true" />
+                            <picker name="picker-a" :value="1" :range="['美国', '中国', '巴西', '日本']">点击&nbsp;&nbsp;选择国家</picker>
+                            <label><input type="radio" name="radio-a" value="radio1" :checked="true" />radio1</label>
+                            <label><input type="radio" name="radio-a" value="radio2" />radio2</label>
+                            <label><input type="checkbox" name="checkbox-a" value="checkbox1" :checked="true" />checkbox1</label>
+                            <label><input type="checkbox" name="checkbox-a" value="checkbox2" :checked="true" />checkbox2</label>
+                            <label><input type="checkbox" name="checkbox-a" value="checkbox3" />checkbox3</label>
+                            <input type="hidden" name="hidden-a" value="hidden value" />
+                            <button type="submit">submit（普通标签）</button>
+                            <button type="reset">reset（普通标签）</button>
+                            <button>什么也不做（普通标签）</button>
+                            <button form-type="submit">submit（内置组件）</button>
+                            <button form-type="reset">reset（内置组件）</button>
+                            <button>什么也不做（内置组件）</button>
+                        </div>
+                    </form>
+                    <!-- form 标签 -->
+                    <form @submit="onFormSubmit" @reset="onFormReset">
+                        <div>
+                            <div>form 标签</div>
+                            <input type="text" name="text-b" value="text value" />
+                            <input type="text" value="text value2" />
+                            <input type="number" name="number-b" value="123" />
+                            <textarea name="textare-b" value="textare value" />
+                            <switch name="switch-b" :checked="true" />
+                            <slider name="slider-b" min="50" max="200" :show-value="true" />
+                            <picker name="picker-a" :value="1" :range="['美国', '中国', '巴西', '日本']">点击&nbsp;&nbsp;选择国家</picker>
+                            <label><input type="radio" name="radio-b" value="radio1" :checked="true" />radio1</label>
+                            <label><input type="radio" name="radio-b" value="radio2" />radio2</label>
+                            <label><input type="checkbox" name="checkbox-b" value="checkbox1" :checked="true" />checkbox1</label>
+                            <label><input type="checkbox" name="checkbox-b" value="checkbox2" :checked="true" />checkbox2</label>
+                            <label><input type="checkbox" name="checkbox-b" value="checkbox3" />checkbox3</label>
+                            <input type="hidden" name="hidden-b" value="hidden value" />
+                            <button type="submit">submit（普通标签）</button>
+                            <button type="reset">reset（普通标签）</button>
+                            <button>什么也不做（普通标签）</button>
+                            <button form-type="submit">submit（内置组件）</button>
+                            <button form-type="reset">reset（内置组件）</button>
+                            <button>什么也不做（内置组件）</button>
+                        </div>
+                    </form>
                 </template>
                 <template v-else-if="item === 'button'">
-                <!-- className 属性用来测试 -->
-                <builtin-component v-if="!builtinPrefix" :behavior="item" className="button-custom" open-type="share">分享</builtin-component>
-                <button v-else-if="builtinPrefix === 1" className="button-custom" open-type="share">分享</button>
-                <button v-else-if="builtinPrefix === 2" className="button-custom" open-type="share">分享</button>
-                <builtin-component v-if="!builtinPrefix" :behavior="item" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">获取手机号</builtin-component>
-                <button v-else-if="builtinPrefix === 1" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">获取手机号</button>
-                <button v-else-if="builtinPrefix === 2" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">获取手机号</button>
-                <builtin-component v-if="!builtinPrefix" :behavior="item">
-                    <span>span1</span>
-                    <input type="checkbox"/>
-                    <span>span2</span>
-                </builtin-component>
-                <button v-else-if="builtinPrefix === 1">
-                    <span>span1</span>
-                    <input type="checkbox"/>
-                    <span>span2</span>
-                </button>
-                <button v-else-if="builtinPrefix === 2">
-                    <span>span1</span>
-                    <input type="checkbox"/>
-                    <span>span2</span>
-                </button>
+                    <!-- className 属性用来测试 -->
+                    <builtin-component v-if="!builtinPrefix" :behavior="item" className="button-custom" open-type="share">分享</builtin-component>
+                    <button v-else-if="builtinPrefix === 1" className="button-custom" open-type="share">分享</button>
+
+                    <builtin-component v-if="!builtinPrefix" :behavior="item" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">获取手机号</builtin-component>
+                    <button v-else-if="builtinPrefix === 1" open-type="getPhoneNumber" @getphonenumber="onGetPhoneNumber">获取手机号</button>
+
+                    <builtin-component v-if="!builtinPrefix" :behavior="item">
+                        <span>span1</span>
+                        <input type="checkbox"/>
+                        <span>span2</span>
+                    </builtin-component>
+                    <button v-else-if="builtinPrefix === 1">
+                        <span>span1</span>
+                        <input type="checkbox"/>
+                        <span>span2</span>
+                    </button>
                 </template>
                 <template v-else-if="item === 'image'">
-                <builtin-component v-if="!builtinPrefix" :behavior="item" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></builtin-component>
-                <image v-else-if="builtinPrefix === 1" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></image>
-                <image v-else-if="builtinPrefix === 2" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></image>
+                    <builtin-component v-if="!builtinPrefix" :behavior="item" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></builtin-component>
+                    <image v-else-if="builtinPrefix === 1" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></image>
                 </template>
                 <template v-else-if="item === 'icon'">
-                <div v-if="!builtinPrefix">
-                    <div><builtin-component :behavior="item" v-for="subItem in icon.size" :key="subItem" type="success" :size="subItem"></builtin-component></div>
-                    <div><builtin-component :behavior="item" v-for="subItem in icon.color" :key="subItem" type="success" size="40" :color="subItem"></builtin-component></div>
-                    <div><builtin-component :behavior="item" v-for="subItem in icon.type" :key="subItem" :type="subItem" size="40"></builtin-component></div>
-                </div>
-                <div v-else-if="builtinPrefix === 1">
-                    <div><icon v-for="subItem in icon.size" :key="subItem" type="success" :size="subItem"></icon></div>
-                    <div><icon v-for="subItem in icon.color" :key="subItem" type="success" size="40" :color="subItem"></icon></div>
-                    <div><icon v-for="subItem in icon.type" :key="subItem" :type="subItem" size="40"></icon></div>
-                </div>
-                <div v-else-if="builtinPrefix === 2">
-                    <div><icon v-for="subItem in icon.size" :key="subItem" type="success" :size="subItem"></icon></div>
-                    <div><icon v-for="subItem in icon.color" :key="subItem" type="success" size="40" :color="subItem"></icon></div>
-                    <div><icon v-for="subItem in icon.type" :key="subItem" :type="subItem" size="40"></icon></div>
-                </div>
+                    <div v-if="!builtinPrefix">
+                        <div><builtin-component :behavior="item" v-for="subItem in icon.size" :key="subItem" type="success" :size="subItem"></builtin-component></div>
+                        <div><builtin-component :behavior="item" v-for="subItem in icon.color" :key="subItem" type="success" size="40" :color="subItem"></builtin-component></div>
+                        <div><builtin-component :behavior="item" v-for="subItem in icon.type" :key="subItem" :type="subItem" size="40"></builtin-component></div>
+                    </div>
+                    <div v-else-if="builtinPrefix === 1">
+                        <div><icon v-for="subItem in icon.size" :key="subItem" type="success" :size="subItem"></icon></div>
+                        <div><icon v-for="subItem in icon.color" :key="subItem" type="success" size="40" :color="subItem"></icon></div>
+                        <div><icon v-for="subItem in icon.type" :key="subItem" :type="subItem" size="40"></icon></div>
+                    </div>
                 </template>
                 <template v-else-if="item === 'progress'">
-                <div v-if="!builtinPrefix">
-                    <builtin-component :behavior="item" percent="20" :show-info="true"></builtin-component>
-                    <builtin-component :behavior="item" percent="40" stroke-width="12"></builtin-component>
-                    <builtin-component :behavior="item" percent="60" color="pink"></builtin-component>
-                    <builtin-component :behavior="item" percent="80" :active="true"></builtin-component>
-                </div>
-                <div v-else-if="builtinPrefix === 1">
-                    <progress percent="20" :show-info="true"></progress>
-                    <progress percent="40" stroke-width="12"></progress>
-                    <progress percent="60" color="pink"></progress>
-                    <progress percent="80" :active="true"></progress>
-                </div>
-                <div v-else-if="builtinPrefix === 2">
-                    <progress percent="20" :show-info="true"></progress>
-                    <progress percent="40" stroke-width="12"></progress>
-                    <progress percent="60" color="pink"></progress>
-                    <progress percent="80" :active="true"></progress>
-                </div>
+                    <div v-if="!builtinPrefix">
+                        <builtin-component :behavior="item" percent="20" :show-info="true"></builtin-component>
+                        <builtin-component :behavior="item" percent="40" stroke-width="12"></builtin-component>
+                        <builtin-component :behavior="item" percent="60" color="pink"></builtin-component>
+                        <builtin-component :behavior="item" percent="80" :active="true"></builtin-component>
+                    </div>
+                    <div v-else-if="builtinPrefix === 1">
+                        <progress percent="20" :show-info="true"></progress>
+                        <progress percent="40" stroke-width="12"></progress>
+                        <progress percent="60" color="pink"></progress>
+                        <progress percent="80" :active="true"></progress>
+                    </div>
                 </template>
                 <template v-else-if="item === 'navigator'">
-                <builtin-component v-if="!builtinPrefix" :behavior="item" target="miniapp" open-type="exit">退出小程序</builtin-component>
-                <navigator v-else-if="builtinPrefix === 1" target="miniapp" open-type="exit">退出小程序</navigator>
-                <navigator v-else-if="builtinPrefix === 2" target="miniapp" open-type="exit">退出小程序</navigator>
-                </template>
-                <template v-else-if="item === 'open-data'">
-                <div v-if="!builtinPrefix">
-                    <builtin-component :behavior="item" type="userNickName"></builtin-component>
-                    <builtin-component :behavior="item" type="userAvatarUrl"></builtin-component>
-                    <builtin-component :behavior="item" type="userGender"></builtin-component>
-                    <builtin-component :behavior="item" type="userGender" lang="zh_CN"></builtin-component>
-                    <builtin-component :behavior="item" type="userCity"></builtin-component>
-                    <builtin-component :behavior="item" type="userProvince"></builtin-component>
-                    <builtin-component :behavior="item" type="userCountry"></builtin-component>
-                    <builtin-component :behavior="item" type="userLanguage"></builtin-component>
-                </div>
-                <div v-else-if="builtinPrefix === 1">
-                    <open-data type="userNickName"></open-data>
-                    <open-data type="userAvatarUrl"></open-data>
-                    <open-data type="userGender"></open-data>
-                    <open-data type="userGender" lang="zh_CN"></open-data>
-                    <open-data type="userCity"></open-data>
-                    <open-data type="userProvince"></open-data>
-                    <open-data type="userCountry"></open-data>
-                    <open-data type="userLanguage"></open-data>
-                </div>
-                <div v-else-if="builtinPrefix === 2">
-                    <open-data type="userNickName"></open-data>
-                    <open-data type="userAvatarUrl"></open-data>
-                    <open-data type="userGender"></open-data>
-                    <open-data type="userGender" lang="zh_CN"></open-data>
-                    <open-data type="userCity"></open-data>
-                    <open-data type="userProvince"></open-data>
-                    <open-data type="userCountry"></open-data>
-                    <open-data type="userLanguage"></open-data>
-                </div>
+                    <builtin-component v-if="!builtinPrefix" :behavior="item" target="miniapp" open-type="exit">退出小程序</builtin-component>
+                    <navigator v-else-if="builtinPrefix === 1" target="miniapp" open-type="exit">退出小程序</navigator>
                 </template>
                 <template v-else-if="item === 'picker'">
-                <div v-if="!builtinPrefix">
-                    <builtin-component :behavior="item" :value="1" :range="['美国', '中国', '巴西', '日本']">点击&nbsp;&nbsp;选择国家</builtin-component>
-                    <builtin-component :behavior="item" mode="region" @change="onPickerChange">
-                    <span>点击&nbsp;&nbsp;</span>
-                    <span>选择城市</span>
-                    </builtin-component>
-                </div>
-                <div v-else-if="builtinPrefix === 1">
-                    <picker :value="1" :range="['美国', '中国', '巴西', '日本']">点击&nbsp;&nbsp;选择国家</picker>
-                    <picker mode="region" @change="onPickerChange">
-                    <span>点击&nbsp;&nbsp;</span>
-                    <span>选择城市</span>
-                    </picker>
-                </div>
-                <div v-else-if="builtinPrefix === 2">
-                    <picker :value="1" :range="['美国', '中国', '巴西', '日本']">点击&nbsp;&nbsp;选择国家</picker>
-                    <picker mode="region" @change="onPickerChange">
-                    <span>点击&nbsp;&nbsp;</span>
-                    <span>选择城市</span>
-                    </picker>
-                </div>
+                    <div v-if="!builtinPrefix">
+                        <builtin-component :behavior="item" :value="1" :range="['美国', '中国', '巴西', '日本']" @change="onPickerChange">点击&nbsp;&nbsp;选择国家</builtin-component>
+                    </div>
+                    <div v-else-if="builtinPrefix === 1">
+                        <picker :value="1" :range="['美国', '中国', '巴西', '日本']" @change="onPickerChange">点击&nbsp;&nbsp;选择国家</picker>
+                    </div>
                 </template>
+
                 <template v-else-if="item === 'picker-view'">
                     <div>{{pickerView.year}}年{{pickerView.month}}月{{pickerView.day}}日</div>
                     <div v-if="!builtinPrefix">
@@ -382,16 +318,17 @@
                     <builtin-component v-if="!builtinPrefix" :behavior="item" min="50" max="200" :show-value="true" @change="onSliderChange"></builtin-component>
                     <slider v-else-if="builtinPrefix === 1" min="50" max="200" :show-value="true" @change="onSliderChange"></slider>
                 </template>
+
                 <template v-else-if="item === 'map'">
                     <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" :longitude="map.longitude" :latitude="map.latitude" :scale="map.scale" :controls="map.controls" :markers="map.markers" :polyline="map.polyline" :show-location="true" @markertap="onMapMarkerTap" @regionchange="onMapRegionChange" @controltap="onMapControlTap">
-                        <Inner></Inner>
                     </builtin-component>
+
                     <map v-else-if="builtinPrefix === 1" :class="item" :longitude="map.longitude" :latitude="map.latitude" :scale="map.scale" :controls="map.controls" :markers="map.markers" :polyline="map.polyline" :show-location="true" @markertap="onMapMarkerTap" @regionchange="onMapRegionChange" @controltap="onMapControlTap">
-                        <Inner></Inner>
                     </map>
                     <!-- 基础库暂未支持 regionchange 事件提供坐标和 scale，故注释 -->
                     <!-- <button @click="resetMap">reset</button> -->
                 </template>
+
                 <template v-else-if="item === 'cover-view'">
                     <compoennt v-if="!builtinPrefix" :behavior="item">测试 cover-view</compoennt>
                     <cover-view v-else-if="builtinPrefix === 1">测试 cover-view</cover-view>
@@ -527,19 +464,17 @@ import Inner2 from './Inner2.vue'
                 // 'swiper',
                 // 'movable',
                 // 'canvas',
-                'picker-view',
                 // 'form',
                 // 'button',
                 // 'icon',
                 // 'progress',
-                // 'open-data',
                 // 'navigator',
                 // 'picker',
                 // 'picker-view',
                 // 'switch',
                 // 'slider',
                 // 'image',
-                // 'map',
+                'map',
                 // 'cover-view',
                 // 'cover-image',
                 // 'live-player',
@@ -790,7 +725,7 @@ import Inner2 from './Inner2.vue'
         },
 
         onMapRegionChange(evt) {
-        console.log('onMapRegionChange', evt.detail)
+            console.log('onMapRegionChange', evt)
         },
 
         onMapControlTap(evt) {
@@ -1046,8 +981,9 @@ font-size: 16px;
 border-radius: 5px;
 }
 
-.ipt-group input {
-display: inline-block;
+.ipt-group {
+    display: block;
+    padding: 10px 0;
 }
 
 .swiper {

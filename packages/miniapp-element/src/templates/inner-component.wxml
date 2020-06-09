@@ -348,7 +348,6 @@
         bindtouchend="onTouchEnd"
         bindtouchcancel="onTouchCancel"
         bindtap="onTap"
-
         name="{{name}}"
         min="{{min}}"
         max="{{max}}"

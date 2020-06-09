@@ -414,7 +414,6 @@
         onTouchEnd="onTouchEnd"
         onTouchCancel="onTouchCancel"
         onTap="onTap"
-
         min="{{min}}"
         max="{{max}}"
         step="{{step}}"
@@ -603,7 +602,6 @@
         onTouchEnd="onTouchEnd"
         onTouchCancel="onTouchCancel"
         onTap="onTap"
-
         longitude="{{longitude}}"
         latitude="{{latitude}}"
         scale="{{scale}}"
@@ -631,7 +629,7 @@
         onCalloutTap="onMapCalloutTap"
         onUpdated="onMapUpdated"
         onRegionChange="onMapRegionChange"
-    ><element a:if="{{hasChildren}}" class="h5-virtual" in-cover="{{inCover}}" data-private-node-id="{{nodeId}}" data-private-page-id="{{pageId}}"></element></map>
+    ></map>
 </template>
 <template name="canvas">
     <canvas

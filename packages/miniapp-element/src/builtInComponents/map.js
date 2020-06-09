@@ -152,11 +152,13 @@ export default {
             const domNode = this.getDomNodeFromEvt('regionchange', evt)
             if (!domNode) return
 
-            if (!evt.detail.causedBy) evt.detail.causedBy = evt.causedBy
-            if (evt.type === 'end' || evt.detail.type === 'end') {
-                domNode.__oldValues = domNode.__oldValues || {}
-                domNode.__oldValues.rotate = evt.detail.rotate
-                domNode.__oldValues.skew = evt.detail.skew
+            if (evt.detail) {
+                if (!evt.detail.causedBy) evt.detail.causedBy = evt.causedBy
+                if (evt.type === 'end' || evt.detail.type === 'end') {
+                    domNode.__oldValues = domNode.__oldValues || {}
+                    domNode.__oldValues.rotate = evt.detail.rotate
+                    domNode.__oldValues.skew = evt.detail.skew
+                }
             }
 
             callSingleEvent('regionchange', evt, this)
