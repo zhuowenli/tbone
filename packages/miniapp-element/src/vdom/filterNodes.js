@@ -25,9 +25,7 @@ export default function filterNodes(domNode, level, component) {
 
             // Add default class
             domInfo.className = domInfo.type === 'element'
-                ? `h5-${domInfo.tagName} node-${domInfo.nodeId} ${
-                    domInfo.className || ''
-                }`
+                ? `h5-${domInfo.tagName} node-${domInfo.nodeId} ${domInfo.class || domInfo.className || ''}`
                 : ''
 
             domInfo.domNode = child

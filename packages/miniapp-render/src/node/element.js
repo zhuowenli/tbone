@@ -1,4 +1,3 @@
-/* global CONTAINER */
 import Node from './node'
 import ClassList from './class-list'
 import Style from './style'
@@ -99,6 +98,7 @@ class Element extends Node {
 
     get $_classList() {
         if (!this.$__classList) this.$__classList = ClassList.$$create(this.$_onClassOrStyleUpdate.bind(this))
+        console.log(this.$__classList)
         return this.$__classList
     }
 
@@ -390,6 +390,8 @@ class Element extends Node {
 
     get className() {
         if (!this.$__classList) return ''
+
+        console.log(this.$_classList)
 
         return this.$_classList.toString()
     }

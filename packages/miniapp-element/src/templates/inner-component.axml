@@ -78,7 +78,6 @@
         onTouchEnd="onTouchEnd"
         onTouchCancel="onTouchCancel"
         onTap="onTap"
-
         indicator-dots="{{indicatorDots}}"
         indicator-color="{{indicatorColor}}"
         indicator-active-color="{{indicatorActiveColor}}"
@@ -109,7 +108,6 @@
             onTouchEnd="onTouchEnd"
             onTouchCancel="onTouchCancel"
             onTap="onTap"
-
             item-id="{{item.extra.itemId}}"
         ><element a:if="{{hasChildren}}" class="h5-virtual" in-cover="{{inCover}}" data-private-node-id="{{item.nodeId}}" data-private-page-id="{{item.pageId}}"></element></swiper-item>
     </block></swiper>
@@ -245,7 +243,40 @@
     ><element a:if="{{hasChildren}}" class="h5-virtual" in-cover="{{inCover}}" data-private-node-id="{{nodeId}}" data-private-page-id="{{pageId}}"></element></form>
 </template>
 <template name="input">
+    <radio-group
+        a:if="{{type === 'radio'}}"
+        onChange="onRadioChange"
+    >
+        <radio
+            id="{{id}}"
+            class="{{className}}"
+            style="{{style}}"
+            name="{{name}}"
+            hidden="{{hidden}}"
+            value="{{value}}"
+            disabled="{{disabled}}"
+            checked="{{checked}}"
+            color="{{color}}"
+        ></radio>
+    </radio-group>
+    <checkbox-group
+        a:elif="{{type === 'checkbox'}}"
+        onChange="onCheckboxChange"
+    >
+        <checkbox
+            id="{{id}}"
+            class="{{className}}"
+            style="{{style}}"
+            name="{{name}}"
+            hidden="{{hidden}}"
+            value="{{value}}"
+            disabled="{{disabled}}"
+            checked="{{checked}}"
+            color="{{color}}"
+        ></checkbox>
+    </checkbox-group>
     <input
+        a:elif="{{type !== 'hidden'}}"
         id="{{id}}"
         class="{{className}}"
         style="{{style}}"
@@ -258,7 +289,6 @@
         onTouchEnd="onTouchEnd"
         onTouchCancel="onTouchCancel"
         onTap="onTap"
-
         value="{{value}}"
         type="{{type}}"
         password="{{password}}"
@@ -543,7 +573,7 @@
         onWaiting="onVideoWaiting"
         onError="onVideoError"
         onProgress="onVideoProgress"
-    ><element a:if="{{hasChildren}}" class="h5-virtual" in-cover="{{inCover}}" data-private-node-id="{{nodeId}}" data-private-page-id="{{pageId}}"></element></video>
+    ></video>
 </template>
 <template name="map">
     <map

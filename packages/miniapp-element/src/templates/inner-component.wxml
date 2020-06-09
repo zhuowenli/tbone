@@ -281,7 +281,6 @@
         bindtouchend="onTouchEnd"
         bindtouchcancel="onTouchCancel"
         bindtap="onTap"
-
         name="{{name}}"
         value="{{value}}"
         type="{{type}}"

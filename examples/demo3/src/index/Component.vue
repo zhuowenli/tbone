@@ -99,66 +99,64 @@
                 </select>
                 <span>Selected: {{select.selected}}</span>
                 </div>
+
                 <!-- 使用 builtin-component 来创建内置组件 -->
                 <template v-else-if="item === 'view'">
-                <builtin-component v-if="!builtinPrefix" :behavior="item">我是视图</builtin-component>
-                <view v-else-if="builtinPrefix === 1">我是视图</view>
-                <view v-else-if="builtinPrefix === 2">我是视图</view>
-                <builtin-component v-if="!builtinPrefix" :behavior="item" :hidden="true">我是 hidden 视图</builtin-component>
-                <view v-else-if="builtinPrefix === 1" :hidden="true">我是 hidden 视图</view>
-                <view v-else-if="builtinPrefix === 2" :hidden="true">我是 hidden 视图</view>
+                    <builtin-component v-if="!builtinPrefix" :behavior="item">我是视图</builtin-component>
+                    <view v-else-if="builtinPrefix === 1">我是视图</view>
+                    <view v-else-if="builtinPrefix === 2">我是视图</view>
+                    <builtin-component v-if="!builtinPrefix" :behavior="item" :hidden="true">我是 hidden 视图</builtin-component>
+                    <view v-else-if="builtinPrefix === 1" :hidden="true">我是 hidden 视图</view>
+                    <view v-else-if="builtinPrefix === 2" :hidden="true">我是 hidden 视图</view>
                 </template>
+
                 <template v-else-if="item === 'text'">
-                <builtin-component v-if="!builtinPrefix" :behavior="item" :selectable="true">{{'this is first line\nthis is second line'}}</builtin-component>
-                <text v-else-if="builtinPrefix === 1" :selectable="true">{{'this is first line\nthis is second line'}}</text>
-                <text v-else-if="builtinPrefix === 2" :selectable="true">{{'this is first line\nthis is second line'}}</text>
+                    <builtin-component v-if="!builtinPrefix" :behavior="item" :selectable="true">{{'this is first line\nthis is second line'}}</builtin-component>
+                    <text v-else-if="builtinPrefix === 1" :selectable="true">{{'this is first line\nthis is second line'}}</text>
+                    <text v-else-if="builtinPrefix === 2" :selectable="true">{{'this is first line\nthis is second line'}}</text>
                 </template>
                 <template v-else-if="item === 'rich-text'">
-                <builtin-component v-if="!builtinPrefix" :behavior="item" :nodes="richText.nodes"></builtin-component>
-                <rich-text v-else-if="builtinPrefix === 1" :nodes="richText.nodes"></rich-text>
-                <rich-text v-else-if="builtinPrefix === 2" :nodes="richText.nodes"></rich-text>
+                    <builtin-component v-if="!builtinPrefix" :behavior="item" :nodes="richText.nodes"></builtin-component>
+                    <rich-text v-else-if="builtinPrefix === 1" :nodes="richText.nodes"></rich-text>
+                    <rich-text v-else-if="builtinPrefix === 2" :nodes="richText.nodes"></rich-text>
                 </template>
-                <template v-else-if="item === 'swiper'">
-                <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" :indicator-dots="swiper.indicatorDots" :autoplay="swiper.autoplay" :interval="5000" :duration="500" @change="onSwiperChange">
-                    <builtin-component behavior="swiper-item" class="swiper-item-1" item-id="1"><span>A</span></builtin-component>
-                    <builtin-component behavior="swiper-item" class="swiper-item-2" item-id="2"><span>B</span></builtin-component>
-                    <builtin-component behavior="swiper-item" class="swiper-item-3" item-id="3"><span>C</span></builtin-component>
-                    <div>不会被渲染</div>
-                </builtin-component>
-                <swiper v-else-if="builtinPrefix === 1" :class="item" :indicator-dots="swiper.indicatorDots" :autoplay="swiper.autoplay" :interval="5000" :duration="500" @change="onSwiperChange">
-                    <swiper-item class="swiper-item-1" item-id="1"><span>A</span></swiper-item>
-                    <swiper-item class="swiper-item-2" item-id="2"><span>B</span></swiper-item>
-                    <swiper-item class="swiper-item-3" item-id="3"><span>C</span></swiper-item>
-                    <div>不会被渲染</div>
-                </swiper>
-                <swiper v-else-if="builtinPrefix === 2" :class="item" :indicator-dots="swiper.indicatorDots" :autoplay="swiper.autoplay" :interval="5000" :duration="500" @change="onSwiperChange">
-                    <swiper-item class="swiper-item-1" item-id="1"><span>A</span></swiper-item>
-                    <swiper-item class="swiper-item-2" item-id="2"><span>B</span></swiper-item>
-                    <swiper-item class="swiper-item-3" item-id="3"><span>C</span></swiper-item>
-                    <div>不会被渲染</div>
-                </swiper>
-                <div>
-                    <switch name="switch-a" :checked="swiper.indicatorDots" @change="swiper.indicatorDots = !swiper.indicatorDots" /> 指示点
+
+                <div v-else-if="item === 'swiper'" class="swiper">
+                    <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" :indicator-dots="swiper.indicatorDots" :autoplay="swiper.autoplay" :interval="5000" :duration="500" @change="onSwiperChange">
+                        <builtin-component behavior="swiper-item" class="swiper-item-1" item-id="1"><span>A</span></builtin-component>
+                        <builtin-component behavior="swiper-item" class="swiper-item-2" item-id="2"><span>B</span></builtin-component>
+                        <builtin-component behavior="swiper-item" class="swiper-item-3" item-id="3"><span>C</span></builtin-component>
+                        <div>不会被渲染</div>
+                    </builtin-component>
+                    <swiper v-else-if="builtinPrefix === 1" :class="item" :indicator-dots="swiper.indicatorDots" :autoplay="swiper.autoplay" :interval="5000" :duration="500" @change="onSwiperChange">
+                        <swiper-item class="swiper-item-1" item-id="1"><span>A</span></swiper-item>
+                        <swiper-item class="swiper-item-2" item-id="2"><span>B</span></swiper-item>
+                        <swiper-item class="swiper-item-3" item-id="3"><span>C</span></swiper-item>
+                        <div>不会被渲染</div>
+                    </swiper>
+                    <div>
+                        <switch name="switch-a" :checked="swiper.indicatorDots" @change="swiper.indicatorDots = !swiper.indicatorDots" /> 指示点
+                    </div>
+                    <div>
+                        <switch name="switch-a" :checked="swiper.autoplay" @change="swiper.autoplay = !swiper.autoplay" /> 自动播放
+                    </div>
                 </div>
-                <div>
-                    <switch name="switch-a" :checked="swiper.autoplay" @change="swiper.autoplay = !swiper.autoplay" /> 自动播放
-                </div>
-                </template>
+
                 <template v-else-if="item === 'movable'">
-                <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" :scale-area="true">
-                    <builtin-component ref="movable-view" class="movable-view" behavior="movable-view" direction="all" :inertia="true" :out-of-bounds="true" :x="movable.x" :y="movable.y" :scale-value="movable.scaleValue" :scale="true" @change="onMovableChange" @scale="onMovableScale"><span>text</span></builtin-component>
-                    <builtin-component class="movable-view" behavior="movable-view" direction="all" :x="0" :y="0">plaintext</builtin-component>
-                </builtin-component>
-                <movable-area v-else-if="builtinPrefix === 1" :class="item" :scale-area="true">
-                    <movable-view ref="movable-view" class="movable-view" direction="all" :inertia="true" :out-of-bounds="true" :x="movable.x" :y="movable.y" :scale-value="movable.scaleValue" :scale="true" @change="onMovableChange" @scale="onMovableScale"><span>text</span></movable-view>
-                    <movable-view class="movable-view" direction="all" :x="0" :y="0">plaintext</movable-view>
-                </movable-area>
-                <movable-area v-else-if="builtinPrefix === 2" :class="item" :scale-area="true">
-                    <movable-view ref="movable-view" class="movable-view" direction="all" :inertia="true" :out-of-bounds="true" :x="movable.x" :y="movable.y" :scale-value="movable.scaleValue" :scale="true" @change="onMovableChange" @scale="onMovableScale"><span>text</span></movable-view>
-                    <movable-view class="movable-view" direction="all" :x="0" :y="0">plaintext</movable-view>
-                </movable-area>
-                <button @click="onClickMovableMove">move to (30px, 30px)</button>
-                <button @click="onClickMovableScale">scale to 3.0</button>
+                    <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" :scale-area="true">
+                        <builtin-component ref="movable-view" class="movable-view" behavior="movable-view" direction="all" :inertia="true" :out-of-bounds="true" :x="movable.x" :y="movable.y" :scale-value="movable.scaleValue" :scale="true" @change="onMovableChange" @scale="onMovableScale"><span>text</span></builtin-component>
+                        <builtin-component class="movable-view" behavior="movable-view" direction="all" :x="0" :y="0">plaintext</builtin-component>
+                    </builtin-component>
+                    <movable-area v-else-if="builtinPrefix === 1" :class="item" :scale-area="true">
+                        <movable-view ref="movable-view" class="movable-view" direction="all" :inertia="true" :out-of-bounds="true" :x="movable.x" :y="movable.y" :scale-value="movable.scaleValue" :scale="true" @change="onMovableChange" @scale="onMovableScale"><span>text</span></movable-view>
+                        <movable-view class="movable-view" direction="all" :x="0" :y="0">plaintext</movable-view>
+                    </movable-area>
+                    <movable-area v-else-if="builtinPrefix === 2" :class="item" :scale-area="true">
+                        <movable-view ref="movable-view" class="movable-view" direction="all" :inertia="true" :out-of-bounds="true" :x="movable.x" :y="movable.y" :scale-value="movable.scaleValue" :scale="true" @change="onMovableChange" @scale="onMovableScale"><span>text</span></movable-view>
+                        <movable-view class="movable-view" direction="all" :x="0" :y="0">plaintext</movable-view>
+                    </movable-area>
+                    <button @click="onClickMovableMove">move to (30px, 30px)</button>
+                    <button @click="onClickMovableScale">scale to 3.0</button>
                 </template>
                 <template v-else-if="item === 'form'">
                 <!-- form 组件 -->
@@ -553,18 +551,17 @@ import Inner2 from './Inner2.vue'
         return {
             list: [
                 'normal',
-                // 'event',
                 'img',
                 'input',
                 'textarea',
                 'select',
                 'label',
                 'video',
-                'canvas',
-                // 'view',
-                // 'text',
-                // 'rich-text',
-                // 'swiper',
+                // 'canvas',
+                'view',
+                'text',
+                'rich-text',
+                'swiper',
                 // 'movable',
                 // 'picker-view',
                 // 'form',
@@ -668,15 +665,15 @@ import Inner2 from './Inner2.vue'
             },
             richText: {
                 nodes: [{
-                name: 'div',
-                attrs: {
-                    class: 'rich-text-div',
-                    style: 'line-height: 60px; color: red;',
-                },
-                children: [{
-                    type: 'text',
-                    text: 'Hello&nbsp;World!',
-                }],
+                    name: 'div',
+                    attrs: {
+                        class: 'rich-text-div',
+                        style: 'line-height: 60px; color: red;',
+                    },
+                    children: [{
+                        type: 'text',
+                        text: 'Hello&nbsp;World!',
+                    }],
                 }],
             },
             intersection: {
@@ -720,35 +717,35 @@ import Inner2 from './Inner2.vue'
         //   }
         // })
 
-        const canvas = this.$refs.canvas[0];
+        // const canvas = this.$refs.canvas[0];
 
-        canvas.$$prepare().then(domNode => {
-            domNode.width = 300
-            domNode.height = 200
-            const context = domNode.getContext('2d')
+        // canvas.$$prepare().then(domNode => {
+        //     domNode.width = 300
+        //     domNode.height = 200
+        //     const context = domNode.getContext('2d')
 
-            context.strokeStyle = '#00ff00'
-            context.lineWidth = 5
-            context.rect(0, 0, 200, 200)
-            context.stroke()
-            context.strokeStyle = '#ff0000'
-            context.lineWidth = 2
-            context.moveTo(160, 100)
-            context.arc(100, 100, 60, 0, 2 * Math.PI, true)
-            context.moveTo(140, 100)
-            context.arc(100, 100, 40, 0, Math.PI, false)
-            context.moveTo(85, 80)
-            context.arc(80, 80, 5, 0, 2 * Math.PI, true)
-            context.moveTo(125, 80)
-            context.arc(120, 80, 5, 0, 2 * Math.PI, true)
-            context.stroke()
-        }).catch(console.error)
+        //     context.strokeStyle = '#00ff00'
+        //     context.lineWidth = 5
+        //     context.rect(0, 0, 200, 200)
+        //     context.stroke()
+        //     context.strokeStyle = '#ff0000'
+        //     context.lineWidth = 2
+        //     context.moveTo(160, 100)
+        //     context.arc(100, 100, 60, 0, 2 * Math.PI, true)
+        //     context.moveTo(140, 100)
+        //     context.arc(100, 100, 40, 0, Math.PI, false)
+        //     context.moveTo(85, 80)
+        //     context.arc(80, 80, 5, 0, 2 * Math.PI, true)
+        //     context.moveTo(125, 80)
+        //     context.arc(120, 80, 5, 0, 2 * Math.PI, true)
+        //     context.stroke()
+        // }).catch(console.error)
 
-        canvas.$$getNodesRef().then(nodesRef => {
-            nodesRef.boundingClientRect(res => {
-                console.log('test $$getNodesRef', res)
-            }).exec()
-        })
+        // canvas.$$getNodesRef().then(nodesRef => {
+        //     nodesRef.boundingClientRect(res => {
+        //         console.log('test $$getNodesRef', res)
+        //     }).exec()
+        // })
 
         // this.observer = window.$$createIntersectionObserver()
         // this.observer
@@ -1089,27 +1086,27 @@ display: inline-block;
 }
 
 .swiper {
-display: block;
-height: 150px;
+    display: block;
+    height: 150px !important;
 }
 
 .swiper-item-1, .swiper-item-2, .swiper-item-3 {
-display: flex;
-height: 150px;
-align-items: center;
-justify-content: center;
-color: #fff;
-font-size: 18px;
+    display: flex;
+    height: 150px;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
 }
 .swiper-item-1 {
-background-color: #1AAD19;
+    background-color: #1AAD19;
 }
 .swiper-item-2 {
-background-color: #2782D7;
+    background-color: #2782D7;
 }
 .swiper-item-3 {
-background-color: #F1F1F1;
-color: #353535;
+    background-color: #F1F1F1;
+    color: #353535;
 }
 
 .movable {
