@@ -11,6 +11,7 @@ module.exports = {
         notFound: 'index',
         accessDenied: 'index',
     },
+
     // app.json
     generate: {
         autoBuildNpm: 'yarn',

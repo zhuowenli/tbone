@@ -42,11 +42,16 @@ class Event {
             this.$_touches = options.touches.map(touch => ({...touch, target: options.target}))
 
             this.$$checkTargetTouches()
+        } else if (options.touches) {
+            this.$_touches = []
+            this.$_targetTouches = []
         }
 
         // Handle changedTouches
         if (options.changedTouches && options.changedTouches.length) {
             this.$_changedTouches = options.changedTouches.map(touch => ({...touch, target: options.target}))
+        } else if (options.changedTouches) {
+            this.$_changedTouches = []
         }
     }
 
@@ -112,7 +117,7 @@ class Event {
     }
 
     get touches() {
-        return this.$_touches
+        return this.$_touches || []
     }
 
     get targetTouches() {

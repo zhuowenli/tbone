@@ -134,8 +134,7 @@ const config = {
         },
         onImgLoad(evt) {
             const pageId = this.pageId
-            const originNodeId =
-        evt.currentTarget.dataset.privateNodeId || this.nodeId
+            const originNodeId = evt.currentTarget.dataset.privateNodeId || this.nodeId
             const originNode = cache.getNode(pageId, originNodeId)
 
             if (!originNode) return

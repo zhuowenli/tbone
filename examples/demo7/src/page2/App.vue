@@ -1,9 +1,10 @@
 <template>
   <div class="cnt">
     <Header></Header>
-    <a href="/a">回到首页</a>
-    <a href="/d/123" target="_blank">下一页</a>
-    <button @click="onClickJump">回到首页</button>
+    <div class="content">page2</div>
+    <a href="/a" target="_blank">跳转 tabbar 页面</a>
+    <a href="/c" target="_blank">跳转普通页面</a>
+    <a href="/d">跳转不存在的页面</a>
     <Footer></Footer>
   </div>
 </template>
@@ -16,19 +17,14 @@ export default {
   name: 'App',
   components: {
     Header,
-    Footer
+    Footer,
   },
   created() {
-    window.addEventListener('myload', query => console.log('page2 myload', query))
-    window.addEventListener('myshow', () => console.log('page2 myshow'))
-    window.addEventListener('myready', () => console.log('page2 myready'))
-    window.addEventListener('myhide', () => console.log('page2 myhide'))
-    window.addEventListener('myunload', () => console.log('page2 myunload'))
-  },
-  methods: {
-    onClickJump() {
-      window.location.href = '/a'
-    },
+    window.addEventListener('wxshow', () => {
+      if (typeof window.getTabBar === 'function' && window.getTabBar()) {
+        window.getTabBar().setData({selected: 1})
+      }
+    })
   },
 }
 </script>
@@ -37,7 +33,8 @@ export default {
 .cnt {
   margin-top: 20px;
 }
-a, button {
+
+a, .content {
   display: block;
   width: 100%;
   height: 30px;

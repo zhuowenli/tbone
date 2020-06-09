@@ -1,11 +1,10 @@
+const path = require('path')
+
 module.exports = {
     origin: 'https://test.miniapp.com',
-    entry: '/test/aaa',
+    entry: '/',
     router: {
-        index: [
-            '/test/aaa',
-            '/test/bbb',
-        ],
+        index: ['/'],
     },
     redirect: {
         notFound: 'index',
@@ -13,6 +12,21 @@ module.exports = {
     },
     // app.json
     generate: {
+        myCustomComponent: {
+            root: path.join(__dirname, '../src/custom-components'),
+            usingComponents: {
+                'comp-a': {
+                    path: 'comp-a',
+                    props: ['prefix', 'suffix'],
+                    events: ['someevent'],
+                },
+                'comp-b': {
+                    path: 'comp-b/index',
+                    props: ['prefix'],
+                },
+                'comp-c': 'comp-c',
+            },
+        },
         autoBuildNpm: 'yarn',
         window: {
             defaultTitle: 'zhuowenli\'s miniapp',

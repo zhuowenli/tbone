@@ -1,7 +1,9 @@
 <template>
   <div class="cnt">
     <Header></Header>
-    <button @click="onClickBack">回到上一页</button>
+    <div class="content">page3</div>
+    <a href="/a">跳转 tabbar 页面</a>
+    <a href="/d" target="_blank">跳转不存在的页面</a>
     <Footer></Footer>
   </div>
 </template>
@@ -14,21 +16,7 @@ export default {
   name: 'App',
   components: {
     Header,
-    Footer
-  },
-  created() {
-    window.addEventListener('myload', query => console.log('page3 myload', query))
-    window.addEventListener('myshow', () => console.log('page3 myshow'))
-    window.addEventListener('myready', () => console.log('page3 myready'))
-    window.addEventListener('myhide', () => console.log('page3 myhide'))
-    window.addEventListener('myunload', () => console.log('page3 myunload'))
-  },
-  methods: {
-    onClickBack() {
-      if (process.env.isminiapp) {
-        my.navigateBack()
-      }
-    },
+    Footer,
   },
 }
 </script>
@@ -37,7 +25,8 @@ export default {
 .cnt {
   margin-top: 20px;
 }
-a, button {
+
+a, .content {
   display: block;
   width: 100%;
   height: 30px;

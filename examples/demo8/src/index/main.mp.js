@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import I18n from 'vue-i18n'
 import App from './App.vue'
 import AAA from './AAA.vue'
 import BBB from './BBB.vue'
@@ -10,8 +9,12 @@ export default function createApp() {
     container.id = 'app'
     document.body.appendChild(container)
 
+    window.onerror = (message, source, lineno, colno, error) => {
+        console.log('window.onerror => ', message, source, lineno, colno, error)
+    }
+    window.addEventListener('error', evt => console.log('window.addEventListener(\'error\') =>', evt))
+
     Vue.use(Router)
-    Vue.use(I18n)
 
     const router = new Router({
         mode: 'history', // 是否使用 history api
@@ -21,22 +24,9 @@ export default function createApp() {
         ]
     })
 
-    const i18n = new I18n({
-        locale: 'zh',
-        messages: {
-            en: {
-                hello: 'hello world'
-            },
-            zh: {
-                hello: '你好世界'
-            },
-        },
-    })
-
     return new Vue({
         el: '#app',
         router,
-        i18n,
         render: h => h(App)
     })
 }

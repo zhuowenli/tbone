@@ -11,11 +11,12 @@ module.exports = {
         notFound: 'index',
         accessDenied: 'index',
     },
+
     // app.json
     generate: {
         autoBuildNpm: 'yarn',
         window: {
-            defaultTitle: 'zhuowenli\'s miniapp',
+            defaultTitle: '@zhuowenli\'s tbone demo',
             titleBarColor: '#ffffff',
             navigationBarForceEnable: true
         },
@@ -35,6 +36,6 @@ module.exports = {
 
     // package.json
     packageConfig: {
-        author: 'lvjian',
+        author: 'zhuowenli',
     },
 }

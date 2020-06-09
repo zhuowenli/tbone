@@ -1,18 +1,13 @@
-const path = require('path')
-
 module.exports = {
     origin: 'https://test.miniapp.com',
-    entry: '/',
+    entry: '/test/aaa',
     router: {
-        page1: ['/a'],
-        page2: ['/b'],
-        page3: ['/c'],
+        index: ['/test/aaa'],
     },
     redirect: {
-        notFound: 'page1',
-        accessDenied: 'page1',
+        notFound: 'index',
+        accessDenied: 'index',
     },
-
     // app.json
     generate: {
         autoBuildNpm: 'yarn',
@@ -20,22 +15,6 @@ module.exports = {
             defaultTitle: 'zhuowenli\'s miniapp',
             titleBarColor: '#ffffff',
             navigationBarForceEnable: true
-        },
-        tabBar: {
-            color: '#000000',
-            selectedColor: '#07c160',
-            backgroundColor: '#ffffff',
-            items: [{
-                pagePath: 'pages/page1/index',
-                text: 'page1',
-                icon: 'https://alicdn.dancf.com/miniapp-qianniu/static/home.png',
-                activeIcon: 'https://alicdn.dancf.com/miniapp-qianniu/static/home-active.png'
-            }, {
-                pageName: 'pages/page2/index',
-                text: 'page2',
-                icon: 'https://alicdn.dancf.com/miniapp-qianniu/static/baobei.png',
-                activeIcon: 'https://alicdn.dancf.com/miniapp-qianniu/static/baobei-active.png'
-            }],
         },
     },
 

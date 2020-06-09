@@ -1,67 +1,62 @@
 <template>
-  <div class="cnt">
-    <h2>tbone</h2>
-    <comp-a ref="compA" class="block" :prefix="prefixA" :suffix="suffixA" @someevent="onEvent">
-      <div>comp-a slot</div>
-    </comp-a>
-    <comp-b class="block" :prefix="prefixB">
-      <div>comp-b slot</div>
-    </comp-b>
-    <comp-c class="block">
-      <div>comp-c slot</div>
-    </comp-c>
-    <button class="btn" @click="onClick">update</button>
+  <div>
+    <ul class="tabbar">
+      <li><router-link class="link" to="/test/aaa">aaa</router-link></li>
+      <li><router-link class="link" to="/test/bbb">bbb</router-link></li>
+    </ul>
+    <button class="btn" @click="$i18n.locale = ($i18n.locale === 'zh' ? 'en' : 'zh')">切换语言</button>
+    <router-view></router-view>
+    <Footer/>
   </div>
 </template>
 
 <script>
+import Footer from '../common/Footer.vue'
+
 export default {
   name: 'App',
-  data() {
-    return {
-      suffixA: 'suffix-a',
-      prefixB: 'prefix-b',
-    }
+  components: {
+    Footer,
   },
-  methods: {
-    onClick() {
-      this.prefixA = 'prefix-new-a'
-      this.prefixB = 'prefix-new-b'
-
-      console.log(this.$refs.compA);
-      console.log(this.$refs.compA._myCustomComponent);
-
-      this.$refs.compA._myCustomComponent.printf()
-    },
-
-    onEvent(evt) {
-      console.log('someevent', evt)
-    },
-  },
+  mounted() {},
+  methods: {},
 }
 </script>
 
 <style>
-.cnt {
-  margin: 15px;
+.tabbar {
+  margin-top: 20px;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  list-style: none;
+  justify-content: center;
 }
-
-.block {
-  border: 1px solid #ddd;
-  padding: 15px;
-  box-sizing: content-box;
+.tabbar li {
+  position: relative;
   display: block;
-  margin-bottom: 15px;
+  height: 50px;
+  width: 80px;
+  text-align: center;
+  line-height: 50px;
+  background: #dff1e7;
+  margin: 5px;
 }
-
-.btn {
-  margin-top: 15px;
+.tabbar li .link {
   display: block;
   width: 100%;
-  height: 30px;
-  line-height: 30px;
+  height: 100%;
+}
+.btn {
+  display: block;
+  margin: 15px auto;
+  width: 250px;
+  height: 40px;
+  line-height: 40px;
   text-align: center;
-  font-size: 20px;
-  border: 1px solid #ddd;
+  color: #000;
+  font-size: 16px;
+  background: #dff1e7;
+  border-radius: 5px;
 }
 </style>

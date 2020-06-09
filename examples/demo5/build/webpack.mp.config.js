@@ -11,7 +11,10 @@ const isOptimize = false // 是否压缩业务代码，开发者工具可能无�
 module.exports = {
     mode: 'production',
     entry: {
-        index: path.resolve(__dirname, '../src/index/main.mp.js'),
+        page1: path.resolve(__dirname, '../src/page1/main.mp.js'),
+        page2: path.resolve(__dirname, '../src/page2/main.mp.js'),
+        page3: path.resolve(__dirname, '../src/page3/main.mp.js'),
+        page4: path.resolve(__dirname, '../src/page4/main.mp.js'),
     },
     output: {
         path: path.resolve(__dirname, '../dist/mp/common'), // 放到小程序代码目录中的 common 目录下
@@ -20,7 +23,6 @@ module.exports = {
         libraryExport: 'default', // 必需字段，不能修改
         libraryTarget: 'window', // 必需字段，不能修改
     },
-    watch: true,
     target: 'web', // 必需字段，不能修改
     optimization: {
         runtimeChunk: false, // 必需字段，不能修改
@@ -79,7 +81,9 @@ module.exports = {
             },
             {
                 test: /\.vue$/,
-                loader: 'vue-loader',
+                loader: [
+                    'vue-loader',
+                ],
             },
             {
                 test: /\.js$/,
@@ -110,4 +114,5 @@ module.exports = {
         new VueLoaderPlugin(),
         new MpPlugin(require('./miniapp.config.js')),
     ],
+    watch: true
 }
