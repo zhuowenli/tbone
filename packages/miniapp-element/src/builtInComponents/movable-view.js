@@ -66,6 +66,7 @@ export default {
         },
     }, {
         name: 'scaleValue',
+        canBeUserChanged: true,
         get(domNode) {
             const value = parseInt(domNode.getAttribute('scale-value'), 10)
             return !isNaN(value) ? value : 1

@@ -338,153 +338,116 @@
                 </div>
                 </template>
                 <template v-else-if="item === 'picker-view'">
-                <div>{{pickerView.year}}年{{pickerView.month}}月{{pickerView.day}}日</div>
-                <div v-if="!builtinPrefix">
-                    <builtin-component :behavior="item" indicator-style="height: 50px;" style="width: 100%; height: 300px;" :value="pickerView.value" @change="onPickerViewChange">
-                    <builtin-component behavior="picker-view-column">
-                        <div v-for="item in pickerView.years" :key="item" style="line-height: 50px">{{item}}年</div>
-                    </builtin-component>
-                    <builtin-component behavior="picker-view-column">
-                        <div v-for="item in pickerView.months" :key="item" style="line-height: 50px">{{item}}月</div>
-                    </builtin-component>
-                    <builtin-component behavior="picker-view-column">
-                        <div v-for="item in pickerView.days" :key="item" style="line-height: 50px">{{item}}日</div>
-                    </builtin-component>
-                    </builtin-component>
-                </div>
-                <div v-else-if="builtinPrefix === 1">
-                    <picker-view indicator-style="height: 50px;" style="width: 100%; height: 300px;" :value="pickerView.value" @change="onPickerViewChange">
-                    <picker-view-column>
-                        <div v-for="item in pickerView.years" :key="item" style="line-height: 50px">{{item}}年</div>
-                    </picker-view-column>
-                    <picker-view-column>
-                        <div v-for="item in pickerView.months" :key="item" style="line-height: 50px">{{item}}月</div>
-                    </picker-view-column>
-                    <picker-view-column>
-                        <div v-for="item in pickerView.days" :key="item" style="line-height: 50px">{{item}}日</div>
-                    </picker-view-column>
-                    </picker-view>
-                </div>
-                <div v-else-if="builtinPrefix === 2">
-                    <picker-view indicator-style="height: 50px;" style="width: 100%; height: 300px;" :value="pickerView.value" @change="onPickerViewChange">
-                    <picker-view-column>
-                        <div v-for="item in pickerView.years" :key="item" style="line-height: 50px">{{item}}年</div>
-                    </picker-view-column>
-                    <picker-view-column>
-                        <div v-for="item in pickerView.months" :key="item" style="line-height: 50px">{{item}}月</div>
-                    </picker-view-column>
-                    <picker-view-column>
-                        <div v-for="item in pickerView.days" :key="item" style="line-height: 50px">{{item}}日</div>
-                    </picker-view-column>
-                    </picker-view>
-                </div>
+                    <div>{{pickerView.year}}年{{pickerView.month}}月{{pickerView.day}}日</div>
+                    <div v-if="!builtinPrefix">
+                        <builtin-component :behavior="item" indicator-style="height: 50px;" style="width: 100%; height: 300px;" :value="pickerView.value" @change="onPickerViewChange">
+                        <builtin-component behavior="picker-view-column">
+                            <div v-for="item in pickerView.years" :key="item">{{item}}年</div>
+                        </builtin-component>
+                        <builtin-component behavior="picker-view-column">
+                            <div v-for="item in pickerView.months" :key="item">{{item}}月</div>
+                        </builtin-component>
+                        <builtin-component behavior="picker-view-column">
+                            <div v-for="item in pickerView.days" :key="item">{{item}}日</div>
+                        </builtin-component>
+                        </builtin-component>
+                    </div>
+                    <div v-else-if="builtinPrefix === 1">
+                        <picker-view indicator-style="height: 50px;" style="width: 100%; height: 300px;" :value="pickerView.value" @change="onPickerViewChange">
+                            <picker-view-column>
+                                <view class="picker-view-item" v-for="item in pickerView.years" :key="item"><text>{{item}}年</text></view>
+                            </picker-view-column>
+                            <picker-view-column>
+                                <view class="picker-view-item" v-for="item in pickerView.months" :key="item"><text>{{item}}月</text></view>
+                            </picker-view-column>
+                            <picker-view-column>
+                                <view class="picker-view-item" v-for="item in pickerView.days" :key="item"><text>{{item}}日</text></view>
+                            </picker-view-column>
+                        </picker-view>
+                    </div>
                 </template>
+
                 <template v-else-if="item === 'switch'">
-                <div v-if="!builtinPrefix">
-                    <builtin-component :behavior="item" type="switch" :checked="true" @change="onSwitchChange"></builtin-component>
-                    <builtin-component :behavior="item" type="checkbox" @change="onSwitchChange"></builtin-component>
-                </div>
-                <div v-else-if="builtinPrefix === 1">
-                    <switch type="switch" :checked="true" @change="onSwitchChange"></switch>
-                    <switch type="checkbox" @change="onSwitchChange"></switch>
-                </div>
-                <div v-else-if="builtinPrefix === 2">
-                    <switch type="switch" :checked="true" @change="onSwitchChange"></switch>
-                    <switch type="checkbox" @change="onSwitchChange"></switch>
-                </div>
+                    <div v-if="!builtinPrefix">
+                        <builtin-component :behavior="item" type="switch" :checked="true" @change="onSwitchChange"></builtin-component>
+                        <builtin-component :behavior="item" type="checkbox" @change="onSwitchChange"></builtin-component>
+                    </div>
+                    <div v-else-if="builtinPrefix === 1">
+                        <switch type="switch" :checked="true" @change="onSwitchChange"></switch>
+                        <switch type="checkbox" @change="onSwitchChange"></switch>
+                    </div>
                 </template>
+
                 <template v-else-if="item === 'slider'">
-                <builtin-component v-if="!builtinPrefix" :behavior="item" min="50" max="200" :show-value="true" @change="onSliderChange"></builtin-component>
-                <slider v-else-if="builtinPrefix === 1" min="50" max="200" :show-value="true" @change="onSliderChange"></slider>
-                <slider v-else-if="builtinPrefix === 2" min="50" max="200" :show-value="true" @change="onSliderChange"></slider>
+                    <builtin-component v-if="!builtinPrefix" :behavior="item" min="50" max="200" :show-value="true" @change="onSliderChange"></builtin-component>
+                    <slider v-else-if="builtinPrefix === 1" min="50" max="200" :show-value="true" @change="onSliderChange"></slider>
                 </template>
                 <template v-else-if="item === 'map'">
-                <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" :longitude="map.longitude" :latitude="map.latitude" :scale="map.scale" :controls="map.controls" :markers="map.markers" :polyline="map.polyline" :show-location="true" @markertap="onMapMarkerTap" @regionchange="onMapRegionChange" @controltap="onMapControlTap">
-                    <Inner></Inner>
-                </builtin-component>
-                <map v-else-if="builtinPrefix === 1" :class="item" :longitude="map.longitude" :latitude="map.latitude" :scale="map.scale" :controls="map.controls" :markers="map.markers" :polyline="map.polyline" :show-location="true" @markertap="onMapMarkerTap" @regionchange="onMapRegionChange" @controltap="onMapControlTap">
-                    <Inner></Inner>
-                </map>
-                <map v-else-if="builtinPrefix === 2" :class="item" :longitude="map.longitude" :latitude="map.latitude" :scale="map.scale" :controls="map.controls" :markers="map.markers" :polyline="map.polyline" :show-location="true" @markertap="onMapMarkerTap" @regionchange="onMapRegionChange" @controltap="onMapControlTap">
-                    <Inner></Inner>
-                </map>
-                <!-- 基础库暂未支持 regionchange 事件提供坐标和 scale，故注释 -->
-                <!-- <button @click="resetMap">reset</button> -->
+                    <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" :longitude="map.longitude" :latitude="map.latitude" :scale="map.scale" :controls="map.controls" :markers="map.markers" :polyline="map.polyline" :show-location="true" @markertap="onMapMarkerTap" @regionchange="onMapRegionChange" @controltap="onMapControlTap">
+                        <Inner></Inner>
+                    </builtin-component>
+                    <map v-else-if="builtinPrefix === 1" :class="item" :longitude="map.longitude" :latitude="map.latitude" :scale="map.scale" :controls="map.controls" :markers="map.markers" :polyline="map.polyline" :show-location="true" @markertap="onMapMarkerTap" @regionchange="onMapRegionChange" @controltap="onMapControlTap">
+                        <Inner></Inner>
+                    </map>
+                    <!-- 基础库暂未支持 regionchange 事件提供坐标和 scale，故注释 -->
+                    <!-- <button @click="resetMap">reset</button> -->
                 </template>
                 <template v-else-if="item === 'cover-view'">
-                <compoennt v-if="!builtinPrefix" :behavior="item">测试 cover-view</compoennt>
-                <cover-view v-else-if="builtinPrefix === 1">测试 cover-view</cover-view>
-                <cover-view v-else-if="builtinPrefix === 2">测试 cover-view</cover-view>
+                    <compoennt v-if="!builtinPrefix" :behavior="item">测试 cover-view</compoennt>
+                    <cover-view v-else-if="builtinPrefix === 1">测试 cover-view</cover-view>
                 </template>
                 <template v-else-if="item === 'cover-image'">
-                <builtin-component v-if="!builtinPrefix" behavior="cover-view">
-                    <builtin-component :behavior="item" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></builtin-component>
-                </builtin-component>
-                <cover-view v-else-if="builtinPrefix === 1">
-                    <cover-image src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></cover-image>
-                </cover-view>
-                <cover-view v-else-if="builtinPrefix === 2">
-                    <cover-image src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></cover-image>
-                </cover-view>
+                    <builtin-component v-if="!builtinPrefix" behavior="cover-view">
+                        <builtin-component :behavior="item" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></builtin-component>
+                    </builtin-component>
+                    <cover-view v-else-if="builtinPrefix === 1">
+                        <cover-image src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></cover-image>
+                    </cover-view>
                 </template>
                 <template v-else-if="item === 'live-player'">
-                <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" mode="live" :autoplay="true" src="rtmp://live.hkstv.hk.lxdns.com/live/hks" @statechange="onLivePlayerStateChange">
-                    <Inner></Inner>
-                </builtin-component>
-                <live-player v-else-if="builtinPrefix === 1" :class="item" mode="live" :autoplay="true" src="rtmp://live.hkstv.hk.lxdns.com/live/hks" @statechange="onLivePlayerStateChange">
-                    <Inner></Inner>
-                </live-player>
-                <live-player v-else-if="builtinPrefix === 2" :class="item" mode="live" :autoplay="true" src="rtmp://live.hkstv.hk.lxdns.com/live/hks" @statechange="onLivePlayerStateChange">
-                    <Inner></Inner>
-                </live-player>
+                    <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" mode="live" :autoplay="true" src="rtmp://live.hkstv.hk.lxdns.com/live/hks" @statechange="onLivePlayerStateChange">
+                        <Inner></Inner>
+                    </builtin-component>
+                    <live-player v-else-if="builtinPrefix === 1" :class="item" mode="live" :autoplay="true" src="rtmp://live.hkstv.hk.lxdns.com/live/hks" @statechange="onLivePlayerStateChange">
+                        <Inner></Inner>
+                    </live-player>
                 </template>
                 <template v-else-if="item === 'live-pusher'">
-                <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" mode="RTC" :autopush="true" url="https://domain/push_stream" @statechange="onLivePusherStateChange">
-                    <Inner></Inner>
-                </builtin-component>
-                <live-pusher v-else-if="builtinPrefix === 1" :class="item" mode="RTC" :autopush="true" url="https://domain/push_stream" @statechange="onLivePusherStateChange">
-                    <Inner></Inner>
-                </live-pusher>
-                <live-pusher v-else-if="builtinPrefix === 2" :class="item" mode="RTC" :autopush="true" url="https://domain/push_stream" @statechange="onLivePusherStateChange">
-                    <Inner></Inner>
-                </live-pusher>
+                    <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" mode="RTC" :autopush="true" url="https://domain/push_stream" @statechange="onLivePusherStateChange">
+                        <Inner></Inner>
+                    </builtin-component>
+                    <live-pusher v-else-if="builtinPrefix === 1" :class="item" mode="RTC" :autopush="true" url="https://domain/push_stream" @statechange="onLivePusherStateChange">
+                        <Inner></Inner>
+                    </live-pusher>
                 </template>
                 <template v-else-if="item === 'editor'">
-                <builtin-component v-if="!builtinPrefix" :behavior="item" placeholder="请输入内容" :show-img-size="true" :show-img-toolbar="true" :show-img-resize="true" @statuschange="onEditorStatusChange" @ready="onEditorReady"></builtin-component>
-                <editor v-else-if="builtinPrefix === 1" placeholder="请输入内容" :show-img-size="true" :show-img-toolbar="true" :show-img-resize="true" @statuschange="onEditorStatusChange" @ready="onEditorReady"></editor>
-                <editor v-else-if="builtinPrefix === 2" placeholder="请输入内容" :show-img-size="true" :show-img-toolbar="true" :show-img-resize="true" @statuschange="onEditorStatusChange" @ready="onEditorReady"></editor>
+                    <builtin-component v-if="!builtinPrefix" :behavior="item" placeholder="请输入内容" :show-img-size="true" :show-img-toolbar="true" :show-img-resize="true" @statuschange="onEditorStatusChange" @ready="onEditorReady"></builtin-component>
+                    <editor v-else-if="builtinPrefix === 1" placeholder="请输入内容" :show-img-size="true" :show-img-toolbar="true" :show-img-resize="true" @statuschange="onEditorStatusChange" @ready="onEditorReady"></editor>
                 </template>
                 <template v-else-if="item === 'camera'">
-                <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item">
-                    <Inner></Inner>
-                </builtin-component>
-                <camera v-else-if="builtinPrefix === 1" :class="item">
-                    <Inner></Inner>
-                </camera>
-                <camera v-else-if="builtinPrefix === 2" :class="item">
-                    <Inner></Inner>
-                </camera>
+                    <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item">
+                        <Inner></Inner>
+                    </builtin-component>
+                    <camera v-else-if="builtinPrefix === 1" :class="item">
+                        <Inner></Inner>
+                    </camera>
                 </template>
                 <template v-else-if="item === 'ad'">
-                <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" unit-id="123" @error="onAdError"></builtin-component>
-                <ad v-else-if="builtinPrefix === 1" :class="item" unit-id="123" @error="onAdError"></ad>
-                <ad v-else-if="builtinPrefix === 2" :class="item" unit-id="123" @error="onAdError"></ad>
+                    <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" unit-id="123" @error="onAdError"></builtin-component>
+                    <ad v-else-if="builtinPrefix === 1" :class="item" unit-id="123" @error="onAdError"></ad>
                 </template>
                 <template v-else-if="item === 'official-account'">
-                <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" @error="onOfficialAccountError"></builtin-component>
-                <official-account v-else-if="builtinPrefix === 1" :class="item" @error="onOfficialAccountError"></official-account>
-                <official-account v-else-if="builtinPrefix === 2" :class="item" @error="onOfficialAccountError"></official-account>
+                    <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" @error="onOfficialAccountError"></builtin-component>
+                    <official-account v-else-if="builtinPrefix === 1" :class="item" @error="onOfficialAccountError"></official-account>
                 </template>
                 <template v-else-if="item === 'web-view'">
-                <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" src="https://www.qq.com/"></builtin-component>
-                <web-view v-else-if="builtinPrefix === 1" :class="item" src="https://www.qq.com/"></web-view>
-                <web-view v-else-if="builtinPrefix === 2" :class="item" src="https://www.qq.com/"></web-view>
+                    <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" src="https://www.qq.com/"></builtin-component>
+                    <web-view v-else-if="builtinPrefix === 1" :class="item" src="https://www.qq.com/"></web-view>
                 </template>
                 <template v-else-if="item === 'scroll-view'">
                 <div>
                     <builtin-component ref="scroll-view" v-if="!builtinPrefix" :behavior="item" :class="item + '-y'" :scroll-into-view="'y1' + scrollView.yDest" :scroll-top="scrollView.scrollTop" :scroll-y="true" :scroll-with-animation="scrollView.yAnimation" @scroll="onScrollViewScroll"><Inner2 type="y1"/></builtin-component>
                     <scroll-view ref="scroll-view" v-else-if="builtinPrefix === 1" :class="item + '-y'" :scroll-into-view="'y2' + scrollView.yDest" :scroll-top="scrollView.scrollTop" :scroll-y="true" :scroll-with-animation="scrollView.yAnimation" @scroll="onScrollViewScroll"><Inner2 type="y2"/></scroll-view>
-                    <scroll-view ref="scroll-view" v-else-if="builtinPrefix === 2" :class="item + '-y'" :scroll-into-view="'y3' + scrollView.yDest" :scroll-top="scrollView.scrollTop" :scroll-y="true" :scroll-with-animation="scrollView.yAnimation" @scroll="onScrollViewScroll"><Inner2 type="y3"/></scroll-view>
                     <div class="scroll-view-btn" @click="onClickScrollViewYBtn">滚动到第三个滑块</div>
                     <div class="scroll-view-btn" @click="onClickScrollViewYTopBtn">滚动到 120px 处</div>
                     <div class="scroll-view-btn" @click="onClickScrollViewYAnimBtn">{{scrollView.yAnimation ? '关闭' : '打开'}}动画</div>
@@ -492,23 +455,23 @@
                 <div>
                     <builtin-component ref="scroll-view" v-if="!builtinPrefix" :behavior="item" :class="item + '-x'" :scroll-into-view="'x1' + scrollView.xDest" :scroll-x="true" :scroll-with-animation="true" @scroll="onScrollViewScroll"><Inner2 type="x1"/></builtin-component>
                     <scroll-view ref="scroll-view" v-else-if="builtinPrefix === 1" :class="item + '-x'" :scroll-into-view="'x2' + scrollView.xDest" :scroll-x="true" :scroll-with-animation="true" @scroll="onScrollViewScroll"><Inner2 type="x2"/></scroll-view>
-                    <scroll-view ref="scroll-view" v-else-if="builtinPrefix === 2" :class="item + '-x'" :scroll-into-view="'x3' + scrollView.xDest" :scroll-x="true" :scroll-with-animation="true" @scroll="onScrollViewScroll"><Inner2 type="x3"/></scroll-view>
                     <div class="scroll-view-btn" @click="onClickScrollViewXBtn">滚动到第二个滑块</div>
                 </div>
                 </template>
                 <!-- 不支持标签 -->
                 <template v-else-if="item === 'xxxx'" >
-                <builtin-component v-if="!builtinPrefix" :behavior="item"></builtin-component>
-                <xxxx v-else-if="builtinPrefix === 1"></xxxx>
+                    <builtin-component v-if="!builtinPrefix" :behavior="item"></builtin-component>
+                    <xxxx v-else-if="builtinPrefix === 1"></xxxx>
                 </template>
                 <iframe v-else-if="item === 'iframe'"></iframe>
+
                 <div v-else-if="item === 'intersection'">
-                <div>{{intersection.appear ? '小球出现' : '小球消失'}}</div>
-                <scroll-view class="intersection-scroll-view" :scroll-y="true">
-                    <div class="intersection-scroll-area" :style="intersection.appear ? 'background: #ccc' : ''">
-                    <div class="intersection-ball"></div>
-                    </div>
-                </scroll-view>
+                    <div>{{intersection.appear ? '小球出现' : '小球消失'}}</div>
+                    <scroll-view class="intersection-scroll-view" :scroll-y="true">
+                        <div class="intersection-scroll-area" :style="intersection.appear ? 'background: #ccc' : ''">
+                        <div class="intersection-ball"></div>
+                        </div>
+                    </scroll-view>
                 </div>
             </view>
         </div>
@@ -551,20 +514,20 @@ import Inner2 from './Inner2.vue'
 
         return {
             list: [
-                'normal',
-                'img',
-                'input',
-                'textarea',
-                'select',
-                'label',
-                'video',
-                // 'canvas',
-                'view',
-                'text',
-                'rich-text',
-                'swiper',
+                // 'normal',
+                // 'img',
+                // 'input',
+                // 'textarea',
+                // 'select',
+                // 'label',
+                // 'video',
+                // 'view',
+                // 'text',
+                // 'rich-text',
+                // 'swiper',
                 // 'movable',
-                // 'picker-view',
+                // 'canvas',
+                'picker-view',
                 // 'form',
                 // 'button',
                 // 'icon',
@@ -921,48 +884,49 @@ import Inner2 from './Inner2.vue'
         },
 
         onPickerViewChange(evt) {
-        this.pickerView.year = this.pickerView.years[evt.detail.value[0]]
-        this.pickerView.month = this.pickerView.months[evt.detail.value[1]]
-        this.pickerView.day = this.pickerView.days[evt.detail.value[2]]
-        this.pickerView.value = evt.detail.value
-        console.log('onPickerViewChange', evt.detail)
+            this.pickerView.year = this.pickerView.years[evt.detail.value[0]]
+            this.pickerView.month = this.pickerView.months[evt.detail.value[1]]
+            this.pickerView.day = this.pickerView.days[evt.detail.value[2]]
+            this.pickerView.value = evt.detail.value
+            console.log('onPickerViewChange', evt.detail)
         },
 
         onMovableChange(evt) {
-        console.log('onMovableChange', evt.detail)
+            console.log('onMovableChange', evt.detail)
         },
 
         onMovableScale(evt) {
-        console.log('onMovableScale', evt.detail)
+            console.log('onMovableScale', evt.detail)
         },
 
         onGetPhoneNumber(evt) {
-        console.log('onGetPhoneNumber', evt)
+            console.log('onGetPhoneNumber', evt)
         },
 
         onClickMovableMove() {
-        const domNodes = this.$refs['movable-view'] || []
-        if (domNodes[0]) {
-            domNodes[0].setAttribute('x', 30)
-            domNodes[0].setAttribute('y', 30)
-        }
-        this.movable.x = this.movable.y = 30
+            const domNodes = this.$refs['movable-view'] || []
+            if (domNodes[0]) {
+                domNodes[0].setAttribute('x', 30)
+                domNodes[0].setAttribute('y', 30)
+                console.log(domNodes[0]);
+            }
+            this.movable.x = this.movable.y = 30
         },
 
         onClickMovableScale() {
-        const domNodes = this.$refs['movable-view'] || []
-        if (domNodes[0]) {
-            domNodes[0].setAttribute('scale-value', 3)
-        }
-        this.movable.scaleValue = 3
+            const domNodes = this.$refs['movable-view'] || []
+            if (domNodes[0]) {
+                domNodes[0].setAttribute('scale-value', 3)
+            }
+            this.movable.scaleValue = 3
         },
 
         onCanvasTouchStart(type, evt) {
-        console.log(`onCanvasTouchStart[${type}]`, evt)
+            console.log(`onCanvasTouchStart[${type}]`, evt)
         },
 
         onCanvasLongTap(evt) {
-        console.log('onCanvasLongTap', evt)
+            console.log('onCanvasLongTap', evt)
         },
 
         resetMap() {
@@ -1147,9 +1111,15 @@ transition: .5s;
 }
 
 .intersection-ball {
-width: 100px;
-height: 100px;
-background: #1AAD19;
-border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    background: #1AAD19;
+    border-radius: 50%;
+}
+
+.picker-view-item{
+    background: #f2f2f2;
+    color: #000000;
+    font-size: 16px;
 }
 </style>
