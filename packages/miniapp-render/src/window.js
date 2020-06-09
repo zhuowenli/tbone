@@ -239,7 +239,6 @@ class Window extends EventTarget {
         tool.flushThrottleCache()
     }
 
-
     /**
      * 触发节点事件
      */

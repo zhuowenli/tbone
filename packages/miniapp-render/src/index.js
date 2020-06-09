@@ -30,12 +30,6 @@ export default {
         cache.destroy(pageId)
     },
 
-    createApp() {
-        const window = createWindow('app')
-        cache.setWindow(window)
-        return window
-    },
-
     // For miniprogram-element
     $$adapter: {
         cache,
