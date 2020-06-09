@@ -108,4 +108,5 @@ module.exports = {
         }),
         new MpPlugin(require('./miniapp.config'))
     ],
+    watch: true
 }

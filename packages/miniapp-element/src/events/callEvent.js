@@ -26,16 +26,7 @@ export default function(eventName, evt, extra, pageId, nodeId) {
                 const window = cache.getWindow()
 
                 // 处理特殊节点事件
-                if (domNode.tagName === 'A' && evt.type === 'click' && !isCapture) {
-                // 处理 a 标签的跳转
-                    const href = domNode.href
-                    const target = domNode.target
-
-                    if (!href || href.indexOf('javascript') !== -1) return
-
-                    if (target === '_blank') window.open(href)
-                    else window.location.href = href
-                } else if (domNode.tagName === 'LABEL' && evt.type === 'click' && !isCapture) {
+                if (domNode.tagName === 'LABEL' && evt.type === 'click' && !isCapture) {
                     // 处理 label 的点击
                     const forValue = domNode.getAttribute('for')
                     let targetDomNode
@@ -157,6 +148,16 @@ export default function(eventName, evt, extra, pageId, nodeId) {
                     }
                 }
             }, 0)
+        } else if (domNode.tagName === 'A' && evt.type === 'click' && !isCapture) {
+            // 处理 a 标签的跳转
+            const href = domNode.href
+            const target = domNode.target
+            const window = cache.getWindow()
+
+            if (!href || href.indexOf('javascript') !== -1) return
+
+            if (target === '_blank') window.open(href)
+            else window.location.href = href
         }
     })
 }

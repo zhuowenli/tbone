@@ -17,16 +17,16 @@ export default {
     Footer
   },
   created() {
-    window.addEventListener('wxload', query => console.log('page3 wxload', query))
-    window.addEventListener('wxshow', () => console.log('page3 wxshow'))
-    window.addEventListener('wxready', () => console.log('page3 wxready'))
-    window.addEventListener('wxhide', () => console.log('page3 wxhide'))
-    window.addEventListener('wxunload', () => console.log('page3 wxunload'))
+    window.addEventListener('myload', query => console.log('page3 myload', query))
+    window.addEventListener('myshow', () => console.log('page3 myshow'))
+    window.addEventListener('myready', () => console.log('page3 myready'))
+    window.addEventListener('myhide', () => console.log('page3 myhide'))
+    window.addEventListener('myunload', () => console.log('page3 myunload'))
   },
   methods: {
     onClickBack() {
       if (process.env.isminiapp) {
-        wx.navigateBack()
+        my.navigateBack()
       }
     },
   },

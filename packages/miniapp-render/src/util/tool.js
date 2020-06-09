@@ -1,3 +1,11 @@
+/*
+ * Author: 卓文理
+ * Email: zhuowenligg@gmail.com
+ * Date: 2020-06-08 13:46:29
+ */
+
+import cache from './cache'
+
 /**
  * Hump to hyphen
  */
@@ -65,7 +73,27 @@ function flushThrottleCache() {
 }
 
 /**
- * Encode special character
+ * 补全 url
+ */
+function completeURL(url, defaultOrigin, notTransHttps) {
+    const config = cache.getConfig()
+
+    // 处理 url 前缀
+    if (url.indexOf('//') === 0) {
+        url = 'https:' + url
+    } else if (url[0] === '/') {
+        url = (config.origin || defaultOrigin) + url
+    }
+
+    if (!notTransHttps && url.indexOf('http:') === 0) {
+        url = url.replace(/^http:/ig, 'https:')
+    }
+
+    return url
+}
+
+/**
+ * 解码特殊字符
  */
 function decodeContent(content) {
     return content
@@ -95,6 +123,7 @@ export default {
     getPageName,
     throttle,
     flushThrottleCache,
+    completeURL,
     decodeContent,
     isTagNameSupport,
 }

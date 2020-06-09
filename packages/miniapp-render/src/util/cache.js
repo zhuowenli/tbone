@@ -1,10 +1,12 @@
 const pageMap = {}
+const cookieCache = {}
 let configCache = {}
 let window
 
 // Init
 function init(pageId, options) {
     pageMap[pageId] = {
+        window: options.window,
         document: options.document,
         nodeIdMap: options.nodeIdMap,
     }
@@ -68,6 +70,13 @@ function getConfig() {
     return configCache
 }
 
+/**
+ * 获取全局 cookie
+ */
+function getCookie() {
+    return cookieCache
+}
+
 export default {
     init,
     destroy,
@@ -78,4 +87,5 @@ export default {
     getNode,
     setConfig,
     getConfig,
+    getCookie,
 }

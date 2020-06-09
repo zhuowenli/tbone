@@ -100,7 +100,6 @@ class Document extends EventTarget {
         return this.$_imageConstructor
     }
 
-
     get $$pageId() {
         return this.$_pageId
     }

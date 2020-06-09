@@ -20,6 +20,7 @@ import LocalStorage from './bom/local-storage'
 import SessionStorage from './bom/session-storage'
 import Performance from './bom/performance'
 import OriginalXMLHttpRequest from './bom/xml-http-request'
+import Image from './node/element/image'
 
 let lastRafTime = 0
 const subscribeMap = {}
@@ -518,7 +519,20 @@ class Window extends EventTarget {
     }
 
     get Image() {
-        return this.document.$$imageConstructor
+        if (this.document) {
+            return this.document.$$imageConstructor
+        }
+
+        const that = this
+        return function HTMLImageElement(width, height) {
+            return Image.$$create({
+                tagName: 'img',
+                nodeId: `b-${tool.getId()}`,
+                attrs: {},
+                width,
+                height,
+            }, that.$_tree)
+        }
     }
 
     get setTimeout() {

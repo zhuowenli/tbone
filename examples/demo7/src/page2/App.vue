@@ -19,11 +19,11 @@ export default {
     Footer
   },
   created() {
-    window.addEventListener('wxload', query => console.log('page2 wxload', query))
-    window.addEventListener('wxshow', () => console.log('page2 wxshow'))
-    window.addEventListener('wxready', () => console.log('page2 wxready'))
-    window.addEventListener('wxhide', () => console.log('page2 wxhide'))
-    window.addEventListener('wxunload', () => console.log('page2 wxunload'))
+    window.addEventListener('myload', query => console.log('page2 myload', query))
+    window.addEventListener('myshow', () => console.log('page2 myshow'))
+    window.addEventListener('myready', () => console.log('page2 myready'))
+    window.addEventListener('myhide', () => console.log('page2 myhide'))
+    window.addEventListener('myunload', () => console.log('page2 myunload'))
   },
   methods: {
     onClickJump() {

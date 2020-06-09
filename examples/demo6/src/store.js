@@ -1,6 +1,4 @@
 class Store {
-
-
   id = 1
 
   data = {
