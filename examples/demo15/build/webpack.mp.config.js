@@ -6,15 +6,30 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const MpPlugin = require('@zhuowenli/mp-webpack-plugin') // 用于构建小程序代码的 webpack 插件
 
-const isOptimize = false // 是否压缩业务代码，开发者工具可能无法完美支持业务代码使用到的 es 特性，建议自己做代码压缩
+const isOptimize = true // 是否压缩业务代码，开发者工具可能无法完美支持业务代码使用到的 es 特性，建议自己做代码压缩
 
 module.exports = {
     mode: 'production',
     entry: {
-        page1: path.resolve(__dirname, '../src/page1/main.mp.js'),
-        page2: path.resolve(__dirname, '../src/page2/main.mp.js'),
-        page3: path.resolve(__dirname, '../src/page3/main.mp.js'),
-        page4: path.resolve(__dirname, '../src/page4/main.mp.js'),
+        index: path.resolve(__dirname, '../src/index/main.mp.js'),
+        bar: path.resolve(__dirname, '../src/bar/main.mp.js'),
+        scatter: path.resolve(__dirname, '../src/scatter/main.mp.js'),
+        pie: path.resolve(__dirname, '../src/pie/main.mp.js'),
+        line: path.resolve(__dirname, '../src/line/main.mp.js'),
+        funnel: path.resolve(__dirname, '../src/funnel/main.mp.js'),
+        gauge: path.resolve(__dirname, '../src/gauge/main.mp.js'),
+        k: path.resolve(__dirname, '../src/k/main.mp.js'),
+        radar: path.resolve(__dirname, '../src/radar/main.mp.js'),
+        heatmap: path.resolve(__dirname, '../src/heatmap/main.mp.js'),
+        tree: path.resolve(__dirname, '../src/tree/main.mp.js'),
+        treemap: path.resolve(__dirname, '../src/treemap/main.mp.js'),
+        sunburst: path.resolve(__dirname, '../src/sunburst/main.mp.js'),
+        map: path.resolve(__dirname, '../src/map/main.mp.js'),
+        graph: path.resolve(__dirname, '../src/graph/main.mp.js'),
+        boxplot: path.resolve(__dirname, '../src/boxplot/main.mp.js'),
+        parallel: path.resolve(__dirname, '../src/parallel/main.mp.js'),
+        sankey: path.resolve(__dirname, '../src/sankey/main.mp.js'),
+        themeriver: path.resolve(__dirname, '../src/themeriver/main.mp.js'),
     },
     output: {
         path: path.resolve(__dirname, '../dist/mp/common'), // 放到小程序代码目录中的 common 目录下
@@ -23,6 +38,7 @@ module.exports = {
         libraryExport: 'default', // 必需字段，不能修改
         libraryTarget: 'window', // 必需字段，不能修改
     },
+    watch: true,
     target: 'web', // 必需字段，不能修改
     optimization: {
         runtimeChunk: false, // 必需字段，不能修改
@@ -87,21 +103,22 @@ module.exports = {
             },
             {
                 test: /\.js$/,
-                use: [{
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['env', 'stage-3'],
-                    },
-                }],
+                use: [
+                    'babel-loader'
+                ],
                 exclude: /node_modules/
             },
             {
                 test: /\.(png|jpg|gif|svg)$/,
-                loader: 'file-loader',
-                options: {
-                    name: '[name].[ext]?[hash]'
-                }
-            }
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        esModule: false,
+                        limit: true,
+                        emitFile: false,
+                    },
+                }],
+            },
         ]
     },
     resolve: {

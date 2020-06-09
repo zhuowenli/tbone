@@ -1,20 +1,16 @@
 const path = require('path')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const {VueLoaderPlugin} = require('vue-loader')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
-const MpPlugin = require('@zhuowenli/mp-webpack-plugin') // 用于构建小程序代码的 webpack 插件
+const MpPlugin = require('@zhuowenli/mp-webpack-plugin')
 
-const isOptimize = false // 是否压缩业务代码，开发者工具可能无法完美支持业务代码使用到的 es 特性，建议自己做代码压缩
+const isOptimize = true // 是否压缩业务代码，开发者工具可能无法完美支持业务代码使用到的 es 特性，建议自己做代码压缩
 
 module.exports = {
     mode: 'production',
     entry: {
-        page1: path.resolve(__dirname, '../src/page1/main.mp.js'),
-        page2: path.resolve(__dirname, '../src/page2/main.mp.js'),
-        page3: path.resolve(__dirname, '../src/page3/main.mp.js'),
-        page4: path.resolve(__dirname, '../src/page4/main.mp.js'),
+        index: path.resolve(__dirname, '../src/main.mp.jsx')
     },
     output: {
         path: path.resolve(__dirname, '../dist/mp/common'), // 放到小程序代码目录中的 common 目录下
@@ -71,41 +67,31 @@ module.exports = {
         ] : [],
     },
     module: {
-        rules: [
-            {
-                test: /\.css$/,
-                use: [
-                    MiniCssExtractPlugin.loader,
-                    'css-loader'
+        rules: [{
+            test: /\.css$/,
+            use: [
+                MiniCssExtractPlugin.loader,
+                'css-loader',
+            ],
+        }, {
+            test: /\.[t|j]sx?$/,
+            loader: 'babel-loader',
+            exclude: /node_modules/,
+            options: {
+                plugins: [
+                    ['transform-react-jsx', {pragma: 'h'}],
                 ],
             },
-            {
-                test: /\.vue$/,
-                loader: [
-                    'vue-loader',
-                ],
+        }, {
+            test: /\.(png|jpg|gif|svg)$/,
+            loader: 'file-loader',
+            options: {
+                name: '[name].[ext]?[hash]',
             },
-            {
-                test: /\.js$/,
-                use: [{
-                    loader: 'babel-loader',
-                    options: {
-                        presets: ['env', 'stage-3'],
-                    },
-                }],
-                exclude: /node_modules/
-            },
-            {
-                test: /\.(png|jpg|gif|svg)$/,
-                loader: 'file-loader',
-                options: {
-                    name: '[name].[ext]?[hash]'
-                }
-            }
-        ]
+        }]
     },
     resolve: {
-        extensions: ['*', '.js', '.vue', '.json']
+        extensions: ['*', '.js', '.jsx', '.json']
     },
     plugins: [
         new webpack.DefinePlugin({
@@ -114,7 +100,6 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name].acss',
         }),
-        new VueLoaderPlugin(),
-        new MpPlugin(require('./miniapp.config.js')),
+        new MpPlugin(require('./miniapp.config'))
     ],
 }

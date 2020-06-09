@@ -1,6 +1,6 @@
 {
-  "name": "tbone-tool",
-  "version": "0.0.4",
+  "name": "@zhuowenli/tbone-tool",
+  "version": "0.0.1",
   "description": "some tools for tbone",
   "main": "dist/index.min.js",
   "scripts": {

@@ -77,32 +77,19 @@
 * vue
 * alloyFinger
 
-## demo18
+## demo15
 
 * vue
 * 多页
 * 页面跳转
 * cookie 支持所有页面共享
 
-## demo19
-
-* vue
-* 多页
-* 云开发
-
-## demo20
+## demo15
 
 * vue
 * echarts
 
-## demo21
-
-* vue
-* 多页
-* 分包
-* 混合到原生小程序中
-
-## demo22
+## demo16
 
 * vue
 * 多页
@@ -112,14 +99,8 @@
 * localStorage
 * sessionStorage
 
-## demo23
+## demo19
 
 * vue
-* 单页
-* vue-router
-* hash mode
-
-## demo24
-
-* react
 * 多页
+* 云开发

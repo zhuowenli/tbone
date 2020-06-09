@@ -1,19 +1,28 @@
 const path = require('path')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const {VueLoaderPlugin} = require('vue-loader')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
-const MpPlugin = require('@zhuowenli/mp-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
+const MpPlugin = require('@zhuowenli/mp-webpack-plugin') // 用于构建小程序代码的 webpack 插件
 
-const isOptimize = true // 是否压缩业务代码，开发者工具可能无法完美支持业务代码使用到的 es 特性，建议自己做代码压缩
+const isOptimize = false // 是否压缩业务代码，开发者工具可能无法完美支持业务代码使用到的 es 特性，建议自己做代码压缩
 
 module.exports = {
     mode: 'production',
     entry: {
-        index: path.resolve(__dirname, '../src/main.mp.jsx')
+        'miniapp-app': path.resolve(__dirname, '../src/app.js'),
+
+        index: path.resolve(__dirname, '../src/index/main.mp.js'),
+        userconsole: path.resolve(__dirname, '../src/userconsole/main.mp.js'),
+        storageconsole: path.resolve(__dirname, '../src/storageconsole/main.mp.js'),
+        databaseguide: path.resolve(__dirname, '../src/databaseguide/main.mp.js'),
+        deployfunctions: path.resolve(__dirname, '../src/deployfunctions/main.mp.js'),
+        chooselib: path.resolve(__dirname, '../src/chooselib/main.mp.js'),
     },
     output: {
-        path: path.resolve(__dirname, '../dist/mp/common'), // 放到小程序代码目录中的 common 目录下
+        path: path.resolve(__dirname, '../dist/mp/miniapp/common'), // 放到小程序代码目录中的 common 目录下
         filename: '[name].js', // 必需字段，不能修改
         library: 'createApp', // 必需字段，不能修改
         libraryExport: 'default', // 必需字段，不能修改
@@ -67,31 +76,43 @@ module.exports = {
         ] : [],
     },
     module: {
-        rules: [{
-            test: /\.css$/,
-            use: [
-                MiniCssExtractPlugin.loader,
-                'css-loader',
-            ],
-        }, {
-            test: /\.[t|j]sx?$/,
-            loader: 'babel-loader',
-            exclude: /node_modules/,
-            options: {
-                plugins: [
-                    ['transform-react-jsx', {pragma: 'h'}],
+        rules: [
+            {
+                test: /\.(less|css)$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'less-loader',
                 ],
             },
-        }, {
-            test: /\.(png|jpg|gif|svg)$/,
-            loader: 'file-loader',
-            options: {
-                name: '[name].[ext]?[hash]',
+            {
+                test: /\.vue$/,
+                loader: [
+                    'vue-loader',
+                ],
             },
-        }]
+            {
+                test: /\.js$/,
+                use: [
+                    'babel-loader'
+                ],
+                exclude: /node_modules/
+            },
+            {
+                test: /\.(png|jpg|gif|svg)$/,
+                use: [{
+                    loader: 'url-loader',
+                    options: {
+                        esModule: false,
+                        limit: true,
+                        emitFile: false,
+                    },
+                }],
+            }
+        ]
     },
     resolve: {
-        extensions: ['*', '.js', '.jsx', '.json']
+        extensions: ['*', '.js', '.vue', '.json']
     },
     plugins: [
         new webpack.DefinePlugin({
@@ -100,6 +121,8 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name].acss',
         }),
-        new MpPlugin(require('./miniapp.config'))
+        new VueLoaderPlugin(),
+        new MpPlugin(require('./miniapp.config.js.js')),
+        new CopyPlugin([{from: path.join(__dirname, '../cloudfunctions'), to: path.join(__dirname, '../dist/mp/cloudfunctions')}]),
     ],
 }

@@ -7,7 +7,7 @@
 ## 安装
 
 ```
-npm install --save tbone-tool
+npm install --save @zhuowenli/tbone-tool
 ```
 
 ## 使用
@@ -21,7 +21,7 @@ npm install --save tbone-tool
 跨页面共享全局状态时，会存在状态的 observer 对象被覆盖的情况，导致某些场景更新不会触发到其他页面中，userGlobal 方法即用于解决此问题。下述以 vuex 的使用作为例子：
 
 ```js
-import * as tbone from 'tbone-tool'
+import * as tbone from '@zhuowenli/tbone-tool'
 
 tbone.vue.useGlobal()
 

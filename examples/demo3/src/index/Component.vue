@@ -15,9 +15,9 @@
                 </div>
                 <!-- 可使用 html 标签替代的内置组件 -->
                 <div v-else-if="item === 'img'">
-                    <img src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg" width="50" height="50"
+                    <img src="https://res.my.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg" width="50" height="50"
                         @load="onImgLoad" />
-                    <img src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg" mode="top" width="50"
+                    <img src="https://res.my.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg" mode="top" width="50"
                         height="50" @load="onImgLoad" />
                 </div>
                 <div v-else-if="item === 'input'">
@@ -233,8 +233,8 @@
                     </button>
                 </template>
                 <template v-else-if="item === 'image'">
-                    <builtin-component v-if="!builtinPrefix" :behavior="item" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></builtin-component>
-                    <image v-else-if="builtinPrefix === 1" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></image>
+                    <builtin-component v-if="!builtinPrefix" :behavior="item" src="https://res.my.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></builtin-component>
+                    <image v-else-if="builtinPrefix === 1" src="https://res.my.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></image>
                 </template>
                 <template v-else-if="item === 'icon'">
                     <div v-if="!builtinPrefix">
@@ -337,10 +337,10 @@
                 </template>
                 <template v-else-if="item === 'cover-image'">
                     <builtin-component v-if="!builtinPrefix" behavior="cover-view">
-                        <builtin-component :behavior="item" src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></builtin-component>
+                        <builtin-component :behavior="item" src="https://res.my.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></builtin-component>
                     </builtin-component>
                     <cover-view v-else-if="builtinPrefix === 1">
-                        <cover-image src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></cover-image>
+                        <cover-image src="https://res.my.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></cover-image>
                     </cover-view>
                 </template>
                 <!-- <template v-else-if="item === 'live-player'">

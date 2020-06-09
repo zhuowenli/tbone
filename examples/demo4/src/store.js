@@ -15,7 +15,7 @@ class Store {
   }
 
   gotoAbout() {
-    wx.navigateTo({
+    my.navigateTo({
       url: '../about/index'
     })
   }
@@ -52,7 +52,7 @@ class Store {
 
   newTodo = () => {
     if (this.data.inputText.trim() === '') {
-      wx.showToast({
+      my.showToast({
         title: '内容不能为空',
         icon: 'none',
         duration: 2000
@@ -84,7 +84,7 @@ class Store {
     //因为是自定义事件
     //注意这里的 this 指向
 
-    wx.showModal({
+    my.showModal({
       title: '提示',
       content: '确定清空已完成任务？',
       success: (res) => {
@@ -108,14 +108,14 @@ class Store {
   }
 
   gotoAbout() {
-    wx.navigateTo({
+    my.navigateTo({
       url: '../about/index'
     })
   }
 
   clickHandle() {
-    if ("undefined" != typeof wx && wx.getSystemInfoSync) {
-      wx.navigateTo({
+    if ("undefined" != typeof wx && my.getSystemInfoSync) {
+      my.navigateTo({
         url: '../log/index?id=1'
       })
     } else {
