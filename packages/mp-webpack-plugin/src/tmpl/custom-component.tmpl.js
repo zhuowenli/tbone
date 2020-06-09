@@ -1,3 +1,9 @@
+/*
+ * Author: 卓文理
+ * Email: zhuowenligg@gmail.com
+ * Date: 2020-06-04 17:46:21
+ */
+
 const mp = require('@zhuowenli/miniapp-render')
 
 const {
@@ -27,16 +33,13 @@ function checkComponentAttr({props = []}, name, domNode, destData, oldData) {
 }
 
 Component({
-    properties: {
+    props: {
         name: {
             type: String,
             value: '',
         },
     },
-    options: {
-        addGlobalClass: true, // 开启全局样式
-    },
-    attached() {
+    didMount() {
         const nodeId = this.dataset.privateNodeId
         const pageId = this.dataset.privatePageId
         const data = {}
@@ -69,10 +72,12 @@ Component({
         // 执行一次 setData
         if (Object.keys(data).length) this.setData(data)
 
+        console.log(this.domNode)
+
         // 记录该 domNode 节点对应的自定义组件实例
         this.domNode._myCustomComponent = this.selectComponent(`.node-${this.domNode.$$nodeId}`)
     },
-    detached() {
+    didUnmount() {
         this.nodeId = null
         this.pageId = null
         this.domNode._myCustomComponent = null

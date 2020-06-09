@@ -28,7 +28,10 @@ export default {
       this.prefixA = 'prefix-new-a'
       this.prefixB = 'prefix-new-b'
 
-      this.$refs.compA._wxCustomComponent.printf()
+      console.log(this.$refs.compA);
+      console.log(this.$refs.compA._myCustomComponent);
+
+      this.$refs.compA._myCustomComponent.printf()
     },
 
     onEvent(evt) {

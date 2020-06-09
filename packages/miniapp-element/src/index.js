@@ -26,9 +26,6 @@ const config = {
         childNodes: []
     },
     ...getInitialProps(),
-    options: {
-        addGlobalClass: true // global style
-    },
     methods: {
         // Watch child nodes update
         onChildNodesUpdate() {

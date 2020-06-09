@@ -27,6 +27,6 @@
     "vue-template-compiler": "^2.6.10",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3",
-    "mp-webpack-plugin": "latest"
+    "@zhuowenli/mp-webpack-plugin": "latest"
   }
 }

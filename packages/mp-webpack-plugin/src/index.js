@@ -370,7 +370,7 @@ class MpPlugin {
 
                 const realUsingComponents = {}
                 const names = Object.keys(myCustomComponents)
-                names.forEach(key => realUsingComponents[key] = `components/${myCustomComponents[key].path}`)
+                names.forEach(key => realUsingComponents[key] = `./components/${myCustomComponents[key].path}`)
 
                 // custom-component/index.js
                 addFile(compilation, '../custom-component/index.js', customComponentJsTmpl)
@@ -431,8 +431,6 @@ class MpPlugin {
 
             const command = autoBuildNpm === 'yarn' ? 'yarn' : 'npm'
             execa(command, ['install', '--production'], {cwd: distDir}).then(({exitCode}) => {
-                console.log('exitCode', exitCode)
-
                 if (!exitCode) {
                     console.log(colors.bold(`\nbuilt dependencies ${colors.green('successfully')}\n`))
                     // build()

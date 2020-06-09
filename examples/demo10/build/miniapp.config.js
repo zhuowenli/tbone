@@ -10,8 +10,9 @@ module.exports = {
         notFound: 'index',
         accessDenied: 'index',
     },
+    // app.json
     generate: {
-        wxCustomComponent: {
+        myCustomComponent: {
             root: path.join(__dirname, '../src/custom-components'),
             usingComponents: {
                 'comp-a': {
@@ -26,15 +27,28 @@ module.exports = {
                 'comp-c': 'comp-c',
             },
         },
+        autoBuildNpm: 'yarn',
+        window: {
+            defaultTitle: 'zhuowenli\'s miniapp',
+            titleBarColor: '#ffffff',
+            navigationBarForceEnable: true
+        },
     },
-    app: {
-        navigationBarTitleText: 'miniapp-project',
-    },
+
+    // mini.project.json
     projectConfig: {
-        appid: '',
-        projectname: 'tbone-demo10',
+        cloud: {
+            type: 'CLOUDAPP'
+        },
+        miniappRoot: '.',
+        component2: true,
+        axmlStrictCheck: true,
+        enableParallelLoader: true,
+        enableDistFileMinify: true,
     },
+
+    // package.json
     packageConfig: {
-        author: 'wechat-miniapp',
+        author: 'lvjian',
     },
 }
