@@ -612,9 +612,9 @@ export default {
         }
     },
     mounted() {
-        this.ctx = my.createCanvasContext('canvas');
-        // this.interval = setInterval(this.draw.bind(this), 17);
-        this.draw()
+        // this.ctx = my.createCanvasContext('canvas');
+        // // this.interval = setInterval(this.draw.bind(this), 17);
+        // this.draw()
     },
     methods: {
         draw() {

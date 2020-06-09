@@ -29,6 +29,7 @@ export default {
     window.addEventListener('scroll', () => {
       console.log(`[window scroll]`, document.documentElement.scrollTop)
     })
+    console.log(document);
   },
   methods: {
     doPageScroll() {

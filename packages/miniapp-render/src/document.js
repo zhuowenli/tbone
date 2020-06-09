@@ -86,7 +86,7 @@ class Document extends EventTarget {
         })
         // documentElement's parentNode is document
         this.$_node.$$updateParent(this)
-        this.$_node.scrollTop = 0
+        // this.$_node.scrollTop = 0
 
         // head
         this.$_head = this.createElement('head')
@@ -121,13 +121,13 @@ class Document extends EventTarget {
         if (constructorClass) {
             return constructorClass.$$create(options, tree)
         } else if (componentName) {
-        // Transform to builtin-component
+            // Transform to builtin-component
             options.tagName = 'builtin-component'
             options.attrs = options.attrs || {}
             options.attrs.behavior = componentName
             return BuiltInComponent.$$create(options, tree)
         } else if (this.usingComponents[originTagName]) {
-        // Transform to custom-component
+            // Transform to custom-component
             options.tagName = 'custom-component'
             options.attrs = options.attrs || {}
             options.componentName = originTagName
