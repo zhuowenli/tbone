@@ -88,8 +88,18 @@
 
                 <video v-else-if="item === 'video'" class="video" src="http://wxsnsdy.tc.qq.com/105/20210/snsdyvideodownload?filekey=30280201010421301f0201690402534804102ca905ce620b1241b726bc41dcff44e00204012882540400&bizid=1023&hy=SH&fileparam=302c020101042530230204136ffd93020457e3c4ff02024ef202031e8d7f02030f42400204045a320a0201000400" :muted="true" :show-mute-btn="true" :controls="true">
                 </video>
-                <canvas v-else-if="item === 'canvas'" class="canvas" ref="canvas" type="2d" width="300" height="200" @touchstart="onCanvasTouchStart('normal', $event)" @canvastouchstart="onCanvasTouchStart('canvas', $event)" @longtap="onCanvasLongTap">
-                </canvas>
+
+                <canvas
+                    v-else-if="item === 'canvas'"
+                    class="canvas"
+                    ref="canvas"
+                    type="2d"
+                    width="300"
+                    height="200"
+                    @touchstart="onCanvasTouchStart('normal', $event)"
+                    @canvastouchstart="onCanvasTouchStart('canvas', $event)"
+                    @longtap="onCanvasLongTap"
+                ></canvas>
 
                 <div v-else-if="item === 'select'">
                 <select v-model="select.selected" @change="onSelectChange">
@@ -105,21 +115,17 @@
                 <template v-else-if="item === 'view'">
                     <builtin-component v-if="!builtinPrefix" :behavior="item">我是视图</builtin-component>
                     <view v-else-if="builtinPrefix === 1">我是视图</view>
-                    <view v-else-if="builtinPrefix === 2">我是视图</view>
                     <builtin-component v-if="!builtinPrefix" :behavior="item" :hidden="true">我是 hidden 视图</builtin-component>
                     <view v-else-if="builtinPrefix === 1" :hidden="true">我是 hidden 视图</view>
-                    <view v-else-if="builtinPrefix === 2" :hidden="true">我是 hidden 视图</view>
                 </template>
 
                 <template v-else-if="item === 'text'">
                     <builtin-component v-if="!builtinPrefix" :behavior="item" :selectable="true">{{'this is first line\nthis is second line'}}</builtin-component>
                     <text v-else-if="builtinPrefix === 1" :selectable="true">{{'this is first line\nthis is second line'}}</text>
-                    <text v-else-if="builtinPrefix === 2" :selectable="true">{{'this is first line\nthis is second line'}}</text>
                 </template>
                 <template v-else-if="item === 'rich-text'">
                     <builtin-component v-if="!builtinPrefix" :behavior="item" :nodes="richText.nodes"></builtin-component>
                     <rich-text v-else-if="builtinPrefix === 1" :nodes="richText.nodes"></rich-text>
-                    <rich-text v-else-if="builtinPrefix === 2" :nodes="richText.nodes"></rich-text>
                 </template>
 
                 <div v-else-if="item === 'swiper'" class="swiper">
@@ -149,10 +155,6 @@
                         <builtin-component class="movable-view" behavior="movable-view" direction="all" :x="0" :y="0">plaintext</builtin-component>
                     </builtin-component>
                     <movable-area v-else-if="builtinPrefix === 1" :class="item" :scale-area="true">
-                        <movable-view ref="movable-view" class="movable-view" direction="all" :inertia="true" :out-of-bounds="true" :x="movable.x" :y="movable.y" :scale-value="movable.scaleValue" :scale="true" @change="onMovableChange" @scale="onMovableScale"><span>text</span></movable-view>
-                        <movable-view class="movable-view" direction="all" :x="0" :y="0">plaintext</movable-view>
-                    </movable-area>
-                    <movable-area v-else-if="builtinPrefix === 2" :class="item" :scale-area="true">
                         <movable-view ref="movable-view" class="movable-view" direction="all" :inertia="true" :out-of-bounds="true" :x="movable.x" :y="movable.y" :scale-value="movable.scaleValue" :scale="true" @change="onMovableChange" @scale="onMovableScale"><span>text</span></movable-view>
                         <movable-view class="movable-view" direction="all" :x="0" :y="0">plaintext</movable-view>
                     </movable-area>
@@ -341,22 +343,22 @@
                         <cover-image src="https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg"></cover-image>
                     </cover-view>
                 </template>
-                <template v-else-if="item === 'live-player'">
+                <!-- <template v-else-if="item === 'live-player'">
                     <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" mode="live" :autoplay="true" src="rtmp://live.hkstv.hk.lxdns.com/live/hks" @statechange="onLivePlayerStateChange">
                         <Inner></Inner>
                     </builtin-component>
                     <live-player v-else-if="builtinPrefix === 1" :class="item" mode="live" :autoplay="true" src="rtmp://live.hkstv.hk.lxdns.com/live/hks" @statechange="onLivePlayerStateChange">
                         <Inner></Inner>
                     </live-player>
-                </template>
-                <template v-else-if="item === 'live-pusher'">
+                </template> -->
+                <!-- <template v-else-if="item === 'live-pusher'">
                     <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" mode="RTC" :autopush="true" url="https://domain/push_stream" @statechange="onLivePusherStateChange">
                         <Inner></Inner>
                     </builtin-component>
                     <live-pusher v-else-if="builtinPrefix === 1" :class="item" mode="RTC" :autopush="true" url="https://domain/push_stream" @statechange="onLivePusherStateChange">
                         <Inner></Inner>
                     </live-pusher>
-                </template>
+                </template> -->
                 <template v-else-if="item === 'editor'">
                     <builtin-component v-if="!builtinPrefix" :behavior="item" placeholder="请输入内容" :show-img-size="true" :show-img-toolbar="true" :show-img-resize="true" @statuschange="onEditorStatusChange" @ready="onEditorReady"></builtin-component>
                     <editor v-else-if="builtinPrefix === 1" placeholder="请输入内容" :show-img-size="true" :show-img-toolbar="true" :show-img-resize="true" @statuschange="onEditorStatusChange" @ready="onEditorReady"></editor>
@@ -377,39 +379,34 @@
                     <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" @error="onOfficialAccountError"></builtin-component>
                     <official-account v-else-if="builtinPrefix === 1" :class="item" @error="onOfficialAccountError"></official-account>
                 </template>
+
                 <template v-else-if="item === 'web-view'">
-                    <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" src="https://www.qq.com/"></builtin-component>
-                    <web-view v-else-if="builtinPrefix === 1" :class="item" src="https://www.qq.com/"></web-view>
+                    <builtin-component v-if="!builtinPrefix" :behavior="item" :class="item" src="https://www.taobao.com/"></builtin-component>
+                    <web-view v-else-if="builtinPrefix === 1" :class="item" src="https://www.taobao.com/"></web-view>
                 </template>
+
                 <template v-else-if="item === 'scroll-view'">
-                <div>
-                    <builtin-component ref="scroll-view" v-if="!builtinPrefix" :behavior="item" :class="item + '-y'" :scroll-into-view="'y1' + scrollView.yDest" :scroll-top="scrollView.scrollTop" :scroll-y="true" :scroll-with-animation="scrollView.yAnimation" @scroll="onScrollViewScroll"><Inner2 type="y1"/></builtin-component>
-                    <scroll-view ref="scroll-view" v-else-if="builtinPrefix === 1" :class="item + '-y'" :scroll-into-view="'y2' + scrollView.yDest" :scroll-top="scrollView.scrollTop" :scroll-y="true" :scroll-with-animation="scrollView.yAnimation" @scroll="onScrollViewScroll"><Inner2 type="y2"/></scroll-view>
-                    <div class="scroll-view-btn" @click="onClickScrollViewYBtn">滚动到第三个滑块</div>
-                    <div class="scroll-view-btn" @click="onClickScrollViewYTopBtn">滚动到 120px 处</div>
-                    <div class="scroll-view-btn" @click="onClickScrollViewYAnimBtn">{{scrollView.yAnimation ? '关闭' : '打开'}}动画</div>
-                </div>
-                <div>
-                    <builtin-component ref="scroll-view" v-if="!builtinPrefix" :behavior="item" :class="item + '-x'" :scroll-into-view="'x1' + scrollView.xDest" :scroll-x="true" :scroll-with-animation="true" @scroll="onScrollViewScroll"><Inner2 type="x1"/></builtin-component>
-                    <scroll-view ref="scroll-view" v-else-if="builtinPrefix === 1" :class="item + '-x'" :scroll-into-view="'x2' + scrollView.xDest" :scroll-x="true" :scroll-with-animation="true" @scroll="onScrollViewScroll"><Inner2 type="x2"/></scroll-view>
-                    <div class="scroll-view-btn" @click="onClickScrollViewXBtn">滚动到第二个滑块</div>
-                </div>
+                    <div>
+                        <builtin-component ref="scroll-view" v-if="!builtinPrefix" :behavior="item" :class="item + '-y'" :scroll-into-view="'y1' + scrollView.yDest" :scroll-top="scrollView.scrollTop" :scroll-y="true" :scroll-with-animation="scrollView.yAnimation" @scroll="onScrollViewScroll"><Inner2 type="y1"/></builtin-component>
+                        <scroll-view ref="scroll-view" v-else-if="builtinPrefix === 1" :class="item + '-y'" :scroll-into-view="'y2' + scrollView.yDest" :scroll-top="scrollView.scrollTop" :scroll-y="true" :scroll-with-animation="scrollView.yAnimation" @scroll="onScrollViewScroll"><Inner2 type="y2"/></scroll-view>
+                        <div class="scroll-view-btn" @click="onClickScrollViewYBtn">滚动到第三个滑块</div>
+                        <div class="scroll-view-btn" @click="onClickScrollViewYTopBtn">滚动到 120px 处</div>
+                        <div class="scroll-view-btn" @click="onClickScrollViewYAnimBtn">{{scrollView.yAnimation ? '关闭' : '打开'}}动画</div>
+                    </div>
+                    <div>
+                        <builtin-component ref="scroll-view" v-if="!builtinPrefix" :behavior="item" :class="item + '-x'" :scroll-into-view="'x1' + scrollView.xDest" :scroll-x="true" :scroll-with-animation="true" @scroll="onScrollViewScroll"><Inner2 type="x1"/></builtin-component>
+                        <scroll-view ref="scroll-view" v-else-if="builtinPrefix === 1" :class="item + '-x'" :scroll-into-view="'x2' + scrollView.xDest" :scroll-x="true" :scroll-with-animation="true" @scroll="onScrollViewScroll"><Inner2 type="x2"/></scroll-view>
+                        <div class="scroll-view-btn" @click="onClickScrollViewXBtn">滚动到第二个滑块</div>
+                    </div>
                 </template>
+
                 <!-- 不支持标签 -->
                 <template v-else-if="item === 'xxxx'" >
                     <builtin-component v-if="!builtinPrefix" :behavior="item"></builtin-component>
-                    <xxxx v-else-if="builtinPrefix === 1"></xxxx>
+                    <xxxx v-else-if="builtinPrefix === 1">不支持标签</xxxx>
                 </template>
-                <iframe v-else-if="item === 'iframe'"></iframe>
 
-                <div v-else-if="item === 'intersection'">
-                    <div>{{intersection.appear ? '小球出现' : '小球消失'}}</div>
-                    <scroll-view class="intersection-scroll-view" :scroll-y="true">
-                        <div class="intersection-scroll-area" :style="intersection.appear ? 'background: #ccc' : ''">
-                        <div class="intersection-ball"></div>
-                        </div>
-                    </scroll-view>
-                </div>
+                <iframe v-else-if="item === 'iframe'"></iframe>
             </view>
         </div>
     </div>
@@ -419,7 +416,7 @@
 import Inner from './Inner.vue'
 import Inner2 from './Inner2.vue'
 
-    export default {
+export default {
     name: 'Component',
     components: {
         Inner,
@@ -451,43 +448,42 @@ import Inner2 from './Inner2.vue'
 
         return {
             list: [
-                // 'normal',
-                // 'img',
-                // 'input',
-                // 'textarea',
-                // 'select',
-                // 'label',
-                // 'video',
-                // 'view',
-                // 'text',
-                // 'rich-text',
-                // 'swiper',
-                // 'movable',
-                // 'canvas',
-                // 'form',
-                // 'button',
-                // 'icon',
-                // 'progress',
-                // 'navigator',
-                // 'picker',
-                // 'picker-view',
-                // 'switch',
-                // 'slider',
-                // 'image',
+                'normal',
+                'img',
+                'input',
+                'textarea',
+                'select',
+                'label',
+                'video',
+                'view',
+                'text',
+                'rich-text',
+                'swiper',
+                'movable',
+                'canvas',
+                'form',
+                'button',
+                'icon',
+                'progress',
+                'navigator',
+                'picker',
+                'picker-view',
+                'switch',
+                'slider',
+                'image',
                 'map',
-                // 'cover-view',
-                // 'cover-image',
-                // 'live-player',
-                // 'live-pusher',
-                // 'camera',
-                // 'editor',
-                // 'ad',
-                // 'official-account',
-                // 'scroll-view',
-                // // 'web-view',
-                // 'xxxx',
+                'cover-view',
+                'cover-image',
+                'live-player',
+                'live-pusher',
+                'camera',
+                'editor',
+                'ad',
+                'official-account',
+                'scroll-view',
+                // 'web-view',
+                'xxxx',
                 // 'iframe',
-                // 'intersection',
             ],
             eventCount: 0,
             transition: false,
@@ -507,35 +503,35 @@ import Inner2 from './Inner2.vue'
             },
             map: {
                 markers: [{
-                iconPath: 'https://i.loli.net/2019/07/27/5d3c141367f2784840.jpg',
-                id: 0,
-                latitude: 23.099994,
-                longitude: 113.324520,
-                width: 50,
-                height: 50,
-                }],
-                polyline: [{
-                points: [{
-                    longitude: 113.3245211,
-                    latitude: 23.10229,
-                }, {
+                    iconPath: 'https://i.loli.net/2019/07/27/5d3c141367f2784840.jpg',
+                    id: 0,
+                    latitude: 23.099994,
                     longitude: 113.324520,
-                    latitude: 23.21229,
-                }],
-                color: '#FF0000DD',
-                width: 2,
-                dottedLine: true,
-                }],
-                controls: [{
-                id: 1,
-                iconPath: 'https://i.loli.net/2019/07/27/5d3c143497e6d38917.jpg',
-                position: {
-                    left: 0,
-                    top: 300 - 50,
                     width: 50,
                     height: 50,
-                },
-                clickable: true,
+                }],
+                polyline: [{
+                    points: [{
+                        longitude: 113.3245211,
+                        latitude: 23.10229,
+                    }, {
+                        longitude: 113.324520,
+                        latitude: 23.21229,
+                    }],
+                    color: '#FF0000DD',
+                    width: 2,
+                    dottedLine: true,
+                }],
+                controls: [{
+                    id: 1,
+                    iconPath: 'https://i.loli.net/2019/07/27/5d3c143497e6d38917.jpg',
+                    position: {
+                        left: 0,
+                        top: 300 - 50,
+                        width: 50,
+                        height: 50,
+                    },
+                    clickable: true,
                 }],
             },
             scrollView: {
@@ -575,153 +571,150 @@ import Inner2 from './Inner2.vue'
                     }],
                 }],
             },
-            intersection: {
-                appear: false,
-            },
             map: {
                 longitude: 113.324520,
                 latitude: 23.099994,
                 scale: 14,
             },
+            point: {
+                x: Math.random() * 590,
+                y: Math.random() * 590,
+                dx: Math.random() * 10,
+                dy: Math.random() * 10,
+                r: Math.round(Math.random() * 255 | 0),
+                g: Math.round(Math.random() * 255 | 0),
+                b: Math.round(Math.random() * 255 | 0),
+            }
         }
     },
     computed: {
         eventCountComputed() {
-        return `catch-inner3(${this.eventCount})`
+            return `catch-inner3(${this.eventCount})`
         },
     },
     watch: {
         'input.inputText'(value) {
-        console.log('input.inputText', value)
+            console.log('input.inputText', value)
         },
         'input.inputNumber'(value) {
-        console.log('input.inputNumber', value)
+            console.log('input.inputNumber', value)
         },
         'input.inputRadio'(value) {
-        console.log('input.inputRadio', value)
+            console.log('input.inputRadio', value)
         },
         'input.inputCheckbox'(value) {
-        console.log('input.inputCheckbox', value)
+            console.log('input.inputCheckbox', value)
         },
     },
     created() {
         window.onDealWithNotSupportDom = dom => {
-        dom.textContent = `标签 ${dom.tagName.toLowerCase()} 暂不支持`
+            dom.textContent = `标签 ${dom.tagName.toLowerCase()} 暂不支持`
         }
     },
     mounted() {
-        // wx.login({
-        //   success(res) {
-        //     console.log('login success', res)
-        //   }
-        // })
-
-        // const canvas = this.$refs.canvas[0];
-
-        // canvas.$$prepare().then(domNode => {
-        //     domNode.width = 300
-        //     domNode.height = 200
-        //     const context = domNode.getContext('2d')
-
-        //     context.strokeStyle = '#00ff00'
-        //     context.lineWidth = 5
-        //     context.rect(0, 0, 200, 200)
-        //     context.stroke()
-        //     context.strokeStyle = '#ff0000'
-        //     context.lineWidth = 2
-        //     context.moveTo(160, 100)
-        //     context.arc(100, 100, 60, 0, 2 * Math.PI, true)
-        //     context.moveTo(140, 100)
-        //     context.arc(100, 100, 40, 0, Math.PI, false)
-        //     context.moveTo(85, 80)
-        //     context.arc(80, 80, 5, 0, 2 * Math.PI, true)
-        //     context.moveTo(125, 80)
-        //     context.arc(120, 80, 5, 0, 2 * Math.PI, true)
-        //     context.stroke()
-        // }).catch(console.error)
-
-        // canvas.$$getNodesRef().then(nodesRef => {
-        //     nodesRef.boundingClientRect(res => {
-        //         console.log('test $$getNodesRef', res)
-        //     }).exec()
-        // })
-
-        // this.observer = window.$$createIntersectionObserver()
-        // this.observer
-        //   .relativeTo('.h5-body >>> .intersection-scroll-view')
-        //   .observe('.h5-body >>> .intersection-ball', res => {
-        //     console.log(res)
-        //     this.intersection.appear = res.intersectionRatio > 0
-        //   })
+        this.ctx = my.createCanvasContext('canvas');
+        // this.interval = setInterval(this.draw.bind(this), 17);
+        this.draw()
     },
     methods: {
+        draw() {
+            const {
+                ctx
+            } = this;
+
+            ctx.setFillStyle('#099');
+            ctx.fillRect(0, 0, 610, 610);
+
+            ctx.beginPath();
+            ctx.arc(this.point.x, this.point.y, 20, 0, 2 * Math.PI);
+            ctx.setFillStyle('rgb(' + this.point.r + ', ' + this.point.g + ', ' + this.point.b + ')');
+            ctx.fill();
+            ctx.draw();
+
+            this.point.x += this.point.dx;
+            this.point.y += this.point.dy;
+
+            if (this.point.x <= 10 || this.point.x >= 590) {
+                this.point.dx = -this.point.dx;
+                this.point.r = Math.round(Math.random() * 255 | 0);
+                this.point.g = Math.round(Math.random() * 255 | 0);
+                this.point.b = Math.round(Math.random() * 255 | 0);
+            }
+
+            if (this.point.y <= 10 || this.point.y >= 590) {
+                this.point.dy = -this.point.dy;
+                this.point.r = Math.round(Math.random() * 255 | 0);
+                this.point.g = Math.round(Math.random() * 255 | 0);
+                this.point.b = Math.round(Math.random() * 255 | 0);
+            }
+        },
         onClick() {
-        this.eventCount++
-        console.log('click')
+            this.eventCount++
+            console.log('click')
         },
 
         onParentTouchStart() {
-        console.log('parent touchstart')
+            console.log('parent touchstart')
         },
 
         onParentTouchEnd() {
-        console.log('parent touchend')
+            console.log('parent touchend')
         },
 
         onParentClick() {
-        console.log('parent click')
+            console.log('parent click')
         },
 
         onRootClick() {
-        console.log('root click')
+            console.log('root click')
         },
 
         onSelectChange(evt) {
-        console.log('onSelectChange', evt)
+            console.log('onSelectChange', evt)
         },
 
         startTranstion() {
-        this.transition = !this.transition
+            this.transition = !this.transition
         },
 
         onTransitionEnd() {
-        console.log('transition end')
+            console.log('transition end')
         },
 
         onAnimationStart() {
-        console.log('animation start')
+            console.log('animation start')
         },
 
         onAnimationIteration() {
-        console.log('animation iteration')
+            console.log('animation iteration')
         },
 
         onAnimationEnd() {
-        console.log('animation end')
+            console.log('animation end')
         },
 
         onInput(evt) {
-        console.log('onInput', evt.target.value, evt)
+            console.log('onInput', evt.target.value, evt)
         },
 
         onInputChange(evt) {
-        console.log('onInputChange', evt.target.value, evt)
+            console.log('onInputChange', evt.target.value, evt)
         },
 
         onTextareaInput(evt) {
-        console.log('onTextareaInput', evt.target.value)
+            console.log('onTextareaInput', evt.target.value)
         },
 
         onImgLoad(evt) {
-        console.log('onImgLoad')
+            console.log('onImgLoad')
         },
 
         onPickerChange(evt) {
-        console.log('onPickerChange', evt.detail)
+            console.log('onPickerChange', evt.detail)
         },
 
         onMapMarkerTap(evt) {
-        console.log('onMapMarkerTap', evt.detail)
+            console.log('onMapMarkerTap', evt.detail)
         },
 
         onMapRegionChange(evt) {
@@ -729,93 +722,93 @@ import Inner2 from './Inner2.vue'
         },
 
         onMapControlTap(evt) {
-        console.log('onMapControlTap', evt.detail)
+            console.log('onMapControlTap', evt.detail)
         },
 
         onLivePlayerStateChange(evt) {
-        console.log('onLivePlayerStateChange', evt.detail)
+            console.log('onLivePlayerStateChange', evt.detail)
         },
 
         onLivePusherStateChange(evt) {
-        console.log('onLivePusherStateChange', evt.detail)
+            console.log('onLivePusherStateChange', evt.detail)
         },
 
         onSwitchChange(evt) {
-        console.log('onSwitchChange', evt.detail)
+            console.log('onSwitchChange', evt.detail)
         },
 
         onLabelChange(evt) {
-        console.log('onLabelChange', evt.detail)
+            console.log('onLabelChange', evt.detail)
         },
 
         onSliderChange(evt) {
-        console.log('onSliderChange', evt.detail)
+            console.log('onSliderChange', evt.detail)
         },
 
         onEditorStatusChange(evt) {
-        console.log('onEditorStatusChange', evt.detail)
+            console.log('onEditorStatusChange', evt.detail)
         },
 
         onEditorReady(evt) {
-        console.log('onEditorReady', evt.detail)
+            console.log('onEditorReady', evt.detail)
         },
 
         onAdError(evt) {
-        console.log('onAdError', evt.detail)
+            console.log('onAdError', evt.detail)
         },
 
         onScrollViewScroll(evt) {
-        console.log('onScrollViewScroll', evt.detail)
+            console.log('onScrollViewScroll', evt.detail)
         },
 
         onClickScrollViewYBtn() {
-        const domNodes = this.$refs['scroll-view'] || []
-        if (domNodes[0]) {
-            const builtinPrefix = this.builtinPrefix
-            const prefix = builtinPrefix === 1 ? 'y2' : builtinPrefix === 2 ? 'y3' : 'y1'
-            // 会被 vue 给 diff 掉，得走 setAttribute
-            domNodes[0].setAttribute('scroll-into-view', prefix + 'block3')
-        }
-        this.scrollView.yDest = 'block3'
+            const domNodes = this.$refs['scroll-view'] || []
+            if (domNodes[0]) {
+                const builtinPrefix = this.builtinPrefix
+                const prefix = builtinPrefix === 1 ? 'y2' : 'y1'
+                // 会被 vue 给 diff 掉，得走 setAttribute
+                domNodes[0].setAttribute('scroll-into-view', prefix + 'block3')
+            }
+            this.scrollView.yDest = 'block3'
         },
 
         onClickScrollViewYTopBtn() {
-        const domNodes = this.$refs['scroll-view'] || []
-        if (domNodes[0]) {
-            // 会被 vue 给 diff 掉，得走 setAttribute
-            domNodes[0].setAttribute('scroll-top', 120)
-        }
-        this.scrollView.scrollTop = 120
+            const domNodes = this.$refs['scroll-view'] || []
+            if (domNodes[0]) {
+                // 会被 vue 给 diff 掉，得走 setAttribute
+                domNodes[0].setAttribute('scroll-top', 120)
+            }
+            this.scrollView.scrollTop = 120
         },
 
         onClickScrollViewYAnimBtn() {
-        this.scrollView.yAnimation = !this.scrollView.yAnimation
+            this.scrollView.yAnimation = !this.scrollView.yAnimation
         },
 
         onClickScrollViewXBtn() {
-        const domNodes = this.$refs['scroll-view'] || []
-        if (domNodes[1]) {
-            const builtinPrefix = this.builtinPrefix
-            const prefix = builtinPrefix === 1 ? 'x2' : builtinPrefix === 2 ? 'x3' : 'x1'
-            domNodes[1].setAttribute('scroll-into-view', prefix + 'block2')
-        }
-        this.scrollView.xDest = 'block2'
+            const domNodes = this.$refs['scroll-view'] || []
+            if (domNodes[1]) {
+                const builtinPrefix = this.builtinPrefix
+                const prefix = builtinPrefix === 1 ? 'x2' : 'x1'
+                domNodes[1].setAttribute('scroll-into-view', prefix + 'block2')
+            }
+            this.scrollView.xDest = 'block2'
         },
 
         onOfficialAccountError(evt) {
-        console.log('onOfficialAccountError', evt.detail)
+            console.log('onOfficialAccountError', evt.detail)
         },
 
         onFormSubmit(evt) {
-        console.log('form submit', evt.$$from, evt.detail)
+            console.log('form submit', evt.$$from, evt.detail)
         },
 
         onFormReset(evt) {
-        console.log('form reset', evt.$$from)
+            console.log('form reset', evt.$$from)
         },
 
         onSwiperChange(evt) {
-        console.log('onSwiperChange', evt.detail)
+            console.log('onSwiperChange', evt.detail)
         },
 
         onPickerViewChange(evt) {
@@ -865,9 +858,9 @@ import Inner2 from './Inner2.vue'
         },
 
         resetMap() {
-        this.map.longitude = 113.324520
-        this.map.latitude = 23.099994
-        this.map.scale = 14
+            this.map.longitude = 113.324520
+            this.map.latitude = 23.099994
+            this.map.scale = 14
         },
     }
 }
@@ -875,110 +868,116 @@ import Inner2 from './Inner2.vue'
 
 <style>
 .event-cnt {
-position: relative;
-height: 100px;
+    position: relative;
+    height: 100px;
 }
 
-.event-t, .event-a {
-left: 0;
-top: 60px;
-width: 50px;
-height: 50px;
-background-color: red;
-position: absolute;
-transition: all 0.5s;
+.event-t,
+.event-a {
+    left: 0;
+    top: 60px;
+    width: 50px;
+    height: 50px;
+    background-color: red;
+    position: absolute;
+    transition: all 0.5s;
 }
 
 .event-t-s {
-left: 50px;
+    left: 50px;
 }
 
 .event-t-e {
-left: 0;
+    left: 0;
 }
 
 @keyframes event-aa {
-0% {
-    left: 0;
-}
-50% {
-    left: 50px
-}
-100% {
-    left: 0;
-}
+    0% {
+        left: 0;
+    }
+
+    50% {
+        left: 50px
+    }
+
+    100% {
+        left: 0;
+    }
 }
 
 .event-a {
-animation: 1s ease 0s 8 event-aa;
+    animation: 1s ease 0s 8 event-aa;
 }
 
 .label {
-padding: 0 20px;
-height: 40px;
-line-height: 40px;
-background: rgba(7, 193, 96, 0.06);
+    padding: 0 20px;
+    height: 40px;
+    line-height: 40px;
+    background: rgba(7, 193, 96, 0.06);
 }
 
 textarea .comp-textarea {
-background-color: #ddd;
+    background-color: #ddd;
 }
 
 .inline {
-display: inline;
+    display: inline;
 }
 
 .block {
-display: block;
+    display: block;
 }
 
 .margin-left-10 {
-margin-left: 10px;
+    margin-left: 10px;
 }
 
 .comp {
-padding: 10px 20px;
+    padding: 10px 20px;
 }
 
-.comp radio-group, .comp checkbox-group{
-display: inline-flex;
+.comp radio-group,
+.comp checkbox-group {
+    display: inline-flex;
 }
 
 .video {
-position: relative;
-width: 300px;
-height: 225px;
+    position: relative;
+    width: 300px;
+    height: 225px;
 }
 
 .map {
-width: 300px;
-height: 200px;
+    width: 300px;
+    height: 200px;
 }
 
-.live-player, .live-pusher, .camera {
-width: 300px;
-height: 225px;
+.live-player,
+.live-pusher,
+.camera {
+    width: 300px;
+    height: 225px;
 }
 
 .scroll-view-y {
-width: 100%;
-height: 125px;
+    width: 100%;
+    height: 125px;
 }
 
 .scroll-view-x {
-width: 300px;
-height: 125px;
+    width: 300px;
+    height: 125px;
 }
 
 .scroll-view-btn {
-margin: 10px 20px;
-text-align: center;
-background: #07c160;
-color: #fff;
-line-height: 30px;
-height: 30px;
-font-size: 16px;
-border-radius: 5px;
+    margin: 10px 20px;
+    text-align: center;
+    background: #07c160;
+    color: #fff;
+    line-height: 30px;
+    height: 30px;
+    font-size: 16px;
+    border-radius: 5px;
 }
 
 .ipt-group {
@@ -991,7 +990,9 @@ border-radius: 5px;
     height: 150px !important;
 }
 
-.swiper-item-1, .swiper-item-2, .swiper-item-3 {
+.swiper-item-1,
+.swiper-item-2,
+.swiper-item-3 {
     display: flex;
     height: 150px;
     align-items: center;
@@ -999,61 +1000,42 @@ border-radius: 5px;
     color: #fff;
     font-size: 18px;
 }
+
 .swiper-item-1 {
     background-color: #1AAD19;
 }
+
 .swiper-item-2 {
     background-color: #2782D7;
 }
+
 .swiper-item-3 {
     background-color: #F1F1F1;
     color: #353535;
 }
 
 .movable {
-height: 250px;
-width: 250px;
-background: #ccc;
-overflow: hidden;
+    height: 250px;
+    width: 250px;
+    background: #ccc;
+    overflow: hidden;
 }
+
 .movable-view {
-display: flex;
-align-items: center;
-justify-content: center;
-height: 50px;
-width: 50px;
-background: #1AAD19;
-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+    background: #1AAD19;
+    color: #fff;
 }
 
 .rich-text-div {
-font-size: 30px;
+    font-size: 30px;
 }
 
-.intersection-scroll-view {
-height: 200px;
-background: #fff;
-border: 1px solid #ccc;
-box-sizing: border-box;
-}
-
-.intersection-scroll-area {
-padding-top: 200px;
-height: 650px;
-display: flex;
-flex-direction: column;
-align-items: center;
-transition: .5s;
-}
-
-.intersection-ball {
-    width: 100px;
-    height: 100px;
-    background: #1AAD19;
-    border-radius: 50%;
-}
-
-.picker-view-item{
+.picker-view-item {
     background: #f2f2f2;
     color: #000000;
     font-size: 16px;
