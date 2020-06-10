@@ -6,7 +6,7 @@
 
 ## 安装
 
-```
+```yarn
 npm install --save-dev @zhuowenli/mp-webpack-plugin
 ```
 

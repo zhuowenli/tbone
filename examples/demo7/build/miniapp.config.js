@@ -1,5 +1,3 @@
-const path = require('path')
-
 module.exports = {
     origin: 'https://test.miniapp.com',
     entry: '/',

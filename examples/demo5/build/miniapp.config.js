@@ -20,16 +20,6 @@ module.exports = {
             titleBarColor: '#ffffff',
             navigationBarForceEnable: true
         },
-        // subpackages: {
-        //     package1: ['page2'],
-        //     package2: ['page3', 'page4'],
-        // },
-        // preloadRule: {
-        //     page2: {
-        //         network: 'all',
-        //         packages: ['package2'],
-        //     },
-        // },
     },
 
     // mini.project.json
