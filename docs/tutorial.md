@@ -192,19 +192,31 @@ export default function createApp() {
 
 1. 构建小程序代码：
 
-```bash
-webpack --config webpack.mp.config.js
-```
+    ```bash
+    webpack --config webpack.mp.config.js
+    ```
 
 2. 进入小程序代码目录，安装小程序依赖包：
 
-```bash
-cd miniapp
-npm install
-```
+    ```bash
+    cd miniapp
+    npm install
+    ```
 
 3. 使用小程序开发者工具直接打开此目录，并点击工具菜单下的构建 npm 按钮，之后便可预览构建好的小程序了。
 
 ## 例子
 
-我们准备了若干 demo，可以[点此查看](https://github.com/wechat-miniapp/tbone/tree/master/examples)。
+我们准备了若干 demo，可以[点此查看](https://github.com/zhuowenli/tbone/tree/master/examples)。
+
+## 目录
+
+* [指南](/tbone)
+* [快速上手](/tbone/quickstart)
+* [tbone 项目搭建流程](/tbone/tutorial)
+* [配置](/tbone/config)
+* [dom/bom 扩展 API](/tbone/domextend)
+* [进阶用法](/tbone/advanced)
+* [代码优化](/tbone/optimize)
+* [原理](/tbone/principle)
+* [Q&A](/tbone/question)

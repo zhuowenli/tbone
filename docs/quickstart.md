@@ -50,3 +50,15 @@ npm run build
 * 使用 webpack 构建中使用到的特殊插件 [@zhuowenli/mp-webpack-plugin 配置](https://wechat-miniprogram.github.io/kbone/docs/config/)
 
 [点此可以查看](https://wechat-miniprogram.github.io/kbone/docs/guide/tutorial.html)具体配置方式和操作流程。
+
+## 目录
+
+* [指南](/tbone)
+* [快速上手](/tbone/quickstart)
+* [tbone 项目搭建流程](/tbone/tutorial)
+* [配置](/tbone/config)
+* [dom/bom 扩展 API](/tbone/domextend)
+* [进阶用法](/tbone/advanced)
+* [代码优化](/tbone/optimize)
+* [原理](/tbone/principle)
+* [Q&A](/tbone/question)
