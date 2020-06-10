@@ -1,0 +1,10 @@
+{
+	"cloud": {
+	  "type": "CLOUDAPP"
+	},
+	"axmlStrictCheck": true,
+	"component2": true,
+	"enableParallelLoader": true,
+	"miniappRoot": "./client",
+	"enableDistFileMinify": true
+}

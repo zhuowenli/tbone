@@ -1,0 +1,9 @@
+{
+	"name": "miniapp-project",
+	"version": "0.0.1",
+	"description": "miniapp project",
+	"dependencies": {
+        "@zhuowenli/miniapp-render": "latest",
+        "@zhuowenli/miniapp-element": "latest"
+	}
+}

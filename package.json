@@ -1,0 +1,28 @@
+{
+    "name": "tbone",
+    "description": "web's adapter for miniapp",
+    "scripts": {
+        "prepare": "lerna bootstrap",
+        "check": "npm run lint && npm run test",
+        "build": "cd packages/miniapp-element && npm run build && cd ../..",
+        "publish": "lerna publish",
+        "test": "npm run build && cd packages/vue-improve-loader && npm run test && cd ../miniapp-render && npm run test && cd ../miniapp-element && npm run test && cd ../tbone-tool && npm run test && cd ../..",
+        "lint": "eslint \"packages/*/src/**/*.js\" --fix && eslint \"packages/*/test/**/*.js\" --fix && eslint \"packages/*/tool/**/*.js\" --fix"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/wechat-miniapp/tbone.git"
+    },
+    "author": "wechat-miniapp",
+    "license": "MIT",
+    "devDependencies": {
+        "lerna": "3.16.4",
+        "eslint": "^5.14.1",
+        "eslint-config-airbnb-base": "13.1.0",
+        "eslint-loader": "^2.1.2",
+        "eslint-plugin-import": "^2.16.0",
+        "eslint-plugin-node": "^7.0.1",
+        "eslint-plugin-promise": "^3.8.0"
+    },
+    "dependencies": {}
+}
