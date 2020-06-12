@@ -15,7 +15,6 @@ const isCnFun = require('./utils').isCnFuc;
 const checkAppName = require('./utils').checkAppName;
 const isSafeToCreateProjectIn = require('./utils').isSafeToCreateProjectIn;
 
-
 function init(args) {
     const TboneCli = chalk.bold.cyan('Tbone CLI');
     let isCn = isCnFun(args.language);
@@ -43,13 +42,11 @@ function init(args) {
     function createApp() {
         console.log(
             chalk.bold.cyan('Tbone CLI') +
-      (!isCn
-          ? ' will creating a new tbone app in '
-          : ' 即将创建一个新的应用在 ') +
-      dest
+            (!isCn ? ' will creating a new tbone app in ' : ' 即将创建一个新的应用在 ') +
+            dest
         );
 
-        const { status, error: cloneError } = spawn.sync('git', ['clone', '--depth=1', templateName !== 'omi' ? `https://github.com/wechat-miniapp/tbone-template-${templateName}` : 'https://github.com/omijs/template-tbone', customPrjName || '.']);
+        const { status, error: cloneError } = spawn.sync('git', ['clone', '--depth=1', `https://github.com/zhuowenli/tbone-template-${templateName}`, customPrjName || '.']);
 
         // verify git clone succeed
         if (!cloneError && status === 0) {

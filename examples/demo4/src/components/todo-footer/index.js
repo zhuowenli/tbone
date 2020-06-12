@@ -1,13 +1,18 @@
-import { define, h } from 'omio'
-import './index.css'
+/*
+ * Author: 卓文理
+ * Email: zhuowenligg@gmail.com
+ * Date: 2020-06-10 10:19:03
+ */
+
+import { define, h } from 'omio';
+import './index.css';
 
 define('todo-footer', _ => {
+    const { data, filter, clear } = _.store;
 
-  const { data, filter, clear } = _.store
+    const { left, type, done } = data;
 
-  const { left, type, done } = data
-
-  return <div class="footer">
+    return <div class="footer">
     <div class="todo-count"><text class="strong">{left + ' '}items left</text> </div>
     <div class="filters">
       <div class='ib' data-filter='all' onClick={filter}>
@@ -21,11 +26,8 @@ define('todo-footer', _ => {
       </div>
     </div>
     {done > 0 && <button class="clear-completed" onClick={clear}>Clear done</button>}
-  </div>
-
+  </div>;
 }, {
     css: typeof wx !== undefined ? '' : css,
     use: ['left', 'type', 'done']
-  })
-
-
+});

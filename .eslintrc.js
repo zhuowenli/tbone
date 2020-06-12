@@ -5,6 +5,7 @@ module.exports = {
       "gaoding-vue"
   ],
   'parserOptions': {
+    "parser": "babel-eslint",
     'ecmaVersion': 9,
     'ecmaFeatures': {
       'jsx': true

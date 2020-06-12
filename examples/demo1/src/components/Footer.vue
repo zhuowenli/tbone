@@ -1,11 +1,11 @@
 <template>
-  <div class="footer">
-    <p>I'm footer</p>
-  </div>
+    <div class="footer">
+        <p>I'm footer</p>
+    </div>
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <style>

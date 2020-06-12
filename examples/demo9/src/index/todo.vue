@@ -1,112 +1,112 @@
 <template>
-  <div class="container">
-    <div class="title">todos</div>
-    <div class="form">
-      <input class="new-todo" v-model="inputText" placeholder="下一步行动计划是？"></input>
-      <button class="add-btn" @click="newTodo">确定</button>
-    </div>
-    <div class="todo-list">
-      <div :class="item.done ? 'todo-item done' : 'todo-item'" v-for="item in todo" v-if="type === 'all' || (type === 'active' && !item.done) || (type === 'done' && item.done)">
-        <div class="toggle" :data-id="item.id" @click="toggle"></div>
-        <div >{{ item.text }} </div>
-        <div class="delete" :data-id="item.id" @click="deleteItem"></div>
-      </div>
-    </div>
-    <div class="footer">
-      <div class="todo-count"><div class="strong">{{ left }} items left</div> </div>
-      <div class="filters">
-        <div class='ib' data-filter='all' @click="filter">
-          <div :class="type === 'all' ? 'selected' : ''" >All</div>
+    <div class="container">
+        <div class="title">todos</div>
+        <div class="form">
+            <input v-model="inputText" class="new-todo" placeholder="下一步行动计划是？"></input>
+            <button class="add-btn" @click="newTodo">确定</button>
         </div>
-        <div class='ib' data-filter='active' @click="filter">
-          <div :class="type === 'active' ? 'selected' : ''" >Active</div>
+        <div class="todo-list">
+            <div v-for="item in todo" v-if="type === 'all' || (type === 'active' && !item.done) || (type === 'done' && item.done)" :class="item.done ? 'todo-item done' : 'todo-item'">
+                <div class="toggle" :data-id="item.id" @click="toggle" />
+                <div>{{ item.text }} </div>
+                <div class="delete" :data-id="item.id" @click="deleteItem" />
+            </div>
         </div>
-        <div class='ib' data-filter='done' @click="filter">
-          <div :class="type === 'done' ? 'selected' : ''" >Done</div>
+        <div class="footer">
+            <div class="todo-count"><div class="strong">{{ left }} items left</div> </div>
+            <div class="filters">
+                <div class="ib" data-filter="all" @click="filter">
+                    <div :class="type === 'all' ? 'selected' : ''">All</div>
+                </div>
+                <div class="ib" data-filter="active" @click="filter">
+                    <div :class="type === 'active' ? 'selected' : ''">Active</div>
+                </div>
+                <div class="ib" data-filter="done" @click="filter">
+                    <div :class="type === 'done' ? 'selected' : ''">Done</div>
+                </div>
+            </div>
+            <button v-if="done > 0" class="clear-completed" @click="clear">Clear done</button>
         </div>
-      </div>
-      <button v-if="done > 0" class="clear-completed" @click="clear">Clear done</button>
     </div>
-  </div>
 </template>
 
 <script>
 export default {
-  name: 'todo',
-  data() {
-    return {
-      id: 1,
-      todo: [{ text: '学习 Tbone', id: 0, done: false }, { text: '学习 vue', id: 1, done: false }],
-      left: 2,
-      type: 'all',
-      done: 0,
-      inputText: ''
-    }
-  },
-  computed: {
-    route() {
-      return this.$route.path
-    }
-  },
-  methods: {
-    toggle(evt) {
-      for (let i = 0, len = this.todo.length; i < len; i++) {
-        const item = this.todo[i]
-        if (item.id === Number(evt.currentTarget.dataset.id)) {
-          item.done = !item.done
-          this.computeCount()
-          break
-        }
-      }
+    name: 'Todo',
+    data() {
+        return {
+            id: 1,
+            todo: [{ text: '学习 Tbone', id: 0, done: false }, { text: '学习 vue', id: 1, done: false }],
+            left: 2,
+            type: 'all',
+            done: 0,
+            inputText: ''
+        };
     },
-    newTodo() {
-      if (this.inputText.trim() === '') {
-        return
-      }
+    computed: {
+        route() {
+            return this.$route.path;
+        }
+    },
+    methods: {
+        toggle(evt) {
+            for (let i = 0, len = this.todo.length; i < len; i++) {
+                const item = this.todo[i];
+                if (item.id === Number(evt.currentTarget.dataset.id)) {
+                    item.done = !item.done;
+                    this.computeCount();
+                    break;
+                }
+            }
+        },
+        newTodo() {
+            if (this.inputText.trim() === '') {
+                return;
+            }
 
-      this.todo.unshift({
-        text: this.inputText,
-        id: ++this.id,
-        done: false,
-        createTime: new Date()
-      })
-      this.computeCount()
-      this.inputText = ''
-    },
-    deleteItem(evt) {
-      for (let i = 0, len = this.todo.length; i < len; i++) {
-        const item = this.todo[i]
-        if (item.id === Number(evt.currentTarget.dataset.id)) {
-          this.todo.splice(i, 1)
-          this.computeCount()
-          break
-        }
-      }
-    },
-    computeCount() {
-      this.left = 0
-      this.done = 0
-      for (let i = 0, len = this.todo.length; i < len; i++) {
-        this.todo[i].done ? this.done++ : this.left++
-      }
-    },
+            this.todo.unshift({
+                text: this.inputText,
+                id: ++this.id,
+                done: false,
+                createTime: new Date()
+            });
+            this.computeCount();
+            this.inputText = '';
+        },
+        deleteItem(evt) {
+            for (let i = 0, len = this.todo.length; i < len; i++) {
+                const item = this.todo[i];
+                if (item.id === Number(evt.currentTarget.dataset.id)) {
+                    this.todo.splice(i, 1);
+                    this.computeCount();
+                    break;
+                }
+            }
+        },
+        computeCount() {
+            this.left = 0;
+            this.done = 0;
+            for (let i = 0, len = this.todo.length; i < len; i++) {
+                this.todo[i].done ? this.done++ : this.left++;
+            }
+        },
 
-    filter(evt) {
-      this.type = evt.currentTarget.dataset.filter
-    },
-    clear() {
-      for (let i = 0, len = this.todo.length; i < len; i++) {
-        const item = this.todo[i]
-        if (item.done) {
-          this.todo.splice(i, 1)
-          len--
-          i--
+        filter(evt) {
+            this.type = evt.currentTarget.dataset.filter;
+        },
+        clear() {
+            for (let i = 0, len = this.todo.length; i < len; i++) {
+                const item = this.todo[i];
+                if (item.done) {
+                    this.todo.splice(i, 1);
+                    len--;
+                    i--;
+                }
+            }
+            this.done = 0;
         }
-      }
-      this.done = 0
     }
-  }
-}
+};
 </script>
 
 <style>

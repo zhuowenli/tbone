@@ -1,3 +1,9 @@
+/*
+ * Author: 卓文理
+ * Email: zhuowenligg@gmail.com
+ * Date: 2020-06-10 10:19:03
+ */
+
 module.exports = {
     origin: 'https://test.miniapp.com',
     entry: '/test/aaa',
@@ -46,4 +52,4 @@ module.exports = {
     packageConfig: {
         author: 'lvjian',
     },
-}
+};

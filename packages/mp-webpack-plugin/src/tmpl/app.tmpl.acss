@@ -395,15 +395,13 @@ bdo {
     unicode-bidi: bidi-override;
 }
 
-img {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-
 /**
  * 兼容标签样式
  */
 img {
     display: inline-block;
+    background-size: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 br {
