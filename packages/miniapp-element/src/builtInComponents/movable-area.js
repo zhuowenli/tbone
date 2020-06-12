@@ -3,13 +3,13 @@ export default {
     props: [{
         name: 'scaleArea',
         get(domNode) {
-            return !!domNode.getAttribute('scale-area')
+            return !!domNode.getAttribute('scale-area');
         },
     }, {
         name: 'animation',
         get(domNode) {
-            return domNode.getAttribute('animation')
+            return domNode.getAttribute('animation');
         }
     }],
     handles: {},
-}
+};

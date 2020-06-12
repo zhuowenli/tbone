@@ -1,128 +1,128 @@
-import callSingleEvent from '../events/callSingleEvent'
+import callSingleEvent from '../events/callSingleEvent';
 
 export default {
     name: 'button',
     props: [{
         name: 'size',
         get(domNode) {
-            return domNode.getAttribute('size') || 'default'
+            return domNode.getAttribute('size') || 'default';
         },
     }, {
         name: 'type',
         get(domNode) {
-            return domNode.getAttribute('type') || 'default'
+            return domNode.getAttribute('type') || 'default';
         },
     }, {
         name: 'plain',
         get(domNode) {
-            return !!domNode.getAttribute('plain')
+            return !!domNode.getAttribute('plain');
         },
     }, {
         name: 'disabled',
         get(domNode) {
-            return !!domNode.getAttribute('disabled')
+            return !!domNode.getAttribute('disabled');
         },
     }, {
         name: 'loading',
         get(domNode) {
-            return !!domNode.getAttribute('loading')
+            return !!domNode.getAttribute('loading');
         },
     }, {
         name: 'formType',
         get(domNode) {
-            return domNode.getAttribute('form-type') || ''
+            return domNode.getAttribute('form-type') || '';
         },
     }, {
         name: 'openType',
         get(domNode) {
-            return domNode.getAttribute('open-type') || ''
+            return domNode.getAttribute('open-type') || '';
         },
     }, {
         name: 'hoverClass',
         get(domNode) {
-            return domNode.getAttribute('hover-class') || 'button-hover'
+            return domNode.getAttribute('hover-class') || 'button-hover';
         },
     }, {
         name: 'hoverStopPropagation',
         get(domNode) {
-            return !!domNode.getAttribute('hover-stop-propagation')
+            return !!domNode.getAttribute('hover-stop-propagation');
         },
     }, {
         name: 'hoverStartTime',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('hover-start-time'), 10)
-            return !isNaN(value) ? value : 20
+            const value = parseInt(domNode.getAttribute('hover-start-time'), 10);
+            return !isNaN(value) ? value : 20;
         },
     }, {
         name: 'hoverStayTime',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('hover-stay-time'), 10)
-            return !isNaN(value) ? value : 70
+            const value = parseInt(domNode.getAttribute('hover-stay-time'), 10);
+            return !isNaN(value) ? value : 70;
         },
     }, {
         name: 'lang',
         get(domNode) {
-            return domNode.getAttribute('lang') || 'en'
+            return domNode.getAttribute('lang') || 'en';
         },
     }, {
         name: 'sessionFrom',
         get(domNode) {
-            return domNode.getAttribute('session-from') || ''
+            return domNode.getAttribute('session-from') || '';
         },
     }, {
         name: 'sendMessageTitle',
         get(domNode) {
-            return domNode.getAttribute('send-message-title') || ''
+            return domNode.getAttribute('send-message-title') || '';
         },
     }, {
         name: 'sendMessagePath',
         get(domNode) {
-            return domNode.getAttribute('send-message-path') || ''
+            return domNode.getAttribute('send-message-path') || '';
         },
     }, {
         name: 'sendMessageImg',
         get(domNode) {
-            return domNode.getAttribute('send-message-img') || ''
+            return domNode.getAttribute('send-message-img') || '';
         },
     }, {
         name: 'appParameter',
         get(domNode) {
-            return domNode.getAttribute('app-parameter') || ''
+            return domNode.getAttribute('app-parameter') || '';
         },
     }, {
         name: 'showMessageCard',
         get(domNode) {
-            return !!domNode.getAttribute('show-message-card')
+            return !!domNode.getAttribute('show-message-card');
         },
     }, {
         name: 'businessId',
         get(domNode) {
-            return domNode.getAttribute('business-id') || ''
+            return domNode.getAttribute('business-id') || '';
         },
     }, {
         name: 'animation',
         get(domNode) {
-            return domNode.getAttribute('animation')
+            return domNode.getAttribute('animation');
         }
     }],
     handles: {
         onButtonGetUserInfo(evt) {
-            callSingleEvent('getuserinfo', evt, this)
+            callSingleEvent('getuserinfo', evt, this);
         },
         onButtonContact(evt) {
-            callSingleEvent('contact', evt, this)
+            callSingleEvent('contact', evt, this);
         },
         onButtonGetPhoneNumber(evt) {
-            callSingleEvent('getphonenumber', evt, this)
+            callSingleEvent('getphonenumber', evt, this);
         },
         onButtonError(evt) {
-            callSingleEvent('error', evt, this)
+            callSingleEvent('error', evt, this);
         },
         onButtonOpenSetting(evt) {
-            callSingleEvent('opensetting', evt, this)
+            callSingleEvent('opensetting', evt, this);
         },
         onButtonLaunchApp(evt) {
-            callSingleEvent('launchapp', evt, this)
+            callSingleEvent('launchapp', evt, this);
         },
     },
-}
+};

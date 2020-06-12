@@ -1,77 +1,77 @@
 /* global isWeChatMiniProgram */
-import callSingleEvent from '../events/callSingleEvent'
+import callSingleEvent from '../events/callSingleEvent';
 
 let props = [{
     name: 'openType',
     get(domNode) {
-        return domNode.getAttribute('open-type') || 'navigate'
+        return domNode.getAttribute('open-type') || 'navigate';
     },
 }, {
     name: 'hoverClass',
     get(domNode) {
-        return domNode.getAttribute('hover-class') || 'none'
+        return domNode.getAttribute('hover-class') || 'none';
     },
 }, {
     name: 'hoverStartTime',
     get(domNode) {
-        const value = parseInt(domNode.getAttribute('hover-start-time'), 10)
-        return !isNaN(value) ? value : 50
+        const value = parseInt(domNode.getAttribute('hover-start-time'), 10);
+        return !isNaN(value) ? value : 50;
     },
 }, {
     name: 'hoverStayTime',
     get(domNode) {
-        const value = parseInt(domNode.getAttribute('hover-stay-time'), 10)
-        return !isNaN(value) ? value : 600
+        const value = parseInt(domNode.getAttribute('hover-stay-time'), 10);
+        return !isNaN(value) ? value : 600;
     },
 }, {
     name: 'url',
     get(domNode) {
-        return domNode.getAttribute('url') || ''
+        return domNode.getAttribute('url') || '';
     },
 }, {
     name: 'animation',
     get(domNode) {
-        return domNode.getAttribute('animation')
+        return domNode.getAttribute('animation');
     }
-}]
+}];
 if (isWeChatMiniProgram) {
     props = props.concat([{
         name: 'target',
         get(domNode) {
-            return domNode.getAttribute('target') || 'self'
+            return domNode.getAttribute('target') || 'self';
         },
     }, {
         name: 'delta',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('delta'), 10)
-            return !isNaN(value) ? value : 1
+            const value = parseInt(domNode.getAttribute('delta'), 10);
+            return !isNaN(value) ? value : 1;
         },
     }, {
         name: 'appId',
         get(domNode) {
-            return domNode.getAttribute('app-id') || ''
+            return domNode.getAttribute('app-id') || '';
         },
     }, {
         name: 'path',
         get(domNode) {
-            return domNode.getAttribute('path') || ''
+            return domNode.getAttribute('path') || '';
         },
     }, {
         name: 'extraData',
         get(domNode) {
-            return domNode.getAttribute('extra-data') || {}
+            return domNode.getAttribute('extra-data') || {};
         },
     }, {
         name: 'version',
         get(domNode) {
-            return domNode.getAttribute('version') || 'release'
+            return domNode.getAttribute('version') || 'release';
         },
     }, {
         name: 'hoverStopPropagation',
         get(domNode) {
-            return !!domNode.getAttribute('hover-stop-propagation')
+            return !!domNode.getAttribute('hover-stop-propagation');
         },
-    }])
+    }]);
 }
 
 export default {
@@ -79,13 +79,13 @@ export default {
     props,
     handles: {
         onNavigatorSuccess(evt) {
-            callSingleEvent('success', evt, this)
+            callSingleEvent('success', evt, this);
         },
         onNavigatorFail(evt) {
-            callSingleEvent('fail', evt, this)
+            callSingleEvent('fail', evt, this);
         },
         onNavigatorComplete(evt) {
-            callSingleEvent('complete', evt, this)
+            callSingleEvent('complete', evt, this);
         },
     },
-}
+};

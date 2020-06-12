@@ -16,13 +16,14 @@
     "author": "wechat-miniapp",
     "license": "MIT",
     "devDependencies": {
-        "lerna": "3.16.4",
-        "eslint": "^5.14.1",
-        "eslint-config-airbnb-base": "13.1.0",
-        "eslint-loader": "^2.1.2",
-        "eslint-plugin-import": "^2.16.0",
-        "eslint-plugin-node": "^7.0.1",
-        "eslint-plugin-promise": "^3.8.0"
+        "eslint": "^5.16.0",
+        "eslint-config-gaoding": "^1.0.2",
+        "eslint-config-gaoding-vue": "^1.0.0",
+        "eslint-friendly-formatter": "^4.0.1",
+        "eslint-loader": "^3.0.3",
+        "eslint-plugin-import": "^2.20.1",
+        "eslint-plugin-vue": "^6.2.1",
+        "lerna": "3.16.4"
     },
     "dependencies": {}
 }

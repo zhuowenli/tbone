@@ -3,8 +3,8 @@ export default {
     props: [{
         name: 'animation',
         get(domNode) {
-            return domNode.getAttribute('animation')
+            return domNode.getAttribute('animation');
         }
     }],
     handles: {},
-}
+};

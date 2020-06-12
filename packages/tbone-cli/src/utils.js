@@ -1,35 +1,35 @@
-const fs = require('fs')
-const chalk = require('chalk')
-const path = require('path')
+const fs = require('fs');
+const chalk = require('chalk');
+const path = require('path');
 
-const existsSync = fs.existsSync
-const readdirSync = fs.readdirSync
-const rmdirSync = fs.rmdirSync
-const unlinkSync = fs.unlinkSync
-const statSync = fs.statSync
-const validateProjectName = require('validate-npm-package-name')
+const existsSync = fs.existsSync;
+const readdirSync = fs.readdirSync;
+const rmdirSync = fs.rmdirSync;
+const unlinkSync = fs.unlinkSync;
+const statSync = fs.statSync;
+const validateProjectName = require('validate-npm-package-name');
 
 function isCnFuc(language) {
-    return language === 'cn'
+    return language === 'cn';
 }
 
 function emptyFs(path) {
-    let files = []
-    let dir = []
+    let files = [];
+    let dir = [];
     if (existsSync(path)) {
-        files = readdirSync(path)
-        files.forEach(function(file) {
-            const curPath = path + '/' + file
+        files = readdirSync(path);
+        files.forEach(function (file) {
+            const curPath = path + '/' + file;
             if (statSync(curPath).isDirectory()) {
-                emptyFs(curPath)
+                emptyFs(curPath);
             } else {
-                unlinkSync(curPath)
+                unlinkSync(curPath);
             }
-        })
-        dir = readdirSync(path)
-        dir.forEach(function(dirName) {
-            rmdirSync(path + '/' + dirName)
-        })
+        });
+        dir = readdirSync(path);
+        dir.forEach(function (dirName) {
+            rmdirSync(path + '/' + dirName);
+        });
     }
 }
 
@@ -44,7 +44,7 @@ function isSafeToCreateProjectIn(root, name) {
         'npm-debug.log',
         'yarn-error.log',
         'yarn-debug.log',
-    ]
+    ];
 
     const validFiles = [
         '.DS_Store',
@@ -64,8 +64,8 @@ function isSafeToCreateProjectIn(root, name) {
         '.travis.yml',
         '.gitlab-ci.yml',
         '.gitattributes',
-    ]
-    console.log()
+    ];
+    console.log();
 
     const conflicts = fs
         .readdirSync(root)
@@ -73,58 +73,58 @@ function isSafeToCreateProjectIn(root, name) {
     // Don't treat log files from previous installation as conflicts
         .filter(
             file => !errorLogFilePatterns.some(pattern => file.indexOf(pattern) === 0)
-        )
+        );
 
     if (conflicts.length > 0) {
         console.log(
             `The directory ${chalk.green(name)} contains files that could conflict:`
-        )
-        console.log()
+        );
+        console.log();
         for (const file of conflicts) {
-            console.log(`  ${file}`)
+            console.log(`  ${file}`);
         }
-        console.log()
+        console.log();
         console.log(
             'Either try using a new directory name, or remove the files listed above.'
-        )
+        );
 
-        return false
+        return false;
     }
 
     // Remove any remnant files from a previous installation
-    const currentFiles = fs.readdirSync(path.join(root))
+    const currentFiles = fs.readdirSync(path.join(root));
     currentFiles.forEach(file => {
         errorLogFilePatterns.forEach(errorLogFilePattern => {
             // This will catch `(npm-debug|yarn-error|yarn-debug).log*` files
             if (file.indexOf(errorLogFilePattern) === 0) {
-                unlinkSync(path.join(root, file))
+                unlinkSync(path.join(root, file));
             }
-        })
-    })
-    return true
+        });
+    });
+    return true;
 }
 
 // validate an app(project) name
 // - Nameing Rules: https://www.npmjs.com/package/validate-npm-package-name#naming-rules
 // - Referenced: https://github.com/facebook/create-react-app/blob/master/packages/create-react-app/createReactApp.js#L664
 function checkAppName(appName) {
-    const validationResult = validateProjectName(appName)
+    const validationResult = validateProjectName(appName);
     if (!validationResult.validForNewPackages) {
         console.error(
             `Could not create a project called ${chalk.red(
                 `"${appName}"`
             )} because of npm naming restrictions: `
-        )
-        printValidationResults(validationResult.errors)
-        printValidationResults(validationResult.warnings)
-        process.exit(1)
+        );
+        printValidationResults(validationResult.errors);
+        printValidationResults(validationResult.warnings);
+        process.exit(1);
     }
 
     function printValidationResults(results) {
         if (typeof results !== 'undefined') {
             results.forEach(error => {
-                console.error(chalk.red(`  *  ${error}`))
-            })
+                console.error(chalk.red(`  *  ${error}`));
+            });
         }
     }
 }
@@ -134,4 +134,4 @@ module.exports = {
     emptyFs,
     isSafeToCreateProjectIn,
     checkAppName
-}
+};

@@ -1,13 +1,13 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import {isMiniApp} from 'universal-env'
+import { isMiniApp } from 'universal-env';
 
-export default function() {
+export default function () {
     if (isMiniApp) {
         return {
             props: {
                 inCover: false
             }
-        }
+        };
     } else {
         return {
             properties: {
@@ -16,6 +16,6 @@ export default function() {
                     value: false
                 }
             }
-        }
+        };
     }
 }

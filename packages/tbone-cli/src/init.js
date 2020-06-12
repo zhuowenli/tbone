@@ -1,51 +1,51 @@
-const path = require('path')
+const path = require('path');
 
-const join = path.join
-const basename = path.basename
-const fs = require('fs')
-const vfs = require('vinyl-fs')
+const join = path.join;
+const basename = path.basename;
+const fs = require('fs');
+const vfs = require('vinyl-fs');
 
-const renameSync = fs.renameSync
-const existsSync = fs.existsSync
-const chalk = require('chalk')
-const through = require('through2')
-const emptyDir = require('empty-dir')
-const info = require('./logger').info
-const error = require('./logger').error
-const success = require('./logger').success
-const isCnFun = require('./utils').isCnFuc
+const renameSync = fs.renameSync;
+const existsSync = fs.existsSync;
+const chalk = require('chalk');
+const through = require('through2');
+const emptyDir = require('empty-dir');
+const info = require('./logger').info;
+const error = require('./logger').error;
+const success = require('./logger').success;
+const isCnFun = require('./utils').isCnFuc;
 
-const checkAppName = require('./utils').checkAppName
-const isSafeToCreateProjectIn = require('./utils').isSafeToCreateProjectIn
+const checkAppName = require('./utils').checkAppName;
+const isSafeToCreateProjectIn = require('./utils').isSafeToCreateProjectIn;
 
 function init(args) {
-    const TboneCli = chalk.bold.cyan('Tbone-Cli')
-    const isCn = isCnFun(args.language)
-    const customPrjName = args.project || ''
-    const tpl = join(__dirname, '../template/app')
-    const dest = join(process.cwd(), customPrjName)
-    const projectName = basename(dest)
-    const mirror = args.mirror
+    const TboneCli = chalk.bold.cyan('Tbone-Cli');
+    const isCn = isCnFun(args.language);
+    const customPrjName = args.project || '';
+    const tpl = join(__dirname, '../template/app');
+    const dest = join(process.cwd(), customPrjName);
+    const projectName = basename(dest);
+    const mirror = args.mirror;
 
-    console.log()
-    console.log(TboneCli + (!isCn ? ' is booting... ' : ' 正在启动...'))
+    console.log();
+    console.log(TboneCli + (!isCn ? ' is booting... ' : ' 正在启动...'));
     console.log(
         TboneCli + (!isCn ? ' will execute init command... ' : ' 即将执行 init 命令...')
-    )
-    checkAppName(projectName)
+    );
+    checkAppName(projectName);
     if (existsSync(dest) && !emptyDir.sync(dest)) {
         if (!isSafeToCreateProjectIn(dest, projectName)) {
-            process.exit(1)
+            process.exit(1);
         }
     }
 
-    createApp()
+    createApp();
 
     function createApp() {
-        console.log()
+        console.log();
         console.log(
             chalk.bold.cyan('Tbone-Cli') + (!isCn ? ' will creating a new tbone app in ' : ' 即将创建一个新的应用在 ') + dest
-        )
+        );
 
         vfs
             .src(['**/*', '!node_modules/**/*'], {
@@ -55,56 +55,56 @@ function init(args) {
             })
             .pipe(template(dest, tpl))
             .pipe(vfs.dest(dest))
-            .on('end', function() {
+            .on('end', function () {
                 try {
-                    info('Rename', 'gitignore -> .gitignore')
-                    renameSync(join(dest, 'gitignore'), join(dest, '.gitignore'))
+                    info('Rename', 'gitignore -> .gitignore');
+                    renameSync(join(dest, 'gitignore'), join(dest, '.gitignore'));
                     if (customPrjName) {
                         try {
                             // eslint-disable-next-line
                             const appPackage = require(join(dest, 'package.json'))
-                            appPackage.name = projectName
+                            appPackage.name = projectName;
                             fs.writeFile(join(dest, 'package.json'), JSON.stringify(appPackage, null, 2), (err) => {
-                                if (err) return console.log(err)
-                            })
-                            process.chdir(customPrjName)
+                                if (err) return console.log(err);
+                            });
+                            process.chdir(customPrjName);
                         } catch (err) {
-                            console.log(error(err))
+                            console.log(error(err));
                         }
                     }
                     info(
                         'Install',
                         'We will install dependencies, if you refuse, press ctrl+c to abort, and install dependencies by yourself. :>'
-                    )
-                    console.log()
-                    require('./install')(mirror, done)
+                    );
+                    console.log();
+                    require('./install')(mirror, done);
                 } catch (e) {
-                    console.log(error(e))
+                    console.log(error(e));
                 }
             })
-            .resume()
+            .resume();
     }
 
     function done() {
-        console.log()
-        console.log()
-        console.log()
-        success(`Congratulation! "${projectName}" has been created successfully! `)
-        console.log()
-        console.log(`${chalk.bold.cyan('Tbone')} https://github.com/wechat-miniapp/tbone`)
+        console.log();
+        console.log();
+        console.log();
+        success(`Congratulation! "${projectName}" has been created successfully! `);
+        console.log();
+        console.log(`${chalk.bold.cyan('Tbone')} https://github.com/wechat-miniapp/tbone`);
     }
 }
 
 function template(dest, cwd) {
-    return through.obj(function(file, enc, cb) {
+    return through.obj(function (file, enc, cb) {
         if (!file.stat.isFile()) {
-            return cb()
+            return cb();
         }
 
-        info('Copy', file.path.replace(cwd + '/', ''))
-        this.push(file)
-        cb()
-    })
+        info('Copy', file.path.replace(cwd + '/', ''));
+        this.push(file);
+        cb();
+    });
 }
 
-module.exports = init
+module.exports = init;

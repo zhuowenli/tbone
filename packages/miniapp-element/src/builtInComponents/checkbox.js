@@ -1,36 +1,36 @@
-import callSingleEvent from '../events/callSingleEvent'
+import callSingleEvent from '../events/callSingleEvent';
 
 export default {
     name: 'checkbox',
     props: [{
         name: 'value',
         get(domNode) {
-            return domNode.getAttribute('value') || ''
+            return domNode.getAttribute('value') || '';
         },
     }, {
         name: 'name',
         get(domNode) {
-            return domNode.getAttribute('name') || ''
+            return domNode.getAttribute('name') || '';
         },
     }, {
         name: 'checked',
         get(domNode) {
-            return domNode.getAttribute('checked') || false
+            return domNode.getAttribute('checked') || false;
         },
     }, {
         name: 'disabled',
         get(domNode) {
-            return domNode.getAttribute('disabled') || false
+            return domNode.getAttribute('disabled') || false;
         },
     }, {
         name: 'color',
         get(domNode) {
-            return domNode.getAttribute('color') || ''
+            return domNode.getAttribute('color') || '';
         },
     }],
     handles: {
         onCheckboxItemChange(evt) {
-            callSingleEvent('change', evt, this)
+            callSingleEvent('change', evt, this);
         },
     },
-}
+};

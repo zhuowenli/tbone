@@ -1,4 +1,4 @@
-import callSingleEvent from '../events/callSingleEvent'
+import callSingleEvent from '../events/callSingleEvent';
 
 export default {
     name: 'switch',
@@ -6,45 +6,45 @@ export default {
         name: 'checked',
         canBeUserChanged: true,
         get(domNode) {
-            return !!domNode.getAttribute('checked')
+            return !!domNode.getAttribute('checked');
         },
     }, {
         name: 'disabled',
         get(domNode) {
-            return !!domNode.getAttribute('disabled')
+            return !!domNode.getAttribute('disabled');
         },
     }, {
         name: 'name',
         get(domNode) {
-            return domNode.getAttribute('name') || ''
+            return domNode.getAttribute('name') || '';
         },
     }, {
         name: 'type',
         get(domNode) {
-            return domNode.getAttribute('type') || 'switch'
+            return domNode.getAttribute('type') || 'switch';
         },
     }, {
         name: 'color',
         get(domNode) {
-            return domNode.getAttribute('color') || '#04BE02'
+            return domNode.getAttribute('color') || '#04BE02';
         },
     }, {
         name: 'animation',
         get(domNode) {
-            return domNode.getAttribute('animation')
+            return domNode.getAttribute('animation');
         }
     }],
     handles: {
         onSwitchChange(evt) {
-            const domNode = this.getDomNodeFromEvt('change', evt)
-            if (!domNode) return
+            const domNode = this.getDomNodeFromEvt('change', evt);
+            if (!domNode) return;
 
-            domNode.$$setAttributeWithoutUpdate('checked', evt.detail.value)
+            domNode.$$setAttributeWithoutUpdate('checked', evt.detail.value);
 
-            domNode.__oldValues = domNode.__oldValues || {}
-            domNode.__oldValues.checked = evt.detail.value
+            domNode.__oldValues = domNode.__oldValues || {};
+            domNode.__oldValues.checked = evt.detail.value;
 
-            callSingleEvent('change', evt, this)
+            callSingleEvent('change', evt, this);
         },
     },
-}
+};
