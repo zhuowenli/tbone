@@ -1,41 +1,41 @@
 export function isNull(obj) {
-    return obj === null
+    return obj === null;
 }
 
 export function isUndef(value) {
-    return value === undefined
+    return value === undefined;
 }
 
 export function isFunction(obj) {
-    return typeof obj === 'function'
+    return typeof obj === 'function';
 }
 
 export function isObject(obj) {
-    return typeof obj === 'object'
+    return typeof obj === 'object';
 }
 
 export function isPlainObject(obj) {
-    return EMPTY_OBJECT.toString.call(obj) === '[object Object]'
+    return EMPTY_OBJECT.toString.call(obj) === '[object Object]';
 }
 
 export function isArray(array) {
-    return Array.isArray(array)
+    return Array.isArray(array);
 }
 
 export function isString(string) {
-    return typeof string === 'string'
+    return typeof string === 'string';
 }
 
 export function isNumber(string) {
-    return typeof string === 'number'
+    return typeof string === 'number';
 }
 
 export function isEmptyObj(obj) {
     for (const key in obj) {
-        return false
+        return false;
     }
-    return true
+    return true;
 }
 
-export const NOOP = () => {}
-export const EMPTY_OBJECT = {}
+export const NOOP = () => {};
+export const EMPTY_OBJECT = {};

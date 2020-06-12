@@ -4,13 +4,13 @@
  * Date: 2020-06-08 15:25:21
  */
 
-import {$$adapter} from '@zhuowenli/miniapp-render'
+import { $$adapter } from '@zhuowenli/miniapp-render';
 
-const {Event} = $$adapter
+const { Event } = $$adapter;
 
 export default function callSingleEvent(eventName, evt, nativeComponent) {
-    const domNode = nativeComponent.getDomNodeFromEvt(eventName, evt)
-    if (!domNode) return
+    const domNode = nativeComponent.getDomNodeFromEvt(eventName, evt);
+    if (!domNode) return;
 
     domNode.$$trigger(eventName, {
         event: new Event({
@@ -24,5 +24,5 @@ export default function callSingleEvent(eventName, evt, nativeComponent) {
             $$extra: evt && evt.extra,
         }),
         currentTarget: domNode,
-    })
+    });
 }

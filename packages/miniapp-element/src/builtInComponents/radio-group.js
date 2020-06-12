@@ -1,16 +1,16 @@
-import callSingleEvent from '../events/callSingleEvent'
+import callSingleEvent from '../events/callSingleEvent';
 
 export default {
     name: 'radio-group',
     props: [{
         name: 'name',
         get(domNode) {
-            return domNode.getAttribute('name') || ''
+            return domNode.getAttribute('name') || '';
         },
     }],
     handles: {
         onRadioChange(evt) {
-            callSingleEvent('change', evt, this)
+            callSingleEvent('change', evt, this);
         },
     },
-}
+};

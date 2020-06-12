@@ -1,130 +1,130 @@
-import Pool from '../util/pool'
-import cache from '../util/cache'
+import Pool from '../util/pool';
+import cache from '../util/cache';
 
-const pool = new Pool()
+const pool = new Pool();
 
 function ClassList(onUpdate) {
-    this.$$init(onUpdate)
+    this.$$init(onUpdate);
 }
 
-ClassList.$$create = function(onUpdate) {
-    const config = cache.getConfig()
+ClassList.$$create = function (onUpdate) {
+    const config = cache.getConfig();
 
     if (config.optimization.domExtendMultiplexing) {
-        const instance = pool.get()
+        const instance = pool.get();
 
         if (instance) {
-            instance.$$init(onUpdate)
-            return instance
+            instance.$$init(onUpdate);
+            return instance;
         }
     }
 
-    return new ClassList(onUpdate)
-}
+    return new ClassList(onUpdate);
+};
 
 ClassList.prototype = Object.assign([], {
     $$init(onUpdate) {
-        this.$_doUpdate = onUpdate
+        this.$_doUpdate = onUpdate;
     },
 
     $$destroy() {
-        this.$_doUpdate = null
-        this.length = 0
+        this.$_doUpdate = null;
+        this.length = 0;
     },
 
     $$recycle() {
-        this.$$destroy()
+        this.$$destroy();
 
-        const config = cache.getConfig()
+        const config = cache.getConfig();
 
         if (config.optimization.domExtendMultiplexing) {
-            pool.add(this)
+            pool.add(this);
         }
     },
 
     $$parse(className = '') {
-        this.length = 0
+        this.length = 0;
 
-        className = className.trim()
-        className = className ? className.split(/\s+/) : []
+        className = className.trim();
+        className = className ? className.split(/\s+/) : [];
 
         for (const item of className) {
-            this.push(item)
+            this.push(item);
         }
 
-        this.$_doUpdate()
+        this.$_doUpdate();
     },
 
     item(index) {
-        return this[index]
+        return this[index];
     },
 
     contains(className) {
-        if (typeof className !== 'string') return false
+        if (typeof className !== 'string') return false;
 
-        return this.indexOf(className) !== -1
+        return this.indexOf(className) !== -1;
     },
 
     add(...args) {
-        let isUpdate = false
+        let isUpdate = false;
 
         for (let className of args) {
-            if (typeof className !== 'string') continue
+            if (typeof className !== 'string') continue;
 
-            className = className.trim()
+            className = className.trim();
 
             if (className && this.indexOf(className) === -1) {
-                this.push(className)
-                isUpdate = true
+                this.push(className);
+                isUpdate = true;
             }
         }
 
-        if (isUpdate) this.$_doUpdate()
+        if (isUpdate) this.$_doUpdate();
     },
 
     remove(...args) {
-        let isUpdate = false
+        let isUpdate = false;
 
         for (let className of args) {
-            if (typeof className !== 'string') continue
+            if (typeof className !== 'string') continue;
 
-            className = className.trim()
+            className = className.trim();
 
-            if (!className) continue
+            if (!className) continue;
 
-            const index = this.indexOf(className)
+            const index = this.indexOf(className);
             if (index >= 0) {
-                this.splice(index, 1)
-                isUpdate = true
+                this.splice(index, 1);
+                isUpdate = true;
             }
         }
 
-        if (isUpdate) this.$_doUpdate()
+        if (isUpdate) this.$_doUpdate();
     },
 
     toggle(className, force) {
-        if (typeof className !== 'string') return false
+        if (typeof className !== 'string') return false;
 
-        className = className.trim()
+        className = className.trim();
 
-        if (!className) return false
+        if (!className) return false;
 
-        const isNotContain = this.indexOf(className) === -1
-        let action = isNotContain ? 'add' : 'remove'
-        action = force === true ? 'add' : force === false ? 'remove' : action
+        const isNotContain = this.indexOf(className) === -1;
+        let action = isNotContain ? 'add' : 'remove';
+        action = force === true ? 'add' : force === false ? 'remove' : action;
 
         if (action === 'add') {
-            this.add(className)
+            this.add(className);
         } else {
-            this.remove(className)
+            this.remove(className);
         }
 
-        return force === true || force === false ? force : isNotContain
+        return force === true || force === false ? force : isNotContain;
     },
 
     toString() {
-        return this.join(' ')
+        return this.join(' ');
     },
-})
+});
 
-export default ClassList
+export default ClassList;

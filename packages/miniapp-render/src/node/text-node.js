@@ -1,52 +1,52 @@
-import Pool from '../util/pool'
-import cache from '../util/cache'
-import tool from '../util/tool'
-import Node from './node'
+import Pool from '../util/pool';
+import cache from '../util/cache';
+import tool from '../util/tool';
+import Node from './node';
 
-const pool = new Pool()
+const pool = new Pool();
 
 class TextNode extends Node {
     static $$create(options, tree) {
-        const config = cache.getConfig()
+        const config = cache.getConfig();
 
         if (config.optimization.textMultiplexing) {
-            const instance = pool.get()
+            const instance = pool.get();
 
             if (instance) {
-                instance.$$init(options, tree)
-                return instance
+                instance.$$init(options, tree);
+                return instance;
             }
         }
 
-        return new TextNode(options, tree)
+        return new TextNode(options, tree);
     }
 
     $$init(options, tree) {
-        options.type = 'text'
+        options.type = 'text';
 
-        super.$$init(options, tree)
+        super.$$init(options, tree);
 
-        this.$_content = options.content || ''
+        this.$_content = options.content || '';
     }
 
     $$destroy() {
-        super.$$destroy()
+        super.$$destroy();
 
-        this.$_content = ''
+        this.$_content = '';
     }
 
     $$recycle() {
-        this.$$destroy()
+        this.$$destroy();
 
-        const config = cache.getConfig()
+        const config = cache.getConfig();
 
         if (config.optimization.textMultiplexing) {
-            pool.add(this)
+            pool.add(this);
         }
     }
 
     $_triggerParentUpdate() {
-        if (this.parentNode) this.parentNode.$$trigger('$$childNodesUpdate')
+        if (this.parentNode) this.parentNode.$$trigger('$$childNodesUpdate');
     }
 
     get $$domInfo() {
@@ -55,50 +55,50 @@ class TextNode extends Node {
             pageId: this.$_pageId,
             type: this.$_type,
             content: this.$_content,
-        }
+        };
     }
 
     get nodeName() {
-        return '#text'
+        return '#text';
     }
 
     get nodeType() {
-        return Node.TEXT_NODE
+        return Node.TEXT_NODE;
     }
 
     get nodeValue() {
-        return this.textContent
+        return this.textContent;
     }
 
     set nodeValue(value) {
-        this.textContent = value
+        this.textContent = value;
     }
 
     get textContent() {
-        return this.$_content
+        return this.$_content;
     }
 
     set textContent(value) {
-        value += ''
+        value += '';
 
-        this.$_content = value
-        this.$_triggerParentUpdate()
+        this.$_content = value;
+        this.$_triggerParentUpdate();
     }
 
     get data() {
-        return this.textContent
+        return this.textContent;
     }
 
     set data(value) {
-        this.textContent = value
+        this.textContent = value;
     }
 
     cloneNode() {
         return this.ownerDocument.$$createTextNode({
             content: this.$_content,
             nodeId: `b-${tool.getId()}`,
-        })
+        });
     }
 }
 
-export default TextNode
+export default TextNode;

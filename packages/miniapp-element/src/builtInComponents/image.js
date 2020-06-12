@@ -1,44 +1,44 @@
-import callSingleEvent from '../events/callSingleEvent'
+import callSingleEvent from '../events/callSingleEvent';
 
 export default {
     name: 'image',
     props: [{
         name: 'renderingMode',
         get(domNode) {
-            return domNode.getAttribute('rendering-mode') || ''
+            return domNode.getAttribute('rendering-mode') || '';
         },
     }, {
         name: 'src',
         get(domNode) {
-            return domNode.src
+            return domNode.src;
         },
     }, {
         name: 'mode',
         get(domNode) {
-            return domNode.getAttribute('mode') || 'scaleToFill'
+            return domNode.getAttribute('mode') || 'scaleToFill';
         },
     }, {
         name: 'lazyLoad',
         get(domNode) {
-            return !!domNode.getAttribute('lazy-load')
+            return !!domNode.getAttribute('lazy-load');
         },
     }, {
         name: 'showMenuByLongpress',
         get(domNode) {
-            return !!domNode.getAttribute('show-menu-by-longpress')
+            return !!domNode.getAttribute('show-menu-by-longpress');
         },
     }, {
         name: 'animation',
         get(domNode) {
-            return domNode.getAttribute('animation')
+            return domNode.getAttribute('animation');
         }
     }],
     handles: {
         onImageLoad(evt) {
-            callSingleEvent('load', evt, this)
+            callSingleEvent('load', evt, this);
         },
         onImageError(evt) {
-            callSingleEvent('error', evt, this)
+            callSingleEvent('error', evt, this);
         },
     },
-}
+};

@@ -3,8 +3,8 @@ export default {
     props: [{
         name: 'for',
         get(domNode) {
-            return domNode.getAttribute('for') || ''
+            return domNode.getAttribute('for') || '';
         },
     }],
     handles: {},
-}
+};

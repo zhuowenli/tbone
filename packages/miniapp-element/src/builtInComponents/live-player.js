@@ -1,86 +1,86 @@
-import callSingleEvent from '../events/callSingleEvent'
+import callSingleEvent from '../events/callSingleEvent';
 
 export default {
     name: 'live-player',
     props: [{
         name: 'src',
         get(domNode) {
-            return domNode.src
+            return domNode.src;
         },
     }, {
         name: 'mode',
         get(domNode) {
-            return domNode.getAttribute('mode') || 'live'
+            return domNode.getAttribute('mode') || 'live';
         },
     }, {
         name: 'autoplay',
         get(domNode) {
-            return !!domNode.getAttribute('autoplay')
+            return !!domNode.getAttribute('autoplay');
         },
     }, {
         name: 'muted',
         get(domNode) {
-            return !!domNode.getAttribute('muted')
+            return !!domNode.getAttribute('muted');
         },
     }, {
         name: 'orientation',
         get(domNode) {
-            return domNode.getAttribute('orientation') || 'vertical'
+            return domNode.getAttribute('orientation') || 'vertical';
         },
     }, {
         name: 'objectFit',
         get(domNode) {
-            return domNode.getAttribute('object-fit') || 'contain'
+            return domNode.getAttribute('object-fit') || 'contain';
         },
     }, {
         name: 'backgroundMute',
         get(domNode) {
-            return !!domNode.getAttribute('background-mute')
+            return !!domNode.getAttribute('background-mute');
         },
     }, {
         name: 'minCache',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('min-cache'), 10)
-            return !isNaN(value) ? value : 1
+            const value = parseInt(domNode.getAttribute('min-cache'), 10);
+            return !isNaN(value) ? value : 1;
         },
     }, {
         name: 'maxCache',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('max-cache'), 10)
-            return !isNaN(value) ? value : 3
+            const value = parseInt(domNode.getAttribute('max-cache'), 10);
+            return !isNaN(value) ? value : 3;
         },
     }, {
         name: 'soundMode',
         get(domNode) {
-            return domNode.getAttribute('sound-mode') || 'speaker'
+            return domNode.getAttribute('sound-mode') || 'speaker';
         },
     }, {
         name: 'autoPauseIfNavigate',
         get(domNode) {
-            const value = domNode.getAttribute('auto-pause-if-navigate')
-            return value !== undefined ? !!value : true
+            const value = domNode.getAttribute('auto-pause-if-navigate');
+            return value !== undefined ? !!value : true;
         },
     }, {
         name: 'autoPauseIfOpenNative',
         get(domNode) {
-            const value = domNode.getAttribute('auto-pause-if-open-native')
-            return value !== undefined ? !!value : true
+            const value = domNode.getAttribute('auto-pause-if-open-native');
+            return value !== undefined ? !!value : true;
         },
     }, {
         name: 'animation',
         get(domNode) {
-            return domNode.getAttribute('animation')
+            return domNode.getAttribute('animation');
         }
     }],
     handles: {
         onLivePlayerStateChange(evt) {
-            callSingleEvent('statechange', evt, this)
+            callSingleEvent('statechange', evt, this);
         },
         onLivePlayerFullScreenChange(evt) {
-            callSingleEvent('fullscreenchange', evt, this)
+            callSingleEvent('fullscreenchange', evt, this);
         },
         onLivePlayerNetStatus(evt) {
-            callSingleEvent('netstatus', evt, this)
+            callSingleEvent('netstatus', evt, this);
         },
     },
-}
+};

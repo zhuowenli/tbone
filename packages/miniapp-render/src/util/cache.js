@@ -1,7 +1,7 @@
-const pageMap = {}
-const cookieCache = {}
-let configCache = {}
-let window
+const pageMap = {};
+const cookieCache = {};
+let configCache = {};
+let window;
 
 // Init
 function init(pageId, options) {
@@ -9,72 +9,72 @@ function init(pageId, options) {
         window: options.window,
         document: options.document,
         nodeIdMap: options.nodeIdMap,
-    }
+    };
 }
 
 // Destroy
 function destroy(pageId) {
-    delete pageMap[pageId]
+    delete pageMap[pageId];
 }
 
 /**
  * Get document
  */
 function getDocument(pageId) {
-    return pageMap[pageId] && pageMap[pageId].document
+    return pageMap[pageId] && pageMap[pageId].document;
 }
 
 // Set window
 function setWindow(value) {
-    window = value
+    window = value;
 }
 
 /**
  * Get window
  */
 function getWindow() {
-    return window
+    return window;
 }
 
 /**
  * Save domNode map
  */
 function setNode(pageId, nodeId, domNode = null) {
-    const document = pageMap[pageId] && pageMap[pageId].document
+    const document = pageMap[pageId] && pageMap[pageId].document;
 
     // Call before run, do nothing
-    if (!document) return
-    if (!domNode) return pageMap[pageId].nodeIdMap[nodeId] = domNode
+    if (!document) return;
+    if (!domNode) return pageMap[pageId].nodeIdMap[nodeId] = domNode;
 
-    let parentNode = domNode.parentNode
+    let parentNode = domNode.parentNode;
 
     while (parentNode && parentNode !== document.body) {
-        parentNode = parentNode.parentNode
+        parentNode = parentNode.parentNode;
     }
 
-    pageMap[pageId].nodeIdMap[nodeId] = parentNode === document.body ? domNode : null
+    pageMap[pageId].nodeIdMap[nodeId] = parentNode === document.body ? domNode : null;
 }
 
 // Get the domNode by nodeId
 function getNode(pageId, nodeId) {
-    return pageMap[pageId] && pageMap[pageId].nodeIdMap[nodeId]
+    return pageMap[pageId] && pageMap[pageId].nodeIdMap[nodeId];
 }
 
 // Store global config
 function setConfig(config) {
-    configCache = config
+    configCache = config;
 }
 
 // Get global config
 function getConfig() {
-    return configCache
+    return configCache;
 }
 
 /**
  * 获取全局 cookie
  */
 function getCookie() {
-    return cookieCache
+    return cookieCache;
 }
 
 export default {
@@ -88,4 +88,4 @@ export default {
     setConfig,
     getConfig,
     getCookie,
-}
+};

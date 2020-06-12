@@ -1,125 +1,125 @@
-import callSingleEvent from '../events/callSingleEvent'
+import callSingleEvent from '../events/callSingleEvent';
 
 export default {
     name: 'live-pusher',
     props: [{
         name: 'url',
         get(domNode) {
-            return domNode.getAttribute('url')
+            return domNode.getAttribute('url');
         },
     }, {
         name: 'mode',
         get(domNode) {
-            return domNode.getAttribute('mode') || 'RTC'
+            return domNode.getAttribute('mode') || 'RTC';
         },
     }, {
         name: 'autopush',
         get(domNode) {
-            return !!domNode.getAttribute('autopush')
+            return !!domNode.getAttribute('autopush');
         },
     }, {
         name: 'muted',
         get(domNode) {
-            return !!domNode.getAttribute('muted')
+            return !!domNode.getAttribute('muted');
         },
     }, {
         name: 'enableCamera',
         get(domNode) {
-            const value = domNode.getAttribute('enable-camera')
-            return value !== undefined ? !!value : true
+            const value = domNode.getAttribute('enable-camera');
+            return value !== undefined ? !!value : true;
         },
     }, {
         name: 'autoFocus',
         get(domNode) {
-            const value = domNode.getAttribute('auto-focus')
-            return value !== undefined ? !!value : true
+            const value = domNode.getAttribute('auto-focus');
+            return value !== undefined ? !!value : true;
         },
     }, {
         name: 'orientation',
         get(domNode) {
-            return domNode.getAttribute('orientation') || 'vertical'
+            return domNode.getAttribute('orientation') || 'vertical';
         },
     }, {
         name: 'beauty',
         get(domNode) {
-            return +domNode.getAttribute('beauty') || 0
+            return +domNode.getAttribute('beauty') || 0;
         },
     }, {
         name: 'whiteness',
         get(domNode) {
-            return +domNode.getAttribute('whiteness') || 0
+            return +domNode.getAttribute('whiteness') || 0;
         },
     }, {
         name: 'aspect',
         get(domNode) {
-            return domNode.getAttribute('aspect') || '9:16'
+            return domNode.getAttribute('aspect') || '9:16';
         },
     }, {
         name: 'minBitrate',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('min-bitrate'), 10)
-            return !isNaN(value) ? value : 200
+            const value = parseInt(domNode.getAttribute('min-bitrate'), 10);
+            return !isNaN(value) ? value : 200;
         },
     }, {
         name: 'maxBitrate',
         get(domNode) {
-            const value = parseInt(domNode.getAttribute('max-bitrate'), 10)
-            return !isNaN(value) ? value : 1000
+            const value = parseInt(domNode.getAttribute('max-bitrate'), 10);
+            return !isNaN(value) ? value : 1000;
         },
     }, {
         name: 'waitingImage',
         get(domNode) {
-            return domNode.getAttribute('waiting-image') || ''
+            return domNode.getAttribute('waiting-image') || '';
         },
     }, {
         name: 'waitingImageHash',
         get(domNode) {
-            return domNode.getAttribute('waiting-image-hash') || ''
+            return domNode.getAttribute('waiting-image-hash') || '';
         },
     }, {
         name: 'zoom',
         get(domNode) {
-            return !!domNode.getAttribute('zoom')
+            return !!domNode.getAttribute('zoom');
         },
     }, {
         name: 'devicePosition',
         get(domNode) {
-            return domNode.getAttribute('device-position') || 'front'
+            return domNode.getAttribute('device-position') || 'front';
         },
     }, {
         name: 'backgroundMute',
         get(domNode) {
-            return !!domNode.getAttribute('background-mute')
+            return !!domNode.getAttribute('background-mute');
         },
     }, {
         name: 'mirror',
         get(domNode) {
-            return !!domNode.getAttribute('mirror')
+            return !!domNode.getAttribute('mirror');
         },
     }, {
         name: 'animation',
         get(domNode) {
-            return domNode.getAttribute('animation')
+            return domNode.getAttribute('animation');
         }
     }],
     handles: {
         onLivePusherStateChange(evt) {
-            callSingleEvent('statechange', evt, this)
+            callSingleEvent('statechange', evt, this);
         },
         onLivePusherNetStatus(evt) {
-            callSingleEvent('netstatus', evt, this)
+            callSingleEvent('netstatus', evt, this);
         },
         onLivePusherError(evt) {
-            callSingleEvent('error', evt, this)
+            callSingleEvent('error', evt, this);
         },
         onLivePusherBgmStart(evt) {
-            callSingleEvent('bgmstart', evt, this)
+            callSingleEvent('bgmstart', evt, this);
         },
         onLivePusherBgmProgress(evt) {
-            callSingleEvent('bgmprogress', evt, this)
+            callSingleEvent('bgmprogress', evt, this);
         },
         onLivePusherBgmComplete(evt) {
-            callSingleEvent('bgmcomplete', evt, this)
+            callSingleEvent('bgmcomplete', evt, this);
         },
     },
-}
+};

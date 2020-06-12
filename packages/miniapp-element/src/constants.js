@@ -17,23 +17,23 @@ export const ELEMENT_DIFF_KEYS = [
     'content',
     'extra',
     'animation',
-]
-export const TEXT_NODE_DIFF_KEYS = ['nodeId', 'pageId', 'content']
+];
+export const TEXT_NODE_DIFF_KEYS = ['nodeId', 'pageId', 'content'];
 export const NEET_BEHAVIOR_NORMAL_CUSTOM_ELEMENT = [
     'movable-view',
     'swiper-item',
     'picker-view-column',
-]
+];
 export const NEET_BEHAVIOR_NORMAL_CUSTOM_ELEMENT_PARENT = [
     'swiper',
     'movable-area',
-]
-export const NOT_SUPPORT = ['IFRAME']
+];
+export const NOT_SUPPORT = ['IFRAME'];
 // The nodes that class and style need to be separated
 export const NEET_SPLIT_CLASS_STYLE_FROM_CUSTOM_ELEMENT = [
     'BUILTIN-COMPONENT',
     'CUSTOM-COMPONENT',
-]
+];
 export const USE_TEMPLATE = [
     'cover-image',
     'movable-area',
@@ -68,11 +68,11 @@ export const USE_TEMPLATE = [
     'official-account',
     'open-data',
     'web-view',
-]
+];
 // The nodes that must be render as custom components
 export const NEET_RENDER_TO_CUSTOM_ELEMENT = [
     ...NOT_SUPPORT,
     ...NEET_SPLIT_CLASS_STYLE_FROM_CUSTOM_ELEMENT,
-]
+];
 
-export const IN_COVER = ['cover-view']
+export const IN_COVER = ['cover-view'];
