@@ -1,17 +1,23 @@
-import React, {useState} from 'react'
-import {render, h} from 'react-dom'
-import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
-import './app.css'
+/*
+ * Author: 卓文理
+ * Email: zhuowenligg@gmail.com
+ * Date: 2020-06-10 10:19:04
+ */
 
-import PickerView from './picker-view'
-import View1 from './view1'
-import View2 from './view2'
-import View3 from './view3'
+import React, { useState } from 'react';
+import { render, h } from 'react-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import './app.css';
+
+import PickerView from './picker-view';
+import View1 from './view1';
+import View2 from './view2';
+import View3 from './view3';
 
 const App = (props, store) => {
     const inputProps = {
         'confirm-type': 'search',
-    }
+    };
     const mapProps = {
         longitude: 113.324520,
         latitude: 23.099994,
@@ -48,21 +54,21 @@ const App = (props, store) => {
             dottedLine: true,
         }]),
         'show-location': true,
-    }
-    const [pickerRange1, setPickerRange1] = useState(['中国', '美国', '巴西', '日本'])
+    };
+    const [pickerRange1, setPickerRange1] = useState(['中国', '美国', '巴西', '日本']);
     const pickerRange2 = JSON.stringify([
-        {name: '中国'},
-        {name: '美国'},
-        {name: '巴西'},
-        {name: '日本'}
-    ])
+        { name: '中国' },
+        { name: '美国' },
+        { name: '巴西' },
+        { name: '日本' }
+    ]);
     const [selectOptions, setSelectOptions] = useState([
-        {name: '葡萄柚', value: 'grapefruit'},
-        {name: '柠檬', value: 'lime'},
-        {name: '椰子', value: 'coconut'}
-    ])
-    const [favorite, setFavorite] = useState('lime')
-    const [scrollIntoView, setScrollIntoView] = useState('')
+        { name: '葡萄柚', value: 'grapefruit' },
+        { name: '柠檬', value: 'lime' },
+        { name: '椰子', value: 'coconut' }
+    ]);
+    const [favorite, setFavorite] = useState('lime');
+    const [scrollIntoView, setScrollIntoView] = useState('');
     const scrollViewProps = {
         className: 'scroll-view-y',
         'scroll-y': 'true',
@@ -70,12 +76,12 @@ const App = (props, store) => {
         'refresher-enabled': 'true',
         'scroll-into-view': scrollIntoView,
         // 'scroll-into-view': 'a3', // 在一个 setData 中设置子节点和 scroll-into-view 的时候，基础库会优先处理 scroll-into-view，导致计算滚动不正确
-    }
+    };
 
     setTimeout(() => {
-        window.$$forceRender() // 强制清空 setData 队列
-        setScrollIntoView('a3')
-    }, 0)
+        window.$$forceRender(); // 强制清空 setData 队列
+        setScrollIntoView('a3');
+    }, 0);
 
     return (
         <div>
@@ -119,15 +125,15 @@ const App = (props, store) => {
             </div> */}
             <div>
                 选择你喜欢的风味:
-                <select value={favorite} defaultValue="coconut" onChange={e => {console.log('change', e), setFavorite(e.target.value)}}>
+                <select value={favorite} defaultValue="coconut" onChange={e => { console.log('change', e), setFavorite(e.target.value); }}>
                     {
                         selectOptions.map(opt => {
-                            return <option value={opt.value}>{opt.name}</option>
+                            return <option value={opt.value}>{opt.name}</option>;
                         })
                     }
                 </select>
                 <div>我想吃的水果是：{favorite}</div>
-                <button onClick={() => setSelectOptions(selectOptions.concat([{name: '芒果', value: 'mango'}]))}>我还想吃芒果</button>
+                <button onClick={() => setSelectOptions(selectOptions.concat([{ name: '芒果', value: 'mango' }]))}>我还想吃芒果</button>
             </div>
             <div>
                 我是 scroll-view：
@@ -171,7 +177,7 @@ const App = (props, store) => {
                 </Switch>
             </Router>
         </div>
-    )
-}
+    );
+};
 
-export default App
+export default App;

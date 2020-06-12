@@ -1,19 +1,19 @@
 <template>
-  <div class="cnt">
-    <p>I am aaa</p>
-    <p>route: {{route}}</p>
-  </div>
+    <div class="cnt">
+        <p>I am aaa</p>
+        <p>route: {{ route }}</p>
+    </div>
 </template>
 
 <script>
 export default {
-  name: 'AAA',
-  computed: {
-    route() {
-      return this.$route.path
+    name: 'AAA',
+    computed: {
+        route() {
+            return this.$route.path;
+        }
     }
-  }
-}
+};
 </script>
 
 <style>

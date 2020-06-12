@@ -1,6 +1,6 @@
 {
-  "name": "tbone-cli",
-  "version": "0.3.5",
+  "name": "@zhuowenli/tbone-cli",
+  "version": "0.0.1",
   "description": "Set up a miniapp or web by running one command.",
   "main": "bin/tbone-cli",
   "engines": {

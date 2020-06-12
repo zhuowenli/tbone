@@ -1,1 +1,2 @@
-packages/vue-cli-plugin-tbone/src/template/*
+node_modules
+dist

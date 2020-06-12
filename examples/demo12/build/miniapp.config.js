@@ -34,4 +34,4 @@ module.exports = {
     packageConfig: {
         author: 'lvjian',
     },
-}
+};
