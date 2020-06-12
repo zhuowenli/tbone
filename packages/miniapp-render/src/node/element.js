@@ -309,6 +309,25 @@ class Element extends Node {
         return {};
     }
 
+    /**
+     * 小程序端的 getBoundingClientRect 实现
+     * https://developers.weixin.qq.com/miniprogram/dev/api/wxml/NodesRef.scrollOffset.html
+     * https://developers.weixin.qq.com/miniprogram/dev/api/wxml/NodesRef.boundingClientRect.html
+     */
+    $$getBoundingClientRect() {
+        tool.flushThrottleCache(); // 先清空 setData
+        const window = cache.getWindow(this.$_pageId);
+        return new Promise((resolve, reject) => {
+            if (!window) reject();
+
+            if (this.tagName === 'BODY') {
+                window.$$createSelectorQuery().selectViewport().scrollOffset(res => (res ? resolve(res) : reject())).exec();
+            } else {
+                window.$$createSelectorQuery().select(`.miniapp-root >>> .node-${this.$_nodeId}`).boundingClientRect(res => (res ? resolve(res) : reject())).exec();
+            }
+        });
+    }
+
     // Gets the context object of the corresponding widget component
     $$getContext() {
     // Clears out setData
@@ -880,9 +899,12 @@ class Element extends Node {
     }
 
     getBoundingClientRect() {
-        // Do not make any implementation, only for compatible use
-        console.warn('getBoundingClientRect is not supported, please use npm package universal-element to get DOM info in miniapp');
-        return {};
+        // 不作任何实现，只作兼容使用
+        console.warn('getBoundingClientRect is not supported, please use dom.$$getBoundingClientRect instead of it');
+        return {
+            left: 0,
+            top: 0,
+        };
     }
 }
 

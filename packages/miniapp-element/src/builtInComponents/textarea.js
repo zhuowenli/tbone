@@ -116,7 +116,7 @@ export default {
         onTextareaFocus(evt) {
             const domNode = this.getDomNodeFromEvt('focus', evt);
             if (!domNode) return;
-            domNode.__textareaOldValue = domNode.value;
+            domNode.__textareaOldValue = domNode.value || '';
             domNode.$$setAttributeWithoutUpdate('focus', true);
 
             domNode.__oldValues = domNode.__oldValues || {};
