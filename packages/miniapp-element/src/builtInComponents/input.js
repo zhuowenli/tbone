@@ -147,7 +147,7 @@ export default {
         onInputFocus(evt) {
             const domNode = this.getDomNodeFromEvt('focus', evt);
             if (!domNode) return;
-            domNode.__inputOldValue = domNode.value;
+            domNode.__inputOldValue = domNode.value || '';
             domNode.$$setAttributeWithoutUpdate('focus', true);
 
             domNode.__oldValues = domNode.__oldValues || {};
