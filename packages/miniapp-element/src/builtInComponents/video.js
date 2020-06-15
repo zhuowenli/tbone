@@ -5,7 +5,7 @@ import callSingleEvent from '../events/callSingleEvent';
 let props = [{
     name: 'src',
     get(domNode) {
-        return domNode.src;
+        return domNode.src && typeof domNode.src === 'object' ? domNode.src.default : domNode.src;
     },
 }, {
     name: 'duration',

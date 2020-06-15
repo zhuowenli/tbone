@@ -28,6 +28,12 @@
                         height="50"
                         @load="onImgLoad"
                     >
+                    <img
+                        src="./logo.png"
+                        width="50"
+                        height="50"
+                        @load="onImgLoad"
+                    >
                 </div>
                 <div v-else-if="item === 'input'">
                     <input

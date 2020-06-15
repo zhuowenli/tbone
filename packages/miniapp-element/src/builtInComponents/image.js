@@ -10,7 +10,7 @@ export default {
     }, {
         name: 'src',
         get(domNode) {
-            return domNode.src;
+            return domNode.src && typeof domNode.src === 'object' ? domNode.src.default : domNode.src;
         },
     }, {
         name: 'mode',

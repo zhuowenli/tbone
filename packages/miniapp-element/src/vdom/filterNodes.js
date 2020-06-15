@@ -70,7 +70,7 @@ export default function filterNodes(domNode, level, component) {
             // Check image node
             domInfo.isImage = domInfo.type === 'element' && domInfo.tagName === 'img';
             if (domInfo.isImage) {
-                domInfo.src = child.src || '';
+                domInfo.src = child.src ? (typeof child.src === 'object' ? child.src.default : child.src) : '';
                 domInfo.mode = child.getAttribute('mode') || '';
                 domInfo.lazyLoad = !!child.getAttribute('lazy-load');
                 domInfo.showMenuByLongpress = !!child.getAttribute(
