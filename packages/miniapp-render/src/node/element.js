@@ -311,8 +311,7 @@ class Element extends Node {
 
     /**
      * 小程序端的 getBoundingClientRect 实现
-     * https://developers.weixin.qq.com/miniprogram/dev/api/wxml/NodesRef.scrollOffset.html
-     * https://developers.weixin.qq.com/miniprogram/dev/api/wxml/NodesRef.boundingClientRect.html
+     * https://miniapp.open.taobao.com/docV3.htm?source=search&docId=1009&docType=20
      */
     $$getBoundingClientRect() {
         tool.flushThrottleCache(); // 先清空 setData
@@ -321,9 +320,21 @@ class Element extends Node {
             if (!window) reject();
 
             if (this.tagName === 'BODY') {
-                window.$$createSelectorQuery().selectViewport().scrollOffset(res => (res ? resolve(res) : reject())).exec();
+                window.$$createSelectorQuery().selectViewport().scrollOffset().exec((ret) => {
+                    if (ret.length) {
+                        resolve(ret[0]);
+                    } else {
+                        reject();
+                    }
+                });
             } else {
-                window.$$createSelectorQuery().select(`.miniapp-root >>> .node-${this.$_nodeId}`).boundingClientRect(res => (res ? resolve(res) : reject())).exec();
+                window.$$createSelectorQuery().select(`.miniapp-root .node-${this.$_nodeId}`).boundingClientRect().exec((ret) => {
+                    if (ret.length) {
+                        resolve(ret[0]);
+                    } else {
+                        reject();
+                    }
+                });
             }
         });
     }
@@ -337,15 +348,24 @@ class Element extends Node {
             if (!window) reject();
 
             if (this.tagName === 'CANVAS') {
-                // TODO, for the sake of compatibility with a bug in the underlying library, for the time being
-                my.createSelectorQuery().in(this._builtInComponent).select(`.node-${this.$_nodeId}`).context(res => (res && res.context ? resolve(res.context) : reject()))
-                    .exec();
+                window.$$createSelectorQuery().in(this._builtInComponent).select(`.node-${this.$_nodeId}`).context().exec((ret) => {
+                    if (ret.length) {
+                        resolve(ret[0]);
+                    } else {
+                        reject();
+                    }
+                });
             } else {
-                window.$$createSelectorQuery().select(`.miniprogram-root >>> .node-${this.$_nodeId}`).context(res => (res && res.context ? resolve(res.context) : reject())).exec();
+                window.$$createSelectorQuery().select(`.miniapp-root .node-${this.$_nodeId}`).context().exec((ret) => {
+                    if (ret.length) {
+                        resolve(ret[0]);
+                    } else {
+                        reject();
+                    }
+                });
             }
         });
     }
-
 
     /**
      * 获取对应节点的 NodesRef 对象
@@ -362,10 +382,10 @@ class Element extends Node {
                 // TODO: 为了兼容基础库的一个 bug，暂且如此实现
                 // 为防止 _builtInComponent 找不到，先加一个延迟
                 setTimeout(() => {
-                    resolve(my.createSelectorQuery().in(this._builtInComponent).select(`.node-${this.$_nodeId}`));
+                    resolve(window.$$createSelectorQuery().in(this._builtInComponent).select(`.node-${this.$_nodeId}`));
                 }, 0);
             } else {
-                resolve(window.$$createSelectorQuery().select(`.miniapp-root >>> .node-${this.$_nodeId}`));
+                resolve(window.$$createSelectorQuery().select(`.miniapp-root .node-${this.$_nodeId}`));
             }
         });
     }
