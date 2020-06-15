@@ -223,12 +223,25 @@ class Window extends EventTarget {
      * https://miniapp.open.taobao.com/docV3.htm?source=search&docId=1009&docType=20
      */
     $$getComputedStyle(dom, computedStyle = []) {
+        const window = cache.getWindow();
         tool.flushThrottleCache(); // 先清空 setData
         return new Promise((resolve, reject) => {
             if (dom.tagName === 'BODY') {
-                this.$$createSelectorQuery().select('.miniapp-root').fields({ computedStyle }, res => (res ? resolve(res) : reject())).exec();
+                window.$$createSelectorQuery().select('.miniapp-root').fields({ computedStyle }).exec((ret) => {
+                    if (ret.length) {
+                        resolve(ret[0]);
+                    } else {
+                        reject();
+                    }
+                });
             } else {
-                this.$$createSelectorQuery().select(`.miniapp-root >>> .node-${dom.$$nodeId}`).fields({ computedStyle }, res => (res ? resolve(res) : reject())).exec();
+                window.$$createSelectorQuery().select(`.miniapp-root .node-${dom.$$nodeId}`).fields({ computedStyle }).exec((ret) => {
+                    if (ret.length) {
+                        resolve(ret[0]);
+                    } else {
+                        reject();
+                    }
+                });
             }
         });
     }

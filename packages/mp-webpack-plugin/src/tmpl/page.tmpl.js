@@ -116,7 +116,8 @@ Page({
         });
 
         // 处理 selectorQuery 获取
-        this.window.$$createSelectorQuery = () => my.createSelectorQuery().in(this);
+        // this.window.$$createSelectorQuery = () => my.createSelectorQuery().in(this);
+        this.window.$$createSelectorQuery = () => my.createSelectorQuery();
 
         // 处理 intersectionObserver 获取
         this.window.$$createIntersectionObserver = options => my.createIntersectionObserver(this, options);
