@@ -529,7 +529,6 @@
         onTouchEnd="onTouchEnd"
         onTouchCancel="onTouchCancel"
         onTap="onTap"
-
         rendering-mode="{{renderingMode}}"
         src="{{src}}"
         mode="{{mode}}"
