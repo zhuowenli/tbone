@@ -639,7 +639,8 @@ class Window extends EventTarget {
 
     getComputedStyle() {
         // 不作任何实现，只作兼容使用
-        console.warn('window.getComputedStyle is not supported, please use window.$$getComputedStyle instead of it');
+        // console.warn('window.getComputedStyle is not supported, please use window.$$getComputedStyle instead of it');
+        console.warn('window.getComputedStyle is not supported');
         return {
             // vue transition 组件使用
             transitionDelay: '',

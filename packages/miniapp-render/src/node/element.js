@@ -367,7 +367,6 @@ class Element extends Node {
         });
     }
 
-
     /**
      * 获取对应节点的 NodesRef 对象
      * https://developers.weixin.qq.com/miniprogram/dev/api/wxml/NodesRef.html
