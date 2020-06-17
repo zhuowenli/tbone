@@ -7,17 +7,36 @@
 
         <RouterView />
 
-        <button class="btn" @click.stop="throwError">throw an error</button>
+        <HlgButton @click.stop="throwError">throw an error</HlgButton>
 
-        <input v-model="input" type="text" @input="onInputChange">
+        <HlgInput
+            v-model="input"
+            type="text"
+            @input="onInputChange"
+            @keyup="onKeyup"
+            @enter="onEnter"
+        />
+        <HlgInput
+            v-model="input2"
+            type="textarea"
+            @input="onInputChange"
+            @keyup="onKeyup"
+            @enter="onEnter"
+        />
 
         <div style="margin-left: 20px;">
             <p>这是<span>{{ input }}</span>段中间插入了span的文本</p>
         </div>
 
-        <div style="margin: 20px;">
-            <p style="width: 10rem;">这段看起来特别特别长的文字宽度是 10 rem，测试测试测试测试测试测试测试测试测试测试测试测试</p>
-        </div>
+        <HlgSelect v-model="value" placeholder="请选择">
+            <HlgOption
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+            />
+        </HlgSelect>
+
         <Footer />
     </div>
 </template>
@@ -33,6 +52,28 @@ export default {
     data() {
         return {
             input: '12313',
+            input2: '',
+
+            options: [{
+                value: '1',
+                label: '国庆大促'
+            }, {
+                value: '2',
+                label: '夏季促销'
+            }, {
+                value: '3',
+                label: '春季促销'
+            }, {
+                value: '4',
+                label: '中秋大促'
+            }, {
+                value: '5',
+                label: '女神新衣'
+            }, {
+                value: '6',
+                label: '国庆大放价'
+            }],
+            value: '',
         };
     },
     mounted() {
@@ -54,14 +95,18 @@ export default {
             }, 0);
         },
         onInputChange(e) {
-            // this.input = e.$_detail.value
+            console.log('input', e);
         },
         jump(url) {
             console.log(url);
             this.$router.push(url);
+        },
+        onEnter(e) {
+            console.log('enter', e);
+        },
+        onKeyup(e) {
+            console.log('keyup', e);
         }
     },
 };
 </script>
-
-<style lang="scss" src="./app.scss"></style>

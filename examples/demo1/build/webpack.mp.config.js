@@ -27,6 +27,9 @@ module.exports = {
         libraryTarget: 'window', // 必需字段，不能修改
     },
     target: 'web', // 必需字段，不能修改
+    node: {
+        global: false, // pc 千牛必须设为 false
+    },
     optimization: {
         runtimeChunk: false, // 必需字段，不能修改
         splitChunks: { // 代码分隔配置，不建议修改

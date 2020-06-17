@@ -1,0 +1,11 @@
+{
+    "plugins": [
+        [
+            "component",
+            {
+                "libraryName": "hlg-ui",
+                "styleLibraryName": "stylesheet"
+            }
+        ]
+    ]
+}

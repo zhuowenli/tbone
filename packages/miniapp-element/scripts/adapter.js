@@ -39,4 +39,4 @@ export default {
         error: 'binderror',
         supportComponentGenerics: true
     }
-}
+};

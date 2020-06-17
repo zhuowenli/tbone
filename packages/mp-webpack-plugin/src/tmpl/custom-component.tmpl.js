@@ -72,8 +72,6 @@ Component({
         // 执行一次 setData
         if (Object.keys(data).length) this.setData(data);
 
-        console.log(this.domNode);
-
         // 记录该 domNode 节点对应的自定义组件实例
         this.domNode._myCustomComponent = this.selectComponent(`.node-${this.domNode.$$nodeId}`);
     },

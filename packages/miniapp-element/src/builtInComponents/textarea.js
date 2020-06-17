@@ -153,9 +153,14 @@ export default {
 
             callEvent('input', evt, null, this.pageId, this.nodeId);
         },
-        onTextareaConfirm(evt) {
-            const domNode = this.getDomNodeFromEvt('confirm', evt);
-            callSimpleEvent('confirm', evt, domNode);
+        onTextareaChange(evt) {
+            callSingleEvent('change', evt, this);
+        },
+        onTextareaKeyDown(evt) {
+            callSingleEvent('keyup', evt, this);
+        },
+        onTextareaPressEnter(evt) {
+            callSingleEvent('enter', evt, this);
         },
         onTextareaKeyBoardHeightChange(evt) {
             callSingleEvent('keyboardheightchange', evt, this);
