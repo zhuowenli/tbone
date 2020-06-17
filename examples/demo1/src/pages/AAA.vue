@@ -1,36 +1,5 @@
 <template>
-    <div class="app">
-        <ScrollView class="scroll" scroll-y>
-            <div class="scroll-item">
-                1123
-            </div>
-            <div class="scroll-item">
-                1123
-            </div>
-            <div class="scroll-item">
-                1123
-            </div>
-            <div class="scroll-item">
-                1123
-            </div>
-            <div class="scroll-item">
-                1123
-            </div>
-        </ScrollView>
-
-        <MovableArea>
-            <MovableView direction="vertical">
-                movable-view
-            </MovableView>
-        </MovableArea>
-
-        <ul class="tabbar">
-            <li><RouterLink class="link" to="/test/aaa">aaa</RouterLink></li>
-            <li><RouterLink class="link" to="/test/bbb">bbb</RouterLink></li>
-        </ul>
-
-        <RouterView />
-
+    <div class="aaa">
         <HlgInput
             v-model="input"
             type="text"
@@ -42,7 +11,7 @@
         <div style="margin-left: 20px;">
             <p>这是<span>{{ input }}</span>段中间插入了span的文本</p>
         </div>
-
+        <!--
         <HlgSelect v-model="value" placeholder="请选择">
             <HlgOption
                 v-for="item in options"
@@ -50,24 +19,33 @@
                 :label="item.label"
                 :value="item.value"
             />
-        </HlgSelect>
+        </HlgSelect> -->
 
-        <Footer />
+        <HlgDropdown
+            :value="dropdown"
+            trigger="click"
+            placeholder="请选择分类"
+            update-placeholder
+            @command="onCommand"
+        >
+            <HlgDropdownItem command="a">潮流男装</HlgDropdownItem>
+            <HlgDropdownItem command="b">新品上市</HlgDropdownItem>
+            <HlgDropdownItem command="c">潮流女装</HlgDropdownItem>
+            <HlgDropdownItem command="d" disabled>未分类</HlgDropdownItem>
+            <HlgDropdownItem command="e" divided>其他</HlgDropdownItem>
+        </HlgDropdown>
     </div>
 </template>
 
 <script>
-import Footer from '../components/Footer.vue';
-
 export default {
-    name: 'App',
-    components: {
-        Footer,
-    },
+    name: 'AAA',
     data() {
         return {
             input: '12313',
+            input1: '',
             input2: '',
+            dropdown: 'a',
 
             options: [{
                 value: '1',
@@ -91,18 +69,6 @@ export default {
             value: '',
         };
     },
-    mounted() {
-        console.log('TEST_VAR_STRING', TEST_VAR_STRING);
-        console.log('TEST_VAR_NUMBER', TEST_VAR_NUMBER);
-        console.log('TEST_VAR_BOOL', TEST_VAR_BOOL);
-        console.log('TEST_VAR_FUNCTION', TEST_VAR_FUNCTION);
-        console.log('TEST_VAR_OTHERS', TEST_VAR_OTHERS);
-
-        // cookie
-        console.log('before set cookie', document.cookie);
-        document.cookie = `time=${+new Date()}; expires=Wed Jan 01 2220 00:00:00 GMT+0800; path=/`;
-        console.log('after set cookie', document.cookie);
-    },
     methods: {
         throwError() {
             setTimeout(() => {
@@ -121,9 +87,13 @@ export default {
         },
         onKeyup(e) {
             console.log('keyup', e);
+        },
+        onCommand(cmd) {
+            this.dropdown = cmd;
+            console.log(cmd);
         }
     },
 };
 </script>
 
-<style lang="scss" src="./app.scss"></style>
+<style lang="scss" src="./aaa.scss"></style>
