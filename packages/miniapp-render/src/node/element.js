@@ -874,6 +874,10 @@ class Element extends Node {
         const valueType = typeof value;
         if (valueType !== 'object' && valueType !== 'boolean' && value !== undefined && !Array.isArray(value)) value = '' + value;
 
+        if (valueType === 'string' && !value) {
+            value = name;
+        }
+
         if (name === 'id') {
             // id to be handled here in advance
             this.id = value;

@@ -115,6 +115,10 @@ class Document extends EventTarget {
         const componentName = checkIsBuiltInComponent(originTagName) ? originTagName : null;
         tree = tree || this.$_tree;
 
+        // const tag = tagName.replace(/(.)([A-Z])/g, '$1-$2').toLowerCase();
+        // console.log(originTagName);
+        // console.log(componentName);
+
         const constructorClass = CONSTRUCTOR_MAP[tagName];
 
         if (constructorClass) {
@@ -206,7 +210,7 @@ class Document extends EventTarget {
     createElement(tagName) {
         if (typeof tagName !== 'string') return;
 
-        tagName = tagName.trim();
+        tagName = tagName.replace(/(.)([A-Z])/g, '$1-$2').toLowerCase().trim();
         if (!tagName) return;
 
         return this.$$createElement({

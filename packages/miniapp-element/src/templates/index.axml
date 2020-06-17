@@ -6,6 +6,7 @@
     hidden="{{hidden}}"
     scroll-top="{{scrollTop}}"
 ><template is="subtree-cover" data="{{childNodes: childNodes}}"/></cover-view>
+
 <scroll-view
     a:elif="{{builtinComponentName === 'scroll-view'}}"
     id="{{id}}"

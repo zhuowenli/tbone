@@ -1,6 +1,6 @@
 {
   "name": "@zhuowenli/miniapp-render",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "DOM simulator for MiniApp",
   "files": [
     "dist"
