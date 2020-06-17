@@ -206,7 +206,7 @@ class Document extends EventTarget {
     createElement(tagName) {
         if (typeof tagName !== 'string') return;
 
-        tagName = tagName.trim();
+        tagName = tagName.replace(/(.)([A-Z])/g, '$1-$2').toLowerCase().trim();
         if (!tagName) return;
 
         return this.$$createElement({

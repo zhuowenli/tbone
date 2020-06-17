@@ -1,5 +1,29 @@
 <template>
     <div class="app">
+        <ScrollView class="scroll" scroll-y>
+            <div class="scroll-item">
+                1123
+            </div>
+            <div class="scroll-item">
+                1123
+            </div>
+            <div class="scroll-item">
+                1123
+            </div>
+            <div class="scroll-item">
+                1123
+            </div>
+            <div class="scroll-item">
+                1123
+            </div>
+        </ScrollView>
+
+        <MovableArea>
+            <MovableView direction="vertical">
+                movable-view
+            </MovableView>
+        </MovableArea>
+
         <ul class="tabbar">
             <li><RouterLink class="link" to="/test/aaa">aaa</RouterLink></li>
             <li><RouterLink class="link" to="/test/bbb">bbb</RouterLink></li>
@@ -7,18 +31,9 @@
 
         <RouterView />
 
-        <HlgButton @click.stop="throwError">throw an error</HlgButton>
-
         <HlgInput
             v-model="input"
             type="text"
-            @input="onInputChange"
-            @keyup="onKeyup"
-            @enter="onEnter"
-        />
-        <HlgInput
-            v-model="input2"
-            type="textarea"
             @input="onInputChange"
             @keyup="onKeyup"
             @enter="onEnter"
@@ -110,3 +125,5 @@ export default {
     },
 };
 </script>
+
+<style lang="scss" src="./app.scss"></style>

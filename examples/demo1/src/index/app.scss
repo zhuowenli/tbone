@@ -45,3 +45,33 @@
     background: #dff1e7;
     border-radius: 5px;
 }
+
+.scroll{
+    height: 200px;
+    &-item{
+        background: #000044;
+        display: block;
+        height: 80px;
+        width: 80px;
+        margin-bottom: 20px;
+    }
+}
+
+
+movable-area {
+    height: 400rpx;
+    width: 400rpx;
+    margin: 50rpx 0rpx 0 50rpx;
+    background-color: #ccc;
+    overflow: hidden;
+    movable-view {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 200rpx;
+        width: 200rpx;
+        background: #108ee9;
+        color: #fff;
+    }
+}
+
