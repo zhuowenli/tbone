@@ -84,6 +84,8 @@ export default class EventTarget {
         this.onfocus = null;
         this.onblur = null;
         this.onchange = null;
+        this.onkeyup = null;
+        this.onenter = null;
 
         // Logs the triggered miniapp events
         this.$_miniappEvent = null;

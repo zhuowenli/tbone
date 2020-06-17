@@ -1,3 +1,9 @@
+/*
+ * Author: 卓文理
+ * Email: zhuowenligg@gmail.com
+ * Date: 2020-06-16 10:33:50
+ */
+
 import { $$adapter } from '@zhuowenli/miniapp-render';
 
 const { Event, EventTarget } = $$adapter;

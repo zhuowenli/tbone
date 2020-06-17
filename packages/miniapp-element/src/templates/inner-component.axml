@@ -325,8 +325,8 @@
         onInput="onInputInput"
         onFocus="onInputFocus"
         onBlur="onInputBlur"
-        onConfirm="onInputConfirm"
-        onKeyboardHeightChange="onInputKeyBoardHeightChange"
+        onKeyDown="onInputKeyDown"
+        onPressEnter="onInputPressEnter"
     ></input>
 </template>
 <template name="radio-group">
@@ -466,7 +466,6 @@
         onTouchEnd="onTouchEnd"
         onTouchCancel="onTouchCancel"
         onTap="onTap"
-
         value="{{value}}"
         placeholder="{{placeholder}}"
         placeholder-style="color:{{placeholderColor}}"
@@ -488,8 +487,9 @@
         onBlur="onTextareaBlur"
         onLineChange="onTextareaLineChange"
         onInput="onTextareaInput"
-        onConfirm="onTextareaConfirm"
         onKeyboardHeightChange="onTextareaKeyBoardHeightChange"
+        onKeyDown="onInputKeyDown"
+        onPressEnter="onInputPressEnter"
     ></textarea>
 </template>
 <template name="navigator">

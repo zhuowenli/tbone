@@ -168,9 +168,14 @@ export default {
             }
             callSimpleEvent('blur', evt, domNode);
         },
-        onInputConfirm(evt) {
-            const domNode = this.getDomNodeFromEvt('confirm', evt);
-            callSimpleEvent('confirm', evt, domNode);
+        onInputKeyDown(evt) {
+            callSingleEvent('keyup', evt, this);
+        },
+        onInputPressEnter(evt) {
+            callSingleEvent('enter', evt, this);
+        },
+        onInputChange(evt) {
+            callSingleEvent('change', evt, this);
         },
         onInputKeyBoardHeightChange(evt) {
             callSingleEvent('keyboardheightchange', evt, this);

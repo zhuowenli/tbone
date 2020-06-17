@@ -10,6 +10,7 @@ const { Event } = $$adapter;
 
 export default function callSingleEvent(eventName, evt, nativeComponent) {
     const domNode = nativeComponent.getDomNodeFromEvt(eventName, evt);
+
     if (!domNode) return;
 
     domNode.$$trigger(eventName, {
