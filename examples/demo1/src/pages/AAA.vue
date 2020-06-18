@@ -1,6 +1,6 @@
 <template>
     <div class="aaa">
-        <HlgInput
+        <!-- <HlgInput
             v-model="input"
             type="text"
             @input="onInputChange"
@@ -8,10 +8,25 @@
             @enter="onEnter"
         />
 
-        <div style="margin-left: 20px;">
+        <div>
             <p>这是<span>{{ input }}</span>段中间插入了span的文本</p>
         </div>
-        <!--
+
+        <label>
+            <input v-model="checkbox" type="checkbox" @input="onInput">
+            aaaaaa
+        </label>
+
+        <div>
+            <HlgCheckboxGroup v-model="checkList">
+                <HlgCheckbox label="复选框 A" />
+                <HlgCheckbox label="复选框 B" />
+                <HlgCheckbox label="复选框 C" />
+                <HlgCheckbox label="禁用" disabled />
+                <HlgCheckbox label="选中且禁用" disabled />
+            </HlgCheckboxGroup>
+        </div> -->
+
         <HlgSelect v-model="value" placeholder="请选择">
             <HlgOption
                 v-for="item in options"
@@ -19,10 +34,9 @@
                 :label="item.label"
                 :value="item.value"
             />
-        </HlgSelect> -->
+        </HlgSelect>
 
-        <HlgDropdown
-            :value="dropdown"
+        <!-- <HlgDropdown
             trigger="click"
             placeholder="请选择分类"
             update-placeholder
@@ -33,7 +47,7 @@
             <HlgDropdownItem command="c">潮流女装</HlgDropdownItem>
             <HlgDropdownItem command="d" disabled>未分类</HlgDropdownItem>
             <HlgDropdownItem command="e" divided>其他</HlgDropdownItem>
-        </HlgDropdown>
+        </HlgDropdown> -->
     </div>
 </template>
 
@@ -46,7 +60,8 @@ export default {
             input1: '',
             input2: '',
             dropdown: 'a',
-
+            checkbox: '',
+            checkList: ['选中且禁用', '复选框 A'],
             options: [{
                 value: '1',
                 label: '国庆大促'
@@ -70,13 +85,11 @@ export default {
         };
     },
     methods: {
-        throwError() {
-            setTimeout(() => {
-                throw new Error('I am an error');
-            }, 0);
-        },
         onInputChange(e) {
             console.log('input', e);
+        },
+        onInput(e) {
+            console.log('onInput', e);
         },
         jump(url) {
             console.log(url);
@@ -90,7 +103,6 @@ export default {
         },
         onCommand(cmd) {
             this.dropdown = cmd;
-            console.log(cmd);
         }
     },
 };

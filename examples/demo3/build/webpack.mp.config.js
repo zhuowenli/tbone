@@ -1,12 +1,12 @@
-const path = require('path')
-const webpack = require('webpack')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const {VueLoaderPlugin} = require('vue-loader')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const TerserPlugin = require('terser-webpack-plugin')
-const MpPlugin = require('@zhuowenli/mp-webpack-plugin') // 用于构建小程序代码的 webpack 插件
+const path = require('path');
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { VueLoaderPlugin } = require('vue-loader');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const MpPlugin = require('@zhuowenli/mp-webpack-plugin'); // 用于构建小程序代码的 webpack 插件
 
-const isOptimize = false // 是否压缩业务代码，开发者工具可能无法完美支持业务代码使用到的 es 特性，建议自己做代码压缩
+const isOptimize = false; // 是否压缩业务代码，开发者工具可能无法完美支持业务代码使用到的 es 特性，建议自己做代码压缩
 
 module.exports = {
     mode: 'production',
@@ -21,6 +21,9 @@ module.exports = {
         libraryTarget: 'window', // 必需字段，不能修改
     },
     target: 'web', // 必需字段，不能修改
+    node: {
+        global: false, // pc 千牛必须设为 false
+    },
     optimization: {
         runtimeChunk: false, // 必需字段，不能修改
         splitChunks: { // 代码分隔配置，不建议修改
@@ -110,4 +113,4 @@ module.exports = {
         new MpPlugin(require('./miniapp.config.js')),
     ],
     watch: true
-}
+};

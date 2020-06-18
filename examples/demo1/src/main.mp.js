@@ -5,7 +5,11 @@
  */
 
 import Vue from 'vue';
-import { HlgButton, HlgInput, HlgSelect, HlgOption, HlgDropdown, HlgDropdownItem } from 'hlg-ui';
+import {
+    // HlgCheckbox, HlgCheckboxGroup, HlgForm,
+    HlgInput,
+    HlgButton, HlgSelect, HlgOption, HlgDropdown, HlgDropdownItem,
+} from 'hlg-ui';
 import App from './App.vue';
 import router from './router';
 
@@ -16,10 +20,13 @@ export default function createApp() {
     container.id = 'app';
     document.body.appendChild(container);
 
-    Vue.use(HlgButton);
+    // Vue.use(HlgCheckbox);
+    // Vue.use(HlgCheckboxGroup);
     Vue.use(HlgInput);
+    // Vue.use(HlgForm);
     Vue.use(HlgSelect);
     Vue.use(HlgOption);
+    Vue.use(HlgButton);
     Vue.use(HlgDropdown);
     Vue.use(HlgDropdownItem);
 
