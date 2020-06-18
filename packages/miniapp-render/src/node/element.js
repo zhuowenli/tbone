@@ -669,10 +669,10 @@ class Element extends Node {
         const newNode = this.ownerDocument.$$createElement({
             tagName: this.$_tagName,
             attrs: {
-                id: this.id,
-                class: this.className,
-                style: this.style.cssText,
-                src: this.src,
+                id: this.id || '',
+                class: this.className || '',
+                style: this.style.cssText || '',
+                src: this.src || '',
 
                 ...dataset,
                 ...this.$$dealWithAttrsForCloneNode(),
@@ -874,7 +874,9 @@ class Element extends Node {
         const valueType = typeof value;
         if (valueType !== 'object' && valueType !== 'boolean' && value !== undefined && !Array.isArray(value)) value = '' + value;
 
-        if (valueType === 'string' && !value) {
+        // if is boolean attributes
+        // https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attributes
+        if (valueType === 'string' && !value && /checked|selected|disabled/.test(name)) {
             value = name;
         }
 

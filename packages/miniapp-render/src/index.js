@@ -6,10 +6,11 @@ import EventTarget from './event/event-target';
 import Event from './event/event';
 
 export default {
-    createPage(pageId, config) {
+    createPage(route, config) {
         if (config) cache.setConfig(config);
 
         const nodeIdMap = {};
+        const pageId = `p-${tool.getId()}-/${route}`;
         const window = createWindow(pageId);
         const document = new Document(pageId, nodeIdMap);
 

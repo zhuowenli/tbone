@@ -1,6 +1,6 @@
 {
   "name": "@zhuowenli/miniapp-render",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "DOM simulator for MiniApp",
   "files": [
     "dist"
@@ -16,7 +16,7 @@
   "jest": {
     "testEnvironment": "node",
     "testMatch": [
-      "**/**/__tests__/**/*.test.js?(x)"
+      "**/**/__test__/**/*.test.js?(x)"
     ],
     "collectCoverageFrom": [
       "src/**/*.js"

@@ -5,11 +5,13 @@
  */
 
 import Vue from 'vue';
-import Router from 'vue-router';
-import { HlgButton, HlgInput, HlgSelect, HlgOption } from 'hlg-ui';
+import {
+    // HlgCheckbox, HlgCheckboxGroup, HlgForm,
+    HlgInput,
+    HlgButton, HlgSelect, HlgOption, HlgDropdown, HlgDropdownItem,
+} from 'hlg-ui';
 import App from './App.vue';
-import AAA from './AAA.vue';
-import BBB from './BBB.vue';
+import router from './router';
 
 Vue.prototype.$isMiniapp = true;
 
@@ -18,19 +20,15 @@ export default function createApp() {
     container.id = 'app';
     document.body.appendChild(container);
 
-    Vue.use(Router);
-    Vue.use(HlgButton);
+    // Vue.use(HlgCheckbox);
+    // Vue.use(HlgCheckboxGroup);
     Vue.use(HlgInput);
+    // Vue.use(HlgForm);
     Vue.use(HlgSelect);
     Vue.use(HlgOption);
-
-    const router = new Router({
-        mode: 'history', // 是否使用 history api
-        routes: [
-            { path: '/test/aaa', component: AAA },
-            { path: '/test/bbb', component: BBB }
-        ]
-    });
+    Vue.use(HlgButton);
+    Vue.use(HlgDropdown);
+    Vue.use(HlgDropdownItem);
 
     return new Vue({
         el: '#app',
