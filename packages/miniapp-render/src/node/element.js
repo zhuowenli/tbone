@@ -876,7 +876,8 @@ class Element extends Node {
 
         // if is boolean attributes
         // https://html.spec.whatwg.org/multipage/common-microsyntaxes.html#boolean-attributes
-        if (valueType === 'string' && !value && /checked|selected|disabled/.test(name)) {
+        const isMiniappAttribute = /checked|select|disable|enable|scroll|autoplay|vertical|circular|indicator-dots|acceleration|inertia|animation|scale|decode|active|loading/.test(name);
+        if (valueType === 'string' && !value && isMiniappAttribute) {
             value = name;
         }
 

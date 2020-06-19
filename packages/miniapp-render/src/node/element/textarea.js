@@ -181,13 +181,8 @@ class HTMLTextAreaElement extends Element {
         this.$_attrs.set('selection-end', value);
     }
 
-    get focus() {
-        return !!this.$_attrs.get('focus');
-    }
-
-    set focus(value) {
-        value = !!value;
-        this.$_attrs.set('focus', value);
+    focus() {
+        this.$_attrs.set('autofocus', true);
     }
 
     blur() {
