@@ -161,6 +161,24 @@ class HTMLInputElement extends Element {
         this.$_attrs.set('autofocus', value);
     }
 
+    get selectionStart() {
+        const value = +this.$_attrs.get('selection-start');
+        return value !== undefined ? value : -1;
+    }
+
+    set selectionStart(value) {
+        this.$_attrs.set('selection-start', value);
+    }
+
+    get selectionEnd() {
+        const value = +this.$_attrs.get('selection-end');
+        return value !== undefined ? value : -1;
+    }
+
+    set selectionEnd(value) {
+        this.$_attrs.set('selection-end', value);
+    }
+
     set checked(value) {
         this.$_attrs.set('checked', value);
     }
@@ -175,6 +193,11 @@ class HTMLInputElement extends Element {
 
     blur() {
         this.$_attrs.set('focus', false);
+    }
+
+    select() {
+        this.$_attrs.set('selection-start', 0);
+        this.$_attrs.set('selection-end', this.value.length - 1);
     }
 }
 
