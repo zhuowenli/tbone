@@ -328,13 +328,16 @@ class Element extends Node {
                     }
                 });
             } else {
-                window.$$createSelectorQuery().select(`.miniapp-root .node-${this.$_nodeId}`).boundingClientRect().exec((ret) => {
-                    if (ret.length) {
-                        resolve(ret[0]);
-                    } else {
-                        reject();
-                    }
-                });
+                window.$$createSelectorQuery()
+                    .select(`.miniapp-root .node-${this.$_nodeId}`).boundingClientRect()
+                    .select(`.miniapp-root .node-${this.$_nodeId}`).scrollOffset()
+                    .exec((ret) => {
+                        if (ret.length) {
+                            resolve({ ...(ret[0] || {}), ...(ret[1] || {}) });
+                        } else {
+                            reject();
+                        }
+                    });
             }
         });
     }

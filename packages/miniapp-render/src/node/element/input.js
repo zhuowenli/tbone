@@ -196,8 +196,12 @@ class HTMLInputElement extends Element {
     }
 
     select() {
-        this.$_attrs.set('selection-start', 0);
-        this.$_attrs.set('selection-end', this.value.length - 1);
+        this.setSelectionRange(0, this.value.length - 1);
+    }
+
+    setSelectionRange(selectionStart, selectionEnd) {
+        this.$_attrs.set('selection-start', selectionStart);
+        this.$_attrs.set('selection-end', selectionEnd);
     }
 }
 
