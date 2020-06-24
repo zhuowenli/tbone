@@ -250,7 +250,7 @@
         style="{{style}}"
         data-private-node-id="{{nodeId}}"
         data-private-page-id="{{pageId}}"
-        onChange="onRadioChange"
+        onTap="onRadioChange"
     ><radio
         id="{{id}}"
         class="{{className}}"
