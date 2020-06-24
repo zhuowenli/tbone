@@ -15,7 +15,7 @@
         <label>
             <input v-model="checkbox" type="checkbox" @input="onInput">
             aaaaaa
-        </label>
+        </label> -->
 
         <div>
             <HlgCheckboxGroup v-model="checkList">
@@ -25,7 +25,7 @@
                 <HlgCheckbox label="禁用" disabled />
                 <HlgCheckbox label="选中且禁用" disabled />
             </HlgCheckboxGroup>
-        </div> -->
+        </div>
 
         <HlgSelect v-model="value" placeholder="请选择">
             <HlgOption
