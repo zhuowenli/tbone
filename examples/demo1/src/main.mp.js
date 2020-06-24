@@ -6,8 +6,9 @@
 
 import Vue from 'vue';
 import {
-    // HlgCheckbox, HlgCheckboxGroup, HlgForm,
-    HlgInput,
+    HlgCheckbox, HlgCheckboxGroup,
+    HlgRadio, HlgRadioGroup,
+    HlgInput, HlgForm,
     HlgButton, HlgSelect, HlgOption, HlgDropdown, HlgDropdownItem,
 } from 'hlg-ui';
 import App from './App.vue';
@@ -20,10 +21,12 @@ export default function createApp() {
     container.id = 'app';
     document.body.appendChild(container);
 
-    // Vue.use(HlgCheckbox);
-    // Vue.use(HlgCheckboxGroup);
+    Vue.use(HlgCheckbox);
+    Vue.use(HlgCheckboxGroup);
+    Vue.use(HlgRadio);
+    Vue.use(HlgRadioGroup);
     Vue.use(HlgInput);
-    // Vue.use(HlgForm);
+    Vue.use(HlgForm);
     Vue.use(HlgSelect);
     Vue.use(HlgOption);
     Vue.use(HlgButton);

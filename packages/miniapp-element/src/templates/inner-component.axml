@@ -213,7 +213,7 @@
     <label
       id="{{id}}"
       animation="{{animation}}"
-      class="{{class}}"
+      class="{{className}}"
       style="{{style}}"
       hidden="{{hidden}}"
       for="{{for}}"
@@ -250,7 +250,7 @@
         style="{{style}}"
         data-private-node-id="{{nodeId}}"
         data-private-page-id="{{pageId}}"
-        onChange="onRadioChange"
+        onTap="onRadioChange"
     ><radio
         id="{{id}}"
         class="{{className}}"

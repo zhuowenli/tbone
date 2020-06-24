@@ -184,7 +184,7 @@ export default {
             const domNode = this.getDomNodeFromEvt('change', evt);
             if (!domNode) return;
             const window = cache.getWindow();
-            const value = evt.detail.value;
+            const value = domNode.value;
             const name = domNode.name;
 
             if (value === domNode.value) {
@@ -194,10 +194,10 @@ export default {
                 domNode.__oldValues.checked = true;
 
                 const otherDomNodes = window.document.querySelectorAll(`input[name=${name}]`) || [];
+
                 for (const otherDomNode of otherDomNodes) {
                     if (otherDomNode.type === 'radio' && otherDomNode !== domNode) {
                         otherDomNode.$$setAttributeWithoutUpdate('checked', false);
-
                         otherDomNode.__oldValues = otherDomNode.__oldValues || {};
                         otherDomNode.__oldValues.checked = false;
                     }
