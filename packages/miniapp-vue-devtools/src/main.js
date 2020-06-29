@@ -36,8 +36,6 @@ my.onSocketMessage(function (res) {
 });
 
 const createSocket = () => {
-    console.log('⚠️ createSocket');
-
     const host = target.__VUE_DEVTOOLS_HOST__ || 'http://localhost';
     const port = target.__VUE_DEVTOOLS_PORT__ !== undefined ? target.__VUE_DEVTOOLS_PORT__ : 8098;
     const fullHost = port ? host + ':' + port : host;
@@ -45,7 +43,7 @@ const createSocket = () => {
     my.connectSocket({
         url: fullHost,
         success(res) {
-            console.log('⚠️ createSocket success');
+            console.log('😀 createSocket success');
             initBackend(bridge);
             emit('vue-devtools-init');
         },
