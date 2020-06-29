@@ -17,24 +17,24 @@
             aaaaaa
         </label> -->
 
+        <div v-for="(item, inx) in inputs" :key="inx">
+            <HlgInput v-model="item.value" type="text" />
+        </div>
+
         <div>
             <HlgCheckboxGroup v-model="checkList">
-                <HlgCheckbox label="复选框 A" />
-                <HlgCheckbox label="复选框 B" />
-                <HlgCheckbox label="复选框 C" />
-                <HlgCheckbox label="禁用" disabled />
-                <HlgCheckbox label="选中且禁用" disabled />
+                <HlgCheckbox v-for="item in options" :key="item.value" :label="item.value">{{ item.label }}</HlgCheckbox>
             </HlgCheckboxGroup>
         </div>
 
-        <HlgSelect v-model="value" placeholder="请选择">
+        <!-- <HlgSelect v-model="value" placeholder="请选择">
             <HlgOption
                 v-for="item in options"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
             />
-        </HlgSelect>
+        </HlgSelect> -->
 
         <!-- <HlgDropdown
             trigger="click"
@@ -61,7 +61,11 @@ export default {
             input2: '',
             dropdown: 'a',
             checkbox: '',
-            checkList: ['选中且禁用', '复选框 A'],
+            checkList: ['1'],
+            inputs: [
+                { value: '' },
+                { value2: '1' },
+            ],
             options: [{
                 value: '1',
                 label: '国庆大促'
@@ -83,6 +87,14 @@ export default {
             }],
             value: '',
         };
+    },
+    watch: {
+        inputs: {
+            deep: true,
+            handler() {
+                console.log(this.inputs);
+            }
+        }
     },
     methods: {
         onInputChange(e) {
