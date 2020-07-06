@@ -149,6 +149,7 @@ Page({
             console.log('document:', this.document);
         }
         this.document.$$visibilityState = 'visible';
+        this.document.hidden = false;
         this.window.$$trigger('myshow');
         this.document.$$trigger('visibilitychange');
     },
@@ -159,6 +160,7 @@ Page({
     onHide() {
         if (typeof global !== 'undefined') global.$$runtime = null;
         this.document.$$visibilityState = 'hidden';
+        this.document.hidden = true;
         this.window.$$trigger('myhide');
         this.document.$$trigger('visibilitychange');
     },
@@ -243,7 +245,6 @@ Page({
         if (window && window.onPullDownRefresh) {
             window.onPullDownRefresh(...args);
         }
-        if (window && window.$$trigger) window.$$trigger('pulldownrefresh');
     },
     // 下拉中断时触发
     onPullIntercept(...args) {
@@ -266,7 +267,9 @@ Page({
             window.document.documentElement.$$scrollTop = scrollTop || 0;
             window.onPageScroll({ scrollTop });
         }
-        if (window && window.$$trigger) window.$$trigger('scroll', scrollTop);
+        if (window && window.$$trigger) {
+            window.$$trigger('scroll', { event: { scrollTop } });
+        }
     },
     // 页面滚动时触发
     onReachBottom(...args) {
@@ -274,6 +277,5 @@ Page({
         if (window && window.onReachBottom) {
             window.onReachBottom(...args);
         }
-        if (window && window.$$trigger) window.$$trigger('reachbottom');
     },
 });
