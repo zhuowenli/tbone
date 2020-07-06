@@ -216,7 +216,64 @@ Page({
             return shareOptions;
         }
     },
-    /* PAGE_SCROLL_FUNCTION */
-    /* REACH_BOTTOM_FUNCTION */
-    /* PULL_DOWN_REFRESH_FUNCTION */
+    // 点击标题触发
+    onTitleClick(...args) {
+        const window = this.window;
+        if (window && window.onTitleClick) {
+            window.onTitleClick(...args);
+        }
+    },
+    // 点击导航栏额外图标触发
+    onOptionMenuClick(...args) {
+        const window = this.window;
+        if (window && window.onOptionMenuClick) {
+            window.onOptionMenuClick(...args);
+        }
+    },
+    // onPopMenuClick
+    onPopMenuClick(...args) {
+        const window = this.window;
+        if (window && window.onPopMenuClick) {
+            window.onPopMenuClick(...args);
+        }
+    },
+    // 页面下拉时触发
+    onPullDownRefresh(...args) {
+        const window = this.window;
+        if (window && window.onPullDownRefresh) {
+            window.onPullDownRefresh(...args);
+        }
+        if (window && window.$$trigger) window.$$trigger('pulldownrefresh');
+    },
+    // 下拉中断时触发
+    onPullIntercept(...args) {
+        const window = this.window;
+        if (window && window.onPullIntercept) {
+            window.onPullIntercept(...args);
+        }
+    },
+    // 点击tabItem时触发
+    onTabItemTap(...args) {
+        const window = this.window;
+        if (window && window.onTabItemTap) {
+            window.onTabItemTap(...args);
+        }
+    },
+    // 页面滚动时触发
+    onPageScroll({ scrollTop }) {
+        const window = this.window;
+        if (window && window.onPageScroll) {
+            window.document.documentElement.$$scrollTop = scrollTop || 0;
+            window.onPageScroll({ scrollTop });
+        }
+        if (window && window.$$trigger) window.$$trigger('scroll', scrollTop);
+    },
+    // 页面滚动时触发
+    onReachBottom(...args) {
+        const window = this.window;
+        if (window && window.onReachBottom) {
+            window.onReachBottom(...args);
+        }
+        if (window && window.$$trigger) window.$$trigger('reachbottom');
+    },
 });
