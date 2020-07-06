@@ -181,7 +181,6 @@ class MpPlugin {
             for (const entryName of entryNames) {
                 const assets = assetsMap[entryName];
                 const pageConfig = pageConfigMap[entryName] = Object.assign({}, globalConfig, pageConfigMap[entryName] || {});
-                const addPageScroll = pageConfig && pageConfig.windowScroll;
                 const pageBackgroundColor = pageConfig && (pageConfig.pageBackgroundColor || pageConfig.backgroundColor); // 兼容原有的 backgroundColor
                 const reachBottom = pageConfig && pageConfig.reachBottom;
                 const reachBottomDistance = pageConfig && pageConfig.reachBottomDistance;
@@ -194,25 +193,10 @@ class MpPlugin {
                 const assetPathPrefix = packageName && !needEmitConfigToSubpackage ? '../' : '';
 
                 // 页面 js
-                let pageJsContent = pageJsTmpl
+                const pageJsContent = pageJsTmpl
                     .replace('/* CONFIG_PATH */', `${assetPathPrefix}../../config`)
                     .replace('/* INIT_FUNCTION */', `function init(window, document) {${assets.js.map(js => 'require(\'' + getAssetPath(assetPathPrefix, js, assetsSubpackageMap) + '\')(window, document)').join(';')}}`);
-                let pageScrollFunction = '';
-                let reachBottomFunction = '';
-                let pullDownRefreshFunction = '';
-                if (addPageScroll) {
-                    pageScrollFunction = () => 'onPageScroll({ scrollTop }) {if (this.window) {this.window.document.documentElement.$$scrollTop = scrollTop || 0;this.window.$$trigger(\'scroll\');}},';
-                }
-                if (reachBottom) {
-                    reachBottomFunction = () => 'onReachBottom() {if (this.window) {this.window.$$trigger(\'reachbottom\');}},';
-                }
-                if (pullDownRefresh) {
-                    pullDownRefreshFunction = () => 'onPullDownRefresh() {if (this.window) {this.window.$$trigger(\'pulldownrefresh\');}},';
-                }
-                pageJsContent = pageJsContent
-                    .replace('/* PAGE_SCROLL_FUNCTION */', pageScrollFunction)
-                    .replace('/* REACH_BOTTOM_FUNCTION */', reachBottomFunction)
-                    .replace('/* PULL_DOWN_REFRESH_FUNCTION */', pullDownRefreshFunction);
+
                 addFile(compilation, `../${pageRoute}.js`, pageJsContent);
 
                 // 页面 axml
