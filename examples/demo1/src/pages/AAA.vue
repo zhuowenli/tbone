@@ -84,6 +84,11 @@ export default {
             value: '',
         };
     },
+    mounted() {
+        window.onPullDownRefresh = () => {
+            console.log('onPullDownRefresh');
+        };
+    },
     methods: {
         onInputChange(e) {
             console.log('input', e);

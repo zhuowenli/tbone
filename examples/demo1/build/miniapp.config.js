@@ -7,6 +7,14 @@
 module.exports = {
     origin: 'https://test.miniapp.com',
     entry: '/test/aaa',
+    pages: {
+        index: {
+            pullDownRefresh: true,
+            extra: {
+                pullRefresh: true
+            }
+        },
+    },
     router: {
         index: [
             '/test/aaa',
