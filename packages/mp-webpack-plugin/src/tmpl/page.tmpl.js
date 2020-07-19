@@ -240,10 +240,10 @@ Page({
         }
     },
     // 页面下拉时触发
-    onPullDownRefresh(...args) {
+    onPullDownRefresh(e) {
         const window = this.window;
         if (window && window.onPullDownRefresh) {
-            window.onPullDownRefresh(...args);
+            window.onPullDownRefresh(e);
         }
     },
     // 下拉中断时触发
