@@ -18,7 +18,6 @@ const appAcssTmpl = fs.readFileSync(path.resolve(__dirname, './tmpl/app.tmpl.acs
 const customComponentJsTmpl = fs.readFileSync(path.resolve(__dirname, './tmpl/custom-component.tmpl.js'), 'utf8');
 const projectConfigJsonTmpl = require('./tmpl/mini.project.tmpl.json');
 const packageConfigJsonTmpl = require('./tmpl/package.tmpl.json');
-const { packageConfig } = require('../../../examples/demo1/build/miniapp.config');
 
 process.env.isminiapp = true; // 设置环境变量
 const globalVars = [
@@ -185,7 +184,7 @@ class MpPlugin {
                 const pageBackgroundColor = pageConfig && (pageConfig.pageBackgroundColor || pageConfig.backgroundColor); // 兼容原有的 backgroundColor
                 const reachBottom = pageConfig && pageConfig.reachBottom;
                 const reachBottomDistance = pageConfig && pageConfig.reachBottomDistance;
-                const pullDownRefresh = pageConfig && (pageConfig.pullDownRefresh || packageConfig.pullRefresh);
+                const pullDownRefresh = pageConfig && (pageConfig.pullDownRefresh || pageConfig.pullRefresh);
                 // const rem = pageConfig && pageConfig.rem
                 // const pageStyle = pageConfig && pageConfig.pageStyle
                 const pageExtraConfig = pageConfig && pageConfig.extra || {};
