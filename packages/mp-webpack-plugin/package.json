@@ -1,6 +1,6 @@
 {
 	"name": "@zhuowenli/mp-webpack-plugin",
-	"version": "0.0.11",
+	"version": "0.0.12",
 	"description": "a tool for develop miniapp with vue",
 	"main": "src/index.js",
 	"miniapp": "src",
